@@ -101,18 +101,14 @@ export default function MobileMenu({
 
         <div className="flex flex-col h-full">
           <div className="flex-1 overflow-y-auto">
-            <div className="px-6 pt-8 pb-6">
-              <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#FFC300]/60 mb-6">
-                Navigation
-              </p>
-
+            <div className="px-6 pt-6 pb-4">
               <nav aria-label="Mobile navigation links">
-                <ul className="space-y-1">
+                <ul className="space-y-0">
                   {navLinks.map((link) => (
                     <li key={link.id} className="group">
                       <button
                         onClick={() => handleNavClick(link.id)}
-                        className="relative w-full text-left px-4 py-4 text-white/90 font-medium text-lg tracking-wide border-b border-white/5 last:border-b-0"
+                        className="relative w-full text-left px-4 py-[18px] text-white/90 font-medium text-lg tracking-wide border-b border-white/5 last:border-b-0"
                         onMouseEnter={e => {
                           const btn = e.currentTarget as HTMLButtonElement;
                           btn.style.color = '#FFC300';
@@ -144,7 +140,7 @@ export default function MobileMenu({
             </div>
           </div>
 
-          <div className="px-6 pt-5 pb-6 border-t border-white/10 space-y-4">
+          <div className="px-6 pt-6 pb-7 border-t border-white/10 space-y-5">
             <div className="flex items-center justify-center">
               <div className="relative inline-flex items-center">
                 <span
@@ -172,7 +168,7 @@ export default function MobileMenu({
               Start Application
             </button>
 
-            <div className="text-center pt-1">
+            <div className="text-center pt-2">
               <p className="text-xs text-white/30 tracking-widest uppercase">
                 Kingmaker Society
               </p>
