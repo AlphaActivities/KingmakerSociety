@@ -124,13 +124,13 @@ export default function MobileMenu({
 
         <div className="relative flex flex-col h-full z-[1]">
           <div className="flex-1 overflow-y-auto">
-            <div className="px-6 pt-6 pb-4">
-              <nav aria-label="Mobile navigation links">
-                <ul className="space-y-0">
+            <div className="px-6 pt-6 pb-4" style={{ overflow: 'visible' }}>
+              <nav aria-label="Mobile navigation links" style={{ overflow: 'visible' }}>
+                <ul className="space-y-0" style={{ overflow: 'visible' }}>
                   {navLinks.map((link) => {
                     const isActive = activeLink === link.id;
                     return (
-                      <li key={link.id}>
+                      <li key={link.id} style={{ overflow: 'visible' }}>
                         <button
                           onClick={() => handleNavClick(link.id)}
                           onMouseEnter={() => activateLink(link.id)}
@@ -148,28 +148,32 @@ export default function MobileMenu({
                           }}
                           aria-label={`Navigate to ${link.label}`}
                         >
-                          {/* Soft gold rounded glow behind the row — no border, rounded container feel */}
+                          {/* Row glow — starts 10px from left so it never overlaps the accent bar */}
                           <span
                             className="absolute pointer-events-none"
                             style={{
-                              inset: '3px 8px 3px 2px',
+                              top: '3px',
+                              bottom: '3px',
+                              left: '10px',
+                              right: '8px',
                               borderRadius: '6px',
                               background: isActive
-                                ? 'radial-gradient(ellipse 85% 100% at 5% 50%, rgba(255,195,0,0.13) 0%, rgba(255,195,0,0.05) 45%, transparent 100%)'
+                                ? 'radial-gradient(ellipse 90% 100% at 0% 50%, rgba(255,195,0,0.11) 0%, rgba(255,195,0,0.04) 50%, transparent 100%)'
                                 : 'transparent',
                               transition: 'background 200ms ease',
                             }}
                             aria-hidden="true"
                           />
-                          {/* Left vertical gold accent bar — full width, overflow-safe */}
+                          {/* Left vertical gold accent bar — anchored to left edge of the li, fully visible */}
                           <span
                             className="absolute top-1/2 -translate-y-1/2 rounded-r-full bg-[#FFC300]"
                             style={{
-                              left: '-1px',
+                              left: '-16px',
                               width: '4px',
                               height: isActive ? '58%' : '0%',
                               opacity: isActive ? 1 : 0,
-                              boxShadow: isActive ? '0 0 10px 2px rgba(255,195,0,0.5), 4px 0 18px rgba(255,195,0,0.18)' : 'none',
+                              zIndex: 2,
+                              boxShadow: isActive ? '0 0 8px 2px rgba(255,195,0,0.55), 6px 0 16px rgba(255,195,0,0.18)' : 'none',
                               transition: 'height 220ms cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 180ms ease, box-shadow 220ms ease',
                             }}
                             aria-hidden="true"
