@@ -102,6 +102,19 @@ export default function MobileMenu({
         <div className="flex flex-col h-full">
           <div className="flex-1 overflow-y-auto">
             <div className="px-6 pt-8 pb-6">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="relative inline-flex items-center">
+                  <span
+                    className="absolute inset-0 rounded-full bg-[#FFC300]/20 animate-badge-pulse"
+                    aria-hidden="true"
+                  />
+                  <span className="relative inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#FFC300]/40 bg-[#FFC300]/10 text-[#FFC300] text-[10px] font-bold tracking-[0.15em] uppercase">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FFC300]" aria-hidden="true" />
+                    Elite 100+ Members
+                  </span>
+                </div>
+              </div>
+
               <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#FFC300]/60 mb-6">
                 Navigation
               </p>
