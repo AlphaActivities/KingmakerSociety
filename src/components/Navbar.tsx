@@ -55,6 +55,11 @@ export default function Navbar() {
     setIsMobileMenuOpen(false);
   };
 
+  const handleMobileCtaClick = () => {
+    scrollToApplication();
+    setIsMobileMenuOpen(false);
+  };
+
   const navLinks = [
     { label: 'Home', id: 'hero' },
     { label: 'About', id: 'who-this-is-for' },
@@ -174,6 +179,7 @@ export default function Navbar() {
       isOpen={isMobileMenuOpen}
       isPrewarmed={isMenuPrewarmed}
       onClose={() => setIsMobileMenuOpen(false)}
+      onCtaClick={handleMobileCtaClick}
       navLinks={navLinks}
       onNavigate={handleNavigate}
     />

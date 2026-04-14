@@ -9,6 +9,7 @@ interface MobileMenuProps {
   isOpen: boolean;
   isPrewarmed?: boolean;
   onClose: () => void;
+  onCtaClick: () => void;
   navLinks: NavLink[];
   onNavigate: (id: string) => void;
 }
@@ -17,6 +18,7 @@ export default function MobileMenu({
   isOpen,
   isPrewarmed: isPrewarmingPhase = false,
   onClose,
+  onCtaClick,
   navLinks,
   onNavigate,
 }: MobileMenuProps) {
@@ -231,7 +233,7 @@ export default function MobileMenu({
                 aria-hidden="true"
               />
               <button
-                onClick={onClose}
+                onClick={onCtaClick}
                 className="relative w-full py-4 px-6 font-bold text-sm tracking-[0.14em] uppercase rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-[#FFC300]/60"
                 style={{
                   background: 'linear-gradient(175deg, #FFD84D 0%, #FFC300 28%, #E8A800 65%, #D49800 100%)',
