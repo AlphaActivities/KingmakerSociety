@@ -163,7 +163,7 @@ export default function MobileMenu({
                           />
                           {/* Left vertical gold accent bar — full width, overflow-safe */}
                           <span
-                            className="absolute top-1/2 -translate-y-1/2 rounded-r-full bg-[#FFC300]"
+                            className="absolute top-1/2 -translate-y-1/2 rounded-full bg-[#FFC300]"
                             style={{
                               left: '-1px',
                               width: '4px',
