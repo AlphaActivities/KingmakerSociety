@@ -18,9 +18,11 @@ const runScrollAnimation = (from: number, to: number) => {
 };
 
 export const luxuryScrollToTop = () => {
-  const from = window.pageYOffset;
-  if (from < 1) return;
-  runScrollAnimation(from, 0);
+  requestAnimationFrame(() => {
+    const from = window.pageYOffset;
+    if (from < 1) return;
+    runScrollAnimation(from, 0);
+  });
 };
 
 export const luxuryScrollToSection = (sectionId: string, offset: number = 80) => {
