@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import Button from './ui/Button';
 import HamburgerIcon from './ui/HamburgerIcon';
 import MobileMenu from './ui/MobileMenu';
-import { luxuryScrollToSection, luxuryScrollToTop, scrollToApplication } from '../utils/luxuryScroll';
+import { luxuryScrollToSection, luxuryScrollToTop, luxuryScrollToTopFrom, scrollToApplication } from '../utils/luxuryScroll';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -55,10 +55,11 @@ export default function Navbar() {
   };
 
   const handleNavigate = (id: string) => {
+    const capturedScrollY = window.pageYOffset;
     setIsMobileMenuOpen(false);
     setTimeout(() => {
       if (id === 'hero') {
-        luxuryScrollToTop();
+        luxuryScrollToTopFrom(capturedScrollY);
       } else {
         luxuryScrollToSection(id, 80);
       }

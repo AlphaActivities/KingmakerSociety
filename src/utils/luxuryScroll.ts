@@ -25,6 +25,13 @@ export const luxuryScrollToTop = () => {
   });
 };
 
+export const luxuryScrollToTopFrom = (knownScrollY: number) => {
+  if (knownScrollY < 1) return;
+  requestAnimationFrame(() => {
+    runScrollAnimation(knownScrollY, 0);
+  });
+};
+
 export const luxuryScrollToSection = (sectionId: string, offset: number = 80) => {
   const element = document.getElementById(sectionId);
   if (!element) return;
