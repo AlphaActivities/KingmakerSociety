@@ -147,25 +147,29 @@ export default function MobileMenu({
                           }}
                           aria-label={`Navigate to ${link.label}`}
                         >
-                          {/* Row gold glow background on interaction */}
+                          {/* Premium row container glow — rounded shell anchored left */}
                           <span
-                            className="absolute inset-0 pointer-events-none"
+                            className="absolute pointer-events-none rounded-r-md"
                             style={{
+                              inset: '4px 6px 4px 0px',
                               background: isActive
-                                ? 'linear-gradient(90deg, rgba(255,195,0,0.09) 0%, rgba(255,195,0,0.03) 60%, transparent 100%)'
+                                ? 'radial-gradient(ellipse 80% 100% at 0% 50%, rgba(255,195,0,0.11) 0%, rgba(255,195,0,0.04) 55%, transparent 100%)'
                                 : 'transparent',
-                              transition: 'background 120ms ease',
+                              boxShadow: isActive
+                                ? 'inset 0 0 0 1px rgba(255,195,0,0.10), 0 0 18px 2px rgba(255,195,0,0.06)'
+                                : 'none',
+                              transition: 'background 130ms ease, box-shadow 130ms ease',
                             }}
                             aria-hidden="true"
                           />
-                          {/* Left vertical gold accent bar */}
+                          {/* Left vertical gold accent bar — integrated with row glow */}
                           <span
                             className="absolute left-0 top-1/2 -translate-y-1/2 w-[4px] rounded-r-full bg-[#FFC300]"
                             style={{
-                              height: isActive ? '65%' : '0%',
+                              height: isActive ? '60%' : '0%',
                               opacity: isActive ? 1 : 0,
-                              boxShadow: isActive ? '2px 0 10px rgba(255,195,0,0.5)' : 'none',
-                              transition: 'height 120ms ease, opacity 120ms ease',
+                              boxShadow: isActive ? '0 0 12px 2px rgba(255,195,0,0.45), 3px 0 16px rgba(255,195,0,0.2)' : 'none',
+                              transition: 'height 130ms ease, opacity 130ms ease, box-shadow 130ms ease',
                             }}
                             aria-hidden="true"
                           />
