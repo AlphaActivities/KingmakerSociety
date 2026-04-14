@@ -144,31 +144,30 @@ export default function MobileMenu({
                             textShadow: isActive ? '0 0 14px rgba(255,195,0,0.4)' : 'none',
                             transition: 'color 120ms ease, text-shadow 120ms ease',
                             WebkitTapHighlightColor: 'transparent',
+                            overflow: 'visible',
                           }}
                           aria-label={`Navigate to ${link.label}`}
                         >
-                          {/* Premium row container glow — rounded shell anchored left */}
+                          {/* Soft gold radial glow behind the row — no border, no box */}
                           <span
-                            className="absolute pointer-events-none rounded-r-md"
+                            className="absolute inset-0 pointer-events-none"
                             style={{
-                              inset: '4px 6px 4px 0px',
                               background: isActive
-                                ? 'radial-gradient(ellipse 80% 100% at 0% 50%, rgba(255,195,0,0.11) 0%, rgba(255,195,0,0.04) 55%, transparent 100%)'
+                                ? 'radial-gradient(ellipse 90% 100% at 0% 50%, rgba(255,195,0,0.10) 0%, rgba(255,195,0,0.03) 50%, transparent 100%)'
                                 : 'transparent',
-                              boxShadow: isActive
-                                ? 'inset 0 0 0 1px rgba(255,195,0,0.10), 0 0 18px 2px rgba(255,195,0,0.06)'
-                                : 'none',
-                              transition: 'background 130ms ease, box-shadow 130ms ease',
+                              transition: 'background 130ms ease',
                             }}
                             aria-hidden="true"
                           />
-                          {/* Left vertical gold accent bar — integrated with row glow */}
+                          {/* Left vertical gold accent bar — full width, overflow-safe */}
                           <span
-                            className="absolute left-0 top-1/2 -translate-y-1/2 w-[4px] rounded-r-full bg-[#FFC300]"
+                            className="absolute top-1/2 -translate-y-1/2 rounded-r-full bg-[#FFC300]"
                             style={{
-                              height: isActive ? '60%' : '0%',
+                              left: '-1px',
+                              width: '4px',
+                              height: isActive ? '58%' : '0%',
                               opacity: isActive ? 1 : 0,
-                              boxShadow: isActive ? '0 0 12px 2px rgba(255,195,0,0.45), 3px 0 16px rgba(255,195,0,0.2)' : 'none',
+                              boxShadow: isActive ? '0 0 10px 2px rgba(255,195,0,0.5), 4px 0 18px rgba(255,195,0,0.18)' : 'none',
                               transition: 'height 130ms ease, opacity 130ms ease, box-shadow 130ms ease',
                             }}
                             aria-hidden="true"
