@@ -47,33 +47,29 @@ export default function Navbar() {
   }, []);
 
   const scrollToSection = (id: string) => {
-    luxuryScrollToSection(id, 80);
+    if (id === 'hero') {
+      luxuryScrollToTop();
+    } else {
+      luxuryScrollToSection(id, 80);
+    }
   };
 
   const handleNavigate = (id: string) => {
     setIsMobileMenuOpen(false);
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        setTimeout(() => {
-          if (id === 'hero') {
-            luxuryScrollToTop();
-          } else {
-            luxuryScrollToSection(id, 80);
-          }
-        }, 0);
-      });
-    });
+    setTimeout(() => {
+      if (id === 'hero') {
+        luxuryScrollToTop();
+      } else {
+        luxuryScrollToSection(id, 80);
+      }
+    }, 32);
   };
 
   const handleMobileCtaClick = () => {
     setIsMobileMenuOpen(false);
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        setTimeout(() => {
-          scrollToApplication();
-        }, 0);
-      });
-    });
+    setTimeout(() => {
+      scrollToApplication();
+    }, 32);
   };
 
   const navLinks = [
