@@ -26,10 +26,11 @@ export const luxuryScrollToSection = (sectionId: string, offset: number = 80) =>
       absoluteTop += el.offsetTop;
       el = el.offsetParent as HTMLElement | null;
     }
-    const offsetPosition = absoluteTop - finalOffset;
+    const rawPosition = absoluteTop - finalOffset;
+    const offsetPosition = Math.max(0, rawPosition);
     const startPosition = window.pageYOffset;
     const distance = offsetPosition - startPosition;
-    const duration = 1300;
+    const duration = Math.min(1800, Math.max(900, Math.abs(distance) * 0.42));
     let start: number | null = null;
 
     const easeOutQuart = (t: number): number => {
