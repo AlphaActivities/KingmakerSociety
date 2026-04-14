@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface NavLink {
   label: string;
@@ -59,9 +59,14 @@ export default function MobileMenu({
     return () => window.removeEventListener('keydown', handleEscape);
   }, [isOpen, onClose]);
 
+  const [activeLink, setActiveLink] = useState<string | null>(null);
+
   const handleNavClick = (id: string) => {
     onNavigate(id);
   };
+
+  const activateLink = (id: string) => setActiveLink(id);
+  const deactivateLink = () => setActiveLink(null);
 
   return (
     <>
@@ -122,37 +127,53 @@ export default function MobileMenu({
             <div className="px-6 pt-6 pb-4">
               <nav aria-label="Mobile navigation links">
                 <ul className="space-y-0">
-                  {navLinks.map((link) => (
-                    <li key={link.id} className="group">
-                      <button
-                        onClick={() => handleNavClick(link.id)}
-                        className="relative w-full text-left px-4 py-[18px] text-white/90 font-medium text-lg tracking-wide border-b border-white/5 last:border-b-0"
-                        onMouseEnter={e => {
-                          const btn = e.currentTarget as HTMLButtonElement;
-                          btn.style.color = '#FFC300';
-                          btn.style.textShadow = '0 0 12px rgba(255,195,0,0.35)';
-                          const bar = btn.querySelector<HTMLSpanElement>('[data-accent]');
-                          if (bar) { bar.style.height = '60%'; bar.style.opacity = '1'; }
-                        }}
-                        onMouseLeave={e => {
-                          const btn = e.currentTarget as HTMLButtonElement;
-                          btn.style.color = '';
-                          btn.style.textShadow = 'none';
-                          const bar = btn.querySelector<HTMLSpanElement>('[data-accent]');
-                          if (bar) { bar.style.height = '0%'; bar.style.opacity = '0'; }
-                        }}
-                        aria-label={`Navigate to ${link.label}`}
-                      >
-                        <span
-                          data-accent
-                          className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] rounded-r-full bg-[#FFC300]"
-                          style={{ height: '0%', opacity: 0, transition: 'height 150ms ease, opacity 150ms ease' }}
-                          aria-hidden="true"
-                        />
-                        {link.label}
-                      </button>
-                    </li>
-                  ))}
+                  {navLinks.map((link) => {
+                    const isActive = activeLink === link.id;
+                    return (
+                      <li key={link.id}>
+                        <button
+                          onClick={() => handleNavClick(link.id)}
+                          onMouseEnter={() => activateLink(link.id)}
+                          onMouseLeave={deactivateLink}
+                          onTouchStart={() => activateLink(link.id)}
+                          onTouchEnd={deactivateLink}
+                          onTouchCancel={deactivateLink}
+                          className="relative w-full text-left px-4 py-[18px] font-medium text-lg tracking-wide border-b border-white/5 last:border-b-0 outline-none focus-visible:ring-1 focus-visible:ring-[#FFC300]/40"
+                          style={{
+                            color: isActive ? '#FFC300' : 'rgba(255,255,255,0.9)',
+                            textShadow: isActive ? '0 0 14px rgba(255,195,0,0.4)' : 'none',
+                            transition: 'color 120ms ease, text-shadow 120ms ease',
+                            WebkitTapHighlightColor: 'transparent',
+                          }}
+                          aria-label={`Navigate to ${link.label}`}
+                        >
+                          {/* Row gold glow background on interaction */}
+                          <span
+                            className="absolute inset-0 pointer-events-none"
+                            style={{
+                              background: isActive
+                                ? 'linear-gradient(90deg, rgba(255,195,0,0.09) 0%, rgba(255,195,0,0.03) 60%, transparent 100%)'
+                                : 'transparent',
+                              transition: 'background 120ms ease',
+                            }}
+                            aria-hidden="true"
+                          />
+                          {/* Left vertical gold accent bar */}
+                          <span
+                            className="absolute left-0 top-1/2 -translate-y-1/2 w-[4px] rounded-r-full bg-[#FFC300]"
+                            style={{
+                              height: isActive ? '65%' : '0%',
+                              opacity: isActive ? 1 : 0,
+                              boxShadow: isActive ? '2px 0 10px rgba(255,195,0,0.5)' : 'none',
+                              transition: 'height 120ms ease, opacity 120ms ease',
+                            }}
+                            aria-hidden="true"
+                          />
+                          <span className="relative">{link.label}</span>
+                        </button>
+                      </li>
+                    );
+                  })}
                 </ul>
               </nav>
             </div>
