@@ -199,19 +199,64 @@ export default function MobileMenu({
               </div>
             </div>
 
-            <button
-              onClick={onClose}
-              className="w-full py-4 px-6 font-bold text-sm tracking-[0.12em] uppercase rounded-lg"
-              style={{
-                background: 'linear-gradient(135deg, #FFC300 0%, #e6a800 60%, #FFC300 100%)',
-                color: '#000',
-                boxShadow: '0 4px 24px rgba(255,195,0,0.35), 0 1px 0 rgba(255,255,255,0.15) inset',
-                border: '1px solid rgba(255,195,0,0.6)',
-              }}
-              aria-label="Start your application"
-            >
-              Start Application
-            </button>
+            <div className="relative">
+              {/* Ambient gold bloom behind button */}
+              <span
+                className="absolute inset-0 rounded-lg pointer-events-none"
+                style={{
+                  background: 'radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255,195,0,0.22) 0%, transparent 70%)',
+                  filter: 'blur(8px)',
+                  transform: 'translateY(4px)',
+                }}
+                aria-hidden="true"
+              />
+              <button
+                onClick={onClose}
+                className="relative w-full py-4 px-6 font-bold text-sm tracking-[0.14em] uppercase rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-[#FFC300]/60 active:scale-[0.97]"
+                style={{
+                  background: 'linear-gradient(160deg, #FFD340 0%, #FFC300 35%, #e6a800 70%, #FFC300 100%)',
+                  color: '#0A0A0A',
+                  boxShadow: '0 2px 0 rgba(255,255,255,0.18) inset, 0 -1px 0 rgba(0,0,0,0.25) inset, 0 6px 28px rgba(255,195,0,0.40), 0 1px 6px rgba(255,195,0,0.25)',
+                  border: '1px solid rgba(255,215,60,0.7)',
+                  letterSpacing: '0.14em',
+                  WebkitTapHighlightColor: 'transparent',
+                  transition: 'transform 90ms ease, box-shadow 120ms ease, filter 120ms ease',
+                  willChange: 'transform',
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 2px 0 rgba(255,255,255,0.22) inset, 0 -1px 0 rgba(0,0,0,0.25) inset, 0 8px 36px rgba(255,195,0,0.55), 0 2px 10px rgba(255,195,0,0.35)';
+                  (e.currentTarget as HTMLButtonElement).style.filter = 'brightness(1.06)';
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 2px 0 rgba(255,255,255,0.18) inset, 0 -1px 0 rgba(0,0,0,0.25) inset, 0 6px 28px rgba(255,195,0,0.40), 0 1px 6px rgba(255,195,0,0.25)';
+                  (e.currentTarget as HTMLButtonElement).style.filter = '';
+                }}
+                onTouchStart={e => {
+                  (e.currentTarget as HTMLButtonElement).style.transform = 'scale(0.97)';
+                  (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 2px 0 rgba(255,255,255,0.12) inset, 0 -1px 0 rgba(0,0,0,0.3) inset, 0 3px 14px rgba(255,195,0,0.30), 0 1px 4px rgba(255,195,0,0.18)';
+                  (e.currentTarget as HTMLButtonElement).style.filter = 'brightness(0.95)';
+                }}
+                onTouchEnd={e => {
+                  (e.currentTarget as HTMLButtonElement).style.transform = '';
+                  (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 2px 0 rgba(255,255,255,0.18) inset, 0 -1px 0 rgba(0,0,0,0.25) inset, 0 6px 28px rgba(255,195,0,0.40), 0 1px 6px rgba(255,195,0,0.25)';
+                  (e.currentTarget as HTMLButtonElement).style.filter = '';
+                }}
+                onTouchCancel={e => {
+                  (e.currentTarget as HTMLButtonElement).style.transform = '';
+                  (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 2px 0 rgba(255,255,255,0.18) inset, 0 -1px 0 rgba(0,0,0,0.25) inset, 0 6px 28px rgba(255,195,0,0.40), 0 1px 6px rgba(255,195,0,0.25)';
+                  (e.currentTarget as HTMLButtonElement).style.filter = '';
+                }}
+                aria-label="Start your application"
+              >
+                {/* Top highlight edge */}
+                <span
+                  className="absolute top-0 left-[10%] right-[10%] h-px pointer-events-none"
+                  style={{ background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.55), transparent)' }}
+                  aria-hidden="true"
+                />
+                Start Application
+              </button>
+            </div>
 
             <div className="text-center pt-2">
               <p className="text-xs text-white/30 tracking-widest uppercase">
