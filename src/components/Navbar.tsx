@@ -51,8 +51,14 @@ export default function Navbar() {
   };
 
   const handleNavigate = (id: string) => {
-    luxuryScrollToSection(id, 80);
     setIsMobileMenuOpen(false);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          luxuryScrollToSection(id, 80);
+        }, 0);
+      });
+    });
   };
 
   const handleMobileCtaClick = () => {
