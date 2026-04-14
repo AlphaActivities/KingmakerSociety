@@ -17,8 +17,16 @@ export const luxuryScrollToSection = (sectionId: string, offset: number = 80) =>
     // Force a reflow to ensure all CSS animations have settled
     element.offsetHeight;
 
-    const elementPosition = element.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.pageYOffset - finalOffset;
+    // Use absolute offsetTop accumulation instead of getBoundingClientRect().top
+    // because getBoundingClientRect is viewport-relative and unreliable immediately
+    // after scroll-lock CSS classes are removed (especially on iOS Safari).
+    let absoluteTop = 0;
+    let el: HTMLElement | null = element;
+    while (el) {
+      absoluteTop += el.offsetTop;
+      el = el.offsetParent as HTMLElement | null;
+    }
+    const offsetPosition = absoluteTop - finalOffset;
     const startPosition = window.pageYOffset;
     const distance = offsetPosition - startPosition;
     const duration = 1300;

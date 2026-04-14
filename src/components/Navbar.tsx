@@ -59,7 +59,9 @@ export default function Navbar() {
     setIsMobileMenuOpen(false);
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        scrollToApplication();
+        setTimeout(() => {
+          scrollToApplication();
+        }, 0);
       });
     });
   };
