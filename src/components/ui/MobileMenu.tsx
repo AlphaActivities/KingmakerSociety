@@ -185,73 +185,98 @@ export default function MobileMenu({
           </div>
 
           <div className="px-6 pt-6 pb-7 border-t border-white/10 space-y-5">
+            {/* Elite Members badge */}
             <div className="flex items-center justify-center">
               <div className="relative inline-flex items-center">
+                {/* Outer pulse halo */}
                 <span
-                  className="absolute inset-0 rounded-full bg-[#FFC300]/20 animate-badge-pulse"
+                  className="absolute inset-0 rounded-full animate-badge-pulse pointer-events-none"
+                  style={{ background: 'rgba(255,195,0,0.18)' }}
                   aria-hidden="true"
                 />
-                <span className="relative inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-[#FFC300]/45 bg-[#FFC300]/10 uppercase">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFC300] shrink-0" aria-hidden="true" />
-                  <span className="text-[11px] font-extrabold tracking-[0.06em] text-[#FFC300]">100+</span>
-                  <span className="text-[10px] font-semibold tracking-[0.13em] text-[#FFC300]/80">Elite Members</span>
+                {/* Badge pill */}
+                <span
+                  className="relative inline-flex items-center gap-1.5 px-4 py-[5px] rounded-full uppercase"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(255,195,0,0.22) 0%, rgba(255,195,0,0.10) 60%, rgba(255,195,0,0.16) 100%)',
+                    border: '1px solid rgba(255,195,0,0.55)',
+                    boxShadow: '0 0 12px rgba(255,195,0,0.20) inset, 0 0 18px rgba(255,195,0,0.12)',
+                  }}
+                >
+                  {/* Live dot */}
+                  <span
+                    className="w-1.5 h-1.5 rounded-full shrink-0"
+                    style={{ background: '#FFC300', boxShadow: '0 0 5px rgba(255,195,0,0.8)' }}
+                    aria-hidden="true"
+                  />
+                  <span className="text-[11px] font-extrabold tracking-[0.07em] text-[#FFC300]">100+</span>
+                  <span
+                    className="text-[10px] font-semibold tracking-[0.14em]"
+                    style={{ color: 'rgba(255,210,60,0.85)' }}
+                  >Elite Members</span>
                 </span>
               </div>
             </div>
 
+            {/* Start Application CTA */}
             <div className="relative">
-              {/* Ambient gold bloom behind button */}
+              {/* Ambient under-glow — sits below, not on top */}
               <span
-                className="absolute inset-0 rounded-lg pointer-events-none"
+                className="absolute pointer-events-none"
                 style={{
-                  background: 'radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255,195,0,0.22) 0%, transparent 70%)',
-                  filter: 'blur(8px)',
-                  transform: 'translateY(4px)',
+                  inset: '30% 10% -10px',
+                  background: 'radial-gradient(ellipse 90% 70% at 50% 100%, rgba(255,195,0,0.35) 0%, transparent 70%)',
+                  filter: 'blur(10px)',
                 }}
                 aria-hidden="true"
               />
               <button
                 onClick={onClose}
-                className="relative w-full py-4 px-6 font-bold text-sm tracking-[0.14em] uppercase rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-[#FFC300]/60 active:scale-[0.97]"
+                className="relative w-full py-4 px-6 font-bold text-sm tracking-[0.14em] uppercase rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-[#FFC300]/60"
                 style={{
-                  background: 'linear-gradient(160deg, #FFD340 0%, #FFC300 35%, #e6a800 70%, #FFC300 100%)',
+                  background: 'linear-gradient(175deg, #FFD84D 0%, #FFC300 28%, #E8A800 65%, #D49800 100%)',
                   color: '#0A0A0A',
-                  boxShadow: '0 2px 0 rgba(255,255,255,0.18) inset, 0 -1px 0 rgba(0,0,0,0.25) inset, 0 6px 28px rgba(255,195,0,0.40), 0 1px 6px rgba(255,195,0,0.25)',
-                  border: '1px solid rgba(255,215,60,0.7)',
+                  border: 'none',
+                  boxShadow: '0 1px 0 rgba(255,255,255,0.30) inset, 0 -2px 0 rgba(0,0,0,0.22) inset, 0 8px 32px rgba(255,195,0,0.38), 0 2px 8px rgba(255,195,0,0.20)',
                   letterSpacing: '0.14em',
                   WebkitTapHighlightColor: 'transparent',
-                  transition: 'transform 90ms ease, box-shadow 120ms ease, filter 120ms ease',
+                  transition: 'transform 90ms ease, box-shadow 110ms ease, filter 110ms ease',
                   willChange: 'transform',
                 }}
                 onMouseEnter={e => {
-                  (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 2px 0 rgba(255,255,255,0.22) inset, 0 -1px 0 rgba(0,0,0,0.25) inset, 0 8px 36px rgba(255,195,0,0.55), 0 2px 10px rgba(255,195,0,0.35)';
-                  (e.currentTarget as HTMLButtonElement).style.filter = 'brightness(1.06)';
+                  const el = e.currentTarget as HTMLButtonElement;
+                  el.style.filter = 'brightness(1.07)';
+                  el.style.boxShadow = '0 1px 0 rgba(255,255,255,0.34) inset, 0 -2px 0 rgba(0,0,0,0.22) inset, 0 10px 40px rgba(255,195,0,0.52), 0 3px 12px rgba(255,195,0,0.30)';
                 }}
                 onMouseLeave={e => {
-                  (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 2px 0 rgba(255,255,255,0.18) inset, 0 -1px 0 rgba(0,0,0,0.25) inset, 0 6px 28px rgba(255,195,0,0.40), 0 1px 6px rgba(255,195,0,0.25)';
-                  (e.currentTarget as HTMLButtonElement).style.filter = '';
+                  const el = e.currentTarget as HTMLButtonElement;
+                  el.style.filter = '';
+                  el.style.boxShadow = '0 1px 0 rgba(255,255,255,0.30) inset, 0 -2px 0 rgba(0,0,0,0.22) inset, 0 8px 32px rgba(255,195,0,0.38), 0 2px 8px rgba(255,195,0,0.20)';
                 }}
                 onTouchStart={e => {
-                  (e.currentTarget as HTMLButtonElement).style.transform = 'scale(0.97)';
-                  (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 2px 0 rgba(255,255,255,0.12) inset, 0 -1px 0 rgba(0,0,0,0.3) inset, 0 3px 14px rgba(255,195,0,0.30), 0 1px 4px rgba(255,195,0,0.18)';
-                  (e.currentTarget as HTMLButtonElement).style.filter = 'brightness(0.95)';
+                  const el = e.currentTarget as HTMLButtonElement;
+                  el.style.transform = 'scale(0.97)';
+                  el.style.filter = 'brightness(0.94)';
+                  el.style.boxShadow = '0 1px 0 rgba(255,255,255,0.18) inset, 0 -2px 0 rgba(0,0,0,0.28) inset, 0 3px 14px rgba(255,195,0,0.28), 0 1px 4px rgba(255,195,0,0.16)';
                 }}
                 onTouchEnd={e => {
-                  (e.currentTarget as HTMLButtonElement).style.transform = '';
-                  (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 2px 0 rgba(255,255,255,0.18) inset, 0 -1px 0 rgba(0,0,0,0.25) inset, 0 6px 28px rgba(255,195,0,0.40), 0 1px 6px rgba(255,195,0,0.25)';
-                  (e.currentTarget as HTMLButtonElement).style.filter = '';
+                  const el = e.currentTarget as HTMLButtonElement;
+                  el.style.transform = '';
+                  el.style.filter = '';
+                  el.style.boxShadow = '0 1px 0 rgba(255,255,255,0.30) inset, 0 -2px 0 rgba(0,0,0,0.22) inset, 0 8px 32px rgba(255,195,0,0.38), 0 2px 8px rgba(255,195,0,0.20)';
                 }}
                 onTouchCancel={e => {
-                  (e.currentTarget as HTMLButtonElement).style.transform = '';
-                  (e.currentTarget as HTMLButtonElement).style.boxShadow = '0 2px 0 rgba(255,255,255,0.18) inset, 0 -1px 0 rgba(0,0,0,0.25) inset, 0 6px 28px rgba(255,195,0,0.40), 0 1px 6px rgba(255,195,0,0.25)';
-                  (e.currentTarget as HTMLButtonElement).style.filter = '';
+                  const el = e.currentTarget as HTMLButtonElement;
+                  el.style.transform = '';
+                  el.style.filter = '';
+                  el.style.boxShadow = '0 1px 0 rgba(255,255,255,0.30) inset, 0 -2px 0 rgba(0,0,0,0.22) inset, 0 8px 32px rgba(255,195,0,0.38), 0 2px 8px rgba(255,195,0,0.20)';
                 }}
                 aria-label="Start your application"
               >
-                {/* Top highlight edge */}
+                {/* Top satin highlight — embedded, not a box edge */}
                 <span
-                  className="absolute top-0 left-[10%] right-[10%] h-px pointer-events-none"
-                  style={{ background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.55), transparent)' }}
+                  className="absolute top-0 left-[8%] right-[8%] h-[1px] pointer-events-none rounded-full"
+                  style={{ background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.65), transparent)' }}
                   aria-hidden="true"
                 />
                 Start Application
