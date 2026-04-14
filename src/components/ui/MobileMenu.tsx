@@ -74,17 +74,31 @@ export default function MobileMenu({
       )}
 
       <div
-        className="fixed top-20 bottom-0 right-0 w-full sm:w-80 z-[108] bg-[#0B0B0B]"
+        className="fixed top-20 bottom-0 right-0 w-full sm:w-80 z-[108]"
         style={{
           transform: isOpen || isPrewarmingPhase ? 'translateX(0) translateZ(0)' : 'translateX(100%) translateZ(0)',
           opacity: isOpen ? 1 : 0,
           pointerEvents: isOpen ? 'auto' : 'none',
           visibility: isOpen || isPrewarmingPhase ? 'visible' : 'hidden',
+          background: '#0B0B0B',
+          borderLeft: '1px solid rgba(209,31,42,0.45)',
+          borderTop: '1px solid rgba(209,31,42,0.3)',
+          boxShadow: '-4px 0 32px rgba(209,31,42,0.12), -1px 0 0 rgba(255,195,0,0.08)',
         }}
         role="dialog"
         aria-modal="true"
         aria-label="Mobile navigation menu"
       >
+        {/* Left luxury bar + inner glow */}
+        <div
+          className="absolute top-0 left-0 bottom-0 w-[3px] z-10"
+          style={{
+            background: 'linear-gradient(to bottom, #D11F2A, #FFC300 50%, #D11F2A)',
+            boxShadow: '2px 0 18px rgba(209,31,42,0.5), 4px 0 32px rgba(255,195,0,0.15)',
+          }}
+          aria-hidden="true"
+        />
+
         <div className="flex flex-col h-full">
           <div className="flex-1 overflow-y-auto">
             <div className="px-6 pt-8 pb-6">
