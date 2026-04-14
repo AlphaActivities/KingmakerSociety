@@ -99,7 +99,25 @@ export default function MobileMenu({
           aria-hidden="true"
         />
 
-        <div className="flex flex-col h-full">
+        {/* Static interior depth — warm gold radial bloom from top-left */}
+        <div
+          className="absolute top-0 left-0 right-0 bottom-0 pointer-events-none z-0"
+          style={{
+            background: 'radial-gradient(ellipse 70% 45% at 10% 0%, rgba(255,195,0,0.07) 0%, transparent 100%)',
+          }}
+          aria-hidden="true"
+        />
+
+        {/* Static interior depth — deep crimson floor warmth at bottom */}
+        <div
+          className="absolute left-0 right-0 bottom-0 h-2/5 pointer-events-none z-0"
+          style={{
+            background: 'linear-gradient(to top, rgba(209,31,42,0.06) 0%, transparent 100%)',
+          }}
+          aria-hidden="true"
+        />
+
+        <div className="relative flex flex-col h-full z-[1]">
           <div className="flex-1 overflow-y-auto">
             <div className="px-6 pt-6 pb-4">
               <nav aria-label="Mobile navigation links">
