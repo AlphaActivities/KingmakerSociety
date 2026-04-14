@@ -148,14 +148,16 @@ export default function MobileMenu({
                           }}
                           aria-label={`Navigate to ${link.label}`}
                         >
-                          {/* Soft gold radial glow behind the row — no border, no box */}
+                          {/* Soft gold rounded glow behind the row — no border, rounded container feel */}
                           <span
-                            className="absolute inset-0 pointer-events-none"
+                            className="absolute pointer-events-none"
                             style={{
+                              inset: '3px 8px 3px 2px',
+                              borderRadius: '6px',
                               background: isActive
-                                ? 'radial-gradient(ellipse 90% 100% at 0% 50%, rgba(255,195,0,0.10) 0%, rgba(255,195,0,0.03) 50%, transparent 100%)'
+                                ? 'radial-gradient(ellipse 85% 100% at 5% 50%, rgba(255,195,0,0.13) 0%, rgba(255,195,0,0.05) 45%, transparent 100%)'
                                 : 'transparent',
-                              transition: 'background 130ms ease',
+                              transition: 'background 200ms ease',
                             }}
                             aria-hidden="true"
                           />
@@ -168,7 +170,7 @@ export default function MobileMenu({
                               height: isActive ? '58%' : '0%',
                               opacity: isActive ? 1 : 0,
                               boxShadow: isActive ? '0 0 10px 2px rgba(255,195,0,0.5), 4px 0 18px rgba(255,195,0,0.18)' : 'none',
-                              transition: 'height 130ms ease, opacity 130ms ease, box-shadow 130ms ease',
+                              transition: 'height 220ms cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 180ms ease, box-shadow 220ms ease',
                             }}
                             aria-hidden="true"
                           />
