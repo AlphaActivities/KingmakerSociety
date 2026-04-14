@@ -95,12 +95,32 @@ export default function MobileMenu({
               <nav aria-label="Mobile navigation links">
                 <ul className="space-y-1">
                   {navLinks.map((link) => (
-                    <li key={link.id}>
+                    <li key={link.id} className="group">
                       <button
                         onClick={() => handleNavClick(link.id)}
-                        className="w-full text-left px-4 py-4 text-white hover:text-[#FFC300] font-medium text-lg tracking-wide transition-colors duration-150 border-b border-white/5 last:border-b-0"
+                        className="relative w-full text-left px-4 py-4 text-white/90 font-medium text-lg tracking-wide border-b border-white/5 last:border-b-0"
+                        onMouseEnter={e => {
+                          const btn = e.currentTarget as HTMLButtonElement;
+                          btn.style.color = '#FFC300';
+                          btn.style.textShadow = '0 0 12px rgba(255,195,0,0.35)';
+                          const bar = btn.querySelector<HTMLSpanElement>('[data-accent]');
+                          if (bar) { bar.style.height = '60%'; bar.style.opacity = '1'; }
+                        }}
+                        onMouseLeave={e => {
+                          const btn = e.currentTarget as HTMLButtonElement;
+                          btn.style.color = '';
+                          btn.style.textShadow = 'none';
+                          const bar = btn.querySelector<HTMLSpanElement>('[data-accent]');
+                          if (bar) { bar.style.height = '0%'; bar.style.opacity = '0'; }
+                        }}
                         aria-label={`Navigate to ${link.label}`}
                       >
+                        <span
+                          data-accent
+                          className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] rounded-r-full bg-[#FFC300]"
+                          style={{ height: '0%', opacity: 0, transition: 'height 150ms ease, opacity 150ms ease' }}
+                          aria-hidden="true"
+                        />
                         {link.label}
                       </button>
                     </li>
