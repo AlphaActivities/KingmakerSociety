@@ -191,9 +191,10 @@ export default function MobileMenu({
                   className="absolute inset-0 rounded-full bg-[#FFC300]/20 animate-badge-pulse"
                   aria-hidden="true"
                 />
-                <span className="relative inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#FFC300]/40 bg-[#FFC300]/10 text-[#FFC300] text-[10px] font-bold tracking-[0.15em] uppercase">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFC300]" aria-hidden="true" />
-                  Elite 100+ Members
+                <span className="relative inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full border border-[#FFC300]/45 bg-[#FFC300]/10 uppercase">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFC300] shrink-0" aria-hidden="true" />
+                  <span className="text-[11px] font-extrabold tracking-[0.06em] text-[#FFC300]">100+</span>
+                  <span className="text-[10px] font-semibold tracking-[0.13em] text-[#FFC300]/80">Elite Members</span>
                 </span>
               </div>
             </div>
