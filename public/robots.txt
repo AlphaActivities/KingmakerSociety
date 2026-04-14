@@ -1,0 +1,12 @@
+# Kingmaker Society - Robots Configuration
+# Allow all search engines to index the site
+
+User-agent: *
+Allow: /
+
+# Block potential admin routes (for future use)
+Disallow: /admin/
+Disallow: /api/internal/
+
+# Sitemap location
+Sitemap: https://kingmakersociety.com/sitemap.xml

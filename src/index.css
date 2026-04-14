@@ -1,0 +1,717 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @media (max-width: 767px) {
+    html {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    html::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+    html {
+      overflow-y: scroll;
+      scrollbar-width: thin;
+      scrollbar-color: #dc2626 #1a1a1a;
+    }
+
+    html::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    html::-webkit-scrollbar-track {
+      background: #1a1a1a;
+    }
+
+    html::-webkit-scrollbar-thumb {
+      background: #dc2626;
+      border-radius: 6px;
+      border: 2px solid #1a1a1a;
+    }
+
+    html::-webkit-scrollbar-thumb:hover {
+      background: #ef4444;
+    }
+  }
+
+  html.modal-open,
+  body.modal-open {
+    overflow: hidden !important;
+    overscroll-behavior: none !important;
+    touch-action: none !important;
+  }
+
+  html.modal-open {
+    height: 100%;
+  }
+
+  body.modal-open {
+    height: 100%;
+  }
+
+  .menu-open-freeze {
+    overflow: hidden !important;
+    overscroll-behavior: none !important;
+    touch-action: none !important;
+    max-height: 100vh;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    background-color: #000000;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', 'Inter', sans-serif;
+    @apply font-bold tracking-tight;
+    letter-spacing: -0.02em;
+  }
+
+  h1 {
+    @apply text-5xl md:text-6xl lg:text-7xl;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+
+  h2 {
+    @apply text-4xl md:text-5xl;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
+    line-height: 1.3;
+  }
+
+  p {
+    line-height: 1.65;
+  }
+}
+
+@layer utilities {
+  .fade-in {
+    animation: fadeIn 0.8s ease-in-out;
+  }
+
+  .slide-up {
+    animation: slideUp 0.8s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Luxury Mobile Menu Animations */
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%) translateY(-100%);
+    }
+    100% {
+      transform: translateX(100%) translateY(100%);
+    }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 4s ease-in-out infinite;
+  }
+
+  /* Pulsing glow for Elite Members badge and CTA buttons */
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(255, 195, 0, 0.3), 0 0 40px rgba(255, 195, 0, 0.2);
+    }
+    50% {
+      box-shadow: 0 0 30px rgba(255, 195, 0, 0.5), 0 0 60px rgba(255, 195, 0, 0.3);
+    }
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2.5s ease-in-out infinite;
+  }
+
+  /* GPU-composited badge pulse — opacity + scale only, no box-shadow paint */
+  @keyframes badge-pulse {
+    0%, 100% {
+      opacity: 0.25;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.55;
+      transform: scale(1.06);
+    }
+  }
+
+  .animate-badge-pulse {
+    animation: badge-pulse 2.5s ease-in-out infinite;
+    will-change: opacity, transform;
+  }
+
+  @keyframes pulse-glow-subtle {
+    0%, 100% {
+      box-shadow: 0 0 15px rgba(209, 31, 42, 0.2), 0 0 25px rgba(209, 31, 42, 0.15);
+    }
+    50% {
+      box-shadow: 0 0 25px rgba(209, 31, 42, 0.4), 0 0 40px rgba(209, 31, 42, 0.25);
+    }
+  }
+
+  .animate-pulse-glow-subtle {
+    animation: pulse-glow-subtle 3s ease-in-out infinite;
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% {
+      filter: hue-rotate(0deg) brightness(1);
+    }
+    50% {
+      filter: hue-rotate(5deg) brightness(1.1);
+    }
+  }
+
+  .animate-gradient-shift {
+    animation: gradient-shift 4s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes glow-pulse {
+    0%, 100% {
+      filter: drop-shadow(0 0 10px rgba(255, 195, 0, 0.3));
+    }
+    50% {
+      filter: drop-shadow(0 0 20px rgba(255, 195, 0, 0.6));
+    }
+  }
+
+  .animate-glow-pulse {
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+
+  /* Haptic feedback animations for Start Application button */
+  @keyframes haptic-feedback {
+    0% {
+      transform: scale(1);
+    }
+    25% {
+      transform: scale(0.98) translateX(-3px);
+    }
+    50% {
+      transform: scale(0.98) translateX(3px);
+    }
+    75% {
+      transform: scale(0.98) translateX(-2px);
+    }
+    100% {
+      transform: scale(1) translateX(0);
+    }
+  }
+
+  .animate-haptic-feedback {
+    animation: haptic-feedback 400ms ease-out;
+  }
+
+  /* Ripple effects for button press */
+  @keyframes ripple-1 {
+    0% {
+      transform: scale(1);
+      opacity: 0.4;
+    }
+    100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  @keyframes ripple-2 {
+    0% {
+      transform: scale(1);
+      opacity: 0.3;
+    }
+    100% {
+      transform: scale(1.8);
+      opacity: 0;
+    }
+  }
+
+  @keyframes ripple-3 {
+    0% {
+      transform: scale(1);
+      opacity: 0.2;
+    }
+    100% {
+      transform: scale(2.2);
+      opacity: 0;
+    }
+  }
+
+  .animate-ripple-1 {
+    animation: ripple-1 600ms ease-out;
+  }
+
+  .animate-ripple-2 {
+    animation: ripple-2 600ms ease-out 100ms;
+  }
+
+  .animate-ripple-3 {
+    animation: ripple-3 600ms ease-out 200ms;
+  }
+
+  /* Particle burst effects */
+  @keyframes particle-1 {
+    0% {
+      transform: translate(-50%, -50%) translate(0, 0);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) translate(-40px, -40px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes particle-2 {
+    0% {
+      transform: translate(-50%, -50%) translate(0, 0);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) translate(40px, -40px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes particle-3 {
+    0% {
+      transform: translate(-50%, -50%) translate(0, 0);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) translate(-40px, 40px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes particle-4 {
+    0% {
+      transform: translate(-50%, -50%) translate(0, 0);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) translate(40px, 40px);
+      opacity: 0;
+    }
+  }
+
+  .animate-particle-1 {
+    animation: particle-1 500ms ease-out;
+  }
+
+  .animate-particle-2 {
+    animation: particle-2 500ms ease-out;
+  }
+
+  .animate-particle-3 {
+    animation: particle-3 500ms ease-out;
+  }
+
+  .animate-particle-4 {
+    animation: particle-4 500ms ease-out;
+  }
+
+  /* Floating Call Button Animations */
+  @keyframes subtle-bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+
+  .animate-subtle-bounce {
+    animation: subtle-bounce 2s ease-in-out infinite;
+  }
+
+  /* Pulse rings for call button */
+  @keyframes pulse-ring-1 {
+    0% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    100% {
+      transform: scale(1.8);
+      opacity: 0;
+    }
+  }
+
+  @keyframes pulse-ring-2 {
+    0% {
+      transform: scale(1);
+      opacity: 0.4;
+    }
+    100% {
+      transform: scale(2.2);
+      opacity: 0;
+    }
+  }
+
+  @keyframes pulse-ring-3 {
+    0% {
+      transform: scale(1);
+      opacity: 0.2;
+    }
+    100% {
+      transform: scale(2.6);
+      opacity: 0;
+    }
+  }
+
+  .animate-pulse-ring-1 {
+    animation: pulse-ring-1 2s ease-out infinite;
+  }
+
+  .animate-pulse-ring-2 {
+    animation: pulse-ring-2 2s ease-out infinite 0.4s;
+  }
+
+  .animate-pulse-ring-3 {
+    animation: pulse-ring-3 2s ease-out infinite 0.8s;
+  }
+
+  /* Luxury Video Modal Animations */
+  @keyframes modal-backdrop-enter {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes modal-shimmer-sweep {
+    0% {
+      transform: translateX(-100%) translateY(-100%) rotate(45deg);
+      opacity: 0;
+    }
+    50% {
+      opacity: 0.3;
+    }
+    100% {
+      transform: translateX(100%) translateY(100%) rotate(45deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes modal-container-enter {
+    0% {
+      opacity: 0;
+      transform: scale(0.92) translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes modal-container-exit {
+    0% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.95) translateY(10px);
+    }
+  }
+
+  @keyframes modal-title-enter {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px);
+      letter-spacing: 0.1em;
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+      letter-spacing: normal;
+    }
+  }
+
+  @keyframes modal-close-enter {
+    0% {
+      opacity: 0;
+      transform: rotate(-90deg) scale(0.8);
+    }
+    100% {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+  }
+
+  @keyframes modal-glow-pulse {
+    0%, 100% {
+      opacity: 0.3;
+      box-shadow:
+        0 0 20px rgba(255, 195, 0, 0.2),
+        0 0 40px rgba(255, 195, 0, 0.1),
+        0 0 60px rgba(209, 31, 42, 0.05);
+    }
+    50% {
+      opacity: 0.6;
+      box-shadow:
+        0 0 30px rgba(255, 195, 0, 0.3),
+        0 0 60px rgba(255, 195, 0, 0.15),
+        0 0 90px rgba(209, 31, 42, 0.1);
+    }
+  }
+
+  @keyframes modal-border-shine {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+  }
+
+  @keyframes modal-corner-glow {
+    0%, 100% {
+      opacity: 0.4;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  .animate-modal-backdrop-enter {
+    animation: modal-backdrop-enter 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .animate-modal-shimmer-sweep {
+    animation: modal-shimmer-sweep 1.2s ease-out;
+  }
+
+  .animate-modal-container-enter {
+    animation: modal-container-enter 450ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .animate-modal-container-exit {
+    animation: modal-container-exit 350ms cubic-bezier(0.4, 0, 0.6, 1);
+  }
+
+  .animate-modal-title-enter {
+    animation: modal-title-enter 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 200ms both;
+  }
+
+  .animate-modal-close-enter {
+    animation: modal-close-enter 400ms cubic-bezier(0.34, 1.56, 0.64, 1) 250ms both;
+  }
+
+  .animate-modal-glow-pulse {
+    animation: modal-glow-pulse 3s ease-in-out infinite;
+  }
+
+  .animate-modal-border-shine {
+    animation: modal-border-shine 2.5s ease-in-out;
+  }
+
+  .animate-modal-corner-glow {
+    animation: modal-corner-glow 2s ease-in-out infinite;
+  }
+
+  /* Premium button shine effect */
+  @keyframes button-shine {
+    0% {
+      transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    100% {
+      transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+  }
+
+  .animate-button-shine {
+    animation: button-shine 3s ease-in-out infinite;
+  }
+
+  /* Luxury glow effect */
+  @keyframes luxury-glow {
+    0%, 100% {
+      opacity: 0.4;
+      filter: blur(20px);
+    }
+    50% {
+      opacity: 0.7;
+      filter: blur(25px);
+    }
+  }
+
+  .animate-luxury-glow {
+    animation: luxury-glow 4s ease-in-out infinite;
+  }
+
+  /* Premium grain texture overlay */
+  .luxury-grain {
+    position: relative;
+  }
+
+  .luxury-grain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    pointer-events: none;
+  }
+
+  /* Subtle shine sweep animation */
+  @keyframes shine-sweep {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  .luxury-shine {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .luxury-shine::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 195, 0, 0.1), transparent);
+    animation: shine-sweep 8s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  /* Hero Background Slider Animations */
+  @keyframes hero-crossfade {
+    0% {
+      opacity: 0;
+    }
+    3% {
+      opacity: 1;
+    }
+    22% {
+      opacity: 1;
+    }
+    25% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes hero-ken-burns {
+    0% {
+      transform: scale(1) translate(0, 0);
+    }
+    100% {
+      transform: scale(1.08) translate(-3%, -3%);
+    }
+  }
+
+  .hero-bg-slide {
+    animation: hero-crossfade 32s cubic-bezier(0.4, 0, 0.2, 1) infinite, hero-ken-burns 32s ease-out infinite;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform-origin: center center;
+  }
+
+  .hero-bg-slide:nth-child(1) {
+    animation-delay: 0s, 0s;
+  }
+
+  .hero-bg-slide:nth-child(2) {
+    animation-delay: 8s, 8s;
+  }
+
+  .hero-bg-slide:nth-child(3) {
+    animation-delay: 16s, 16s;
+  }
+
+  .hero-bg-slide:nth-child(4) {
+    animation-delay: 24s, 24s;
+  }
+
+  @media (max-width: 767px) {
+    .hero-bg-slide {
+      animation: none;
+      opacity: 1 !important;
+    }
+
+    .hero-bg-slide:nth-child(1) {
+      animation: none;
+    }
+
+    .hero-bg-slide:nth-child(2) {
+      animation: none;
+    }
+
+    .hero-bg-slide:nth-child(3) {
+      animation: none;
+    }
+
+    .hero-bg-slide:nth-child(4) {
+      animation: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
