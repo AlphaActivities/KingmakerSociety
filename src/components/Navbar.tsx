@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import Button from './ui/Button';
 import HamburgerIcon from './ui/HamburgerIcon';
 import MobileMenu from './ui/MobileMenu';
-import { luxuryScrollToSection, scrollToApplication } from '../utils/luxuryScroll';
+import { luxuryScrollToSection, luxuryScrollToTop, scrollToApplication } from '../utils/luxuryScroll';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -55,7 +55,11 @@ export default function Navbar() {
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         setTimeout(() => {
-          luxuryScrollToSection(id, 80);
+          if (id === 'hero') {
+            luxuryScrollToTop();
+          } else {
+            luxuryScrollToSection(id, 80);
+          }
         }, 0);
       });
     });

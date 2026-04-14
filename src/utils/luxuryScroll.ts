@@ -1,3 +1,24 @@
+export const luxuryScrollToTop = () => {
+  const startPosition = window.pageYOffset;
+  if (startPosition === 0) return;
+
+  const distance = -startPosition;
+  const duration = Math.min(1800, Math.max(900, Math.abs(distance) * 0.42));
+  let start: number | null = null;
+
+  const easeOutQuart = (t: number): number => 1 - Math.pow(1 - t, 4);
+
+  const animation = (currentTime: number) => {
+    if (start === null) start = currentTime;
+    const timeElapsed = currentTime - start;
+    const progress = Math.min(timeElapsed / duration, 1);
+    window.scrollTo(0, startPosition + distance * easeOutQuart(progress));
+    if (timeElapsed < duration) requestAnimationFrame(animation);
+  };
+
+  requestAnimationFrame(animation);
+};
+
 export const luxuryScrollToSection = (sectionId: string, offset: number = 80) => {
   const element = document.getElementById(sectionId);
   if (!element) return;
