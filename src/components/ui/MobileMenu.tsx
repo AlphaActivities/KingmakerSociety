@@ -1,14 +1,25 @@
 import { useEffect } from 'react';
 
+interface NavLink {
+  label: string;
+  id: string;
+}
+
 interface MobileMenuProps {
   isOpen: boolean;
   isPrewarmed?: boolean;
   onClose: () => void;
-  navLinks: Array<{ label: string; id: string }>;
+  navLinks: NavLink[];
   onNavigate: (id: string) => void;
 }
 
-export default function MobileMenu({ isOpen, isPrewarmed: isPrewarmingPhase = false, onClose, navLinks: _navLinks, onNavigate: _onNavigate }: MobileMenuProps) {
+export default function MobileMenu({
+  isOpen,
+  isPrewarmed: isPrewarmingPhase = false,
+  onClose,
+  navLinks,
+  onNavigate,
+}: MobileMenuProps) {
   useEffect(() => {
     const root = document.getElementById('root');
     if (isOpen) {
@@ -48,9 +59,12 @@ export default function MobileMenu({ isOpen, isPrewarmed: isPrewarmingPhase = fa
     return () => window.removeEventListener('keydown', handleEscape);
   }, [isOpen, onClose]);
 
+  const handleNavClick = (id: string) => {
+    onNavigate(id);
+  };
+
   return (
     <>
-      {/* Backdrop — proof test: no fade, immediate */}
       {isOpen && (
         <div
           className="fixed top-20 left-0 right-0 bottom-0 bg-black/80 z-[105]"
@@ -59,7 +73,6 @@ export default function MobileMenu({ isOpen, isPrewarmed: isPrewarmingPhase = fa
         />
       )}
 
-      {/* Outer panel — minimal shell proof test */}
       <div
         className="fixed top-20 bottom-0 right-0 w-full sm:w-80 z-[108] bg-[#0B0B0B]"
         style={{
@@ -72,7 +85,39 @@ export default function MobileMenu({ isOpen, isPrewarmed: isPrewarmingPhase = fa
         aria-modal="true"
         aria-label="Mobile navigation menu"
       >
-        <p className="text-white p-8">Menu test</p>
+        <div className="flex flex-col h-full">
+          <div className="flex-1 overflow-y-auto">
+            <div className="px-6 pt-8 pb-6">
+              <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#FFC300]/60 mb-6">
+                Navigation
+              </p>
+
+              <nav aria-label="Mobile navigation links">
+                <ul className="space-y-1">
+                  {navLinks.map((link) => (
+                    <li key={link.id}>
+                      <button
+                        onClick={() => handleNavClick(link.id)}
+                        className="w-full text-left px-4 py-4 text-white hover:text-[#FFC300] font-medium text-lg tracking-wide transition-colors duration-150 border-b border-white/5 last:border-b-0"
+                        aria-label={`Navigate to ${link.label}`}
+                      >
+                        {link.label}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+          <div className="px-6 py-6 border-t border-white/10">
+            <div className="text-center">
+              <p className="text-xs text-white/30 tracking-widest uppercase">
+                Kingmaker Society
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
