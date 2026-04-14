@@ -56,8 +56,12 @@ export default function Navbar() {
   };
 
   const handleMobileCtaClick = () => {
-    scrollToApplication();
     setIsMobileMenuOpen(false);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        scrollToApplication();
+      });
+    });
   };
 
   const navLinks = [
