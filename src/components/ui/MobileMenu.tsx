@@ -114,7 +114,7 @@ export default function MobileMenu({
         <div
           className="absolute top-0 left-0 bottom-0 w-[3px] z-10"
           style={{
-            background: 'linear-gradient(to bottom, #D11F2A 0%, #FFC300 40%, #FFC300 72%, #0B0B0B 100%)',
+            background: 'linear-gradient(to bottom, #D11F2A 0%, #FFC300 40%, #FFC300 100%)',
             boxShadow: '2px 0 18px rgba(209,31,42,0.5), 4px 0 32px rgba(255,195,0,0.15)',
             transform: barReady ? 'scaleY(1)' : 'scaleY(0)',
             transformOrigin: 'top',
