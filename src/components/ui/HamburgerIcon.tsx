@@ -37,90 +37,84 @@ export default function HamburgerIcon({ isOpen, onClick }: HamburgerIconProps) {
         }}
       />
 
-      {/* Lines container */}
+      {/* Lines container — 20px tall, lines at top=0, middle=9px, bottom=18px */}
       <div
         style={{
           position: 'relative',
           width: '22px',
-          height: '16px',
+          height: '20px',
         }}
       >
-        {/* Top line */}
+        {/* Top line: rests at top 0, translates to vertical center (9px) then rotates */}
         <span
           aria-hidden="true"
           style={{
             position: 'absolute',
+            top: '0px',
             left: 0,
             right: 0,
             height: '1.5px',
             borderRadius: '2px',
             transformOrigin: 'center center',
             backgroundColor: isOpen ? '#FFC300' : '#ffffff',
-            top: isOpen ? '50%' : '0px',
-            transform: isOpen ? 'translateY(-50%) rotate(45deg)' : 'translateY(0) rotate(0deg)',
+            transform: isOpen
+              ? 'translateY(9px) rotate(45deg)'
+              : 'translateY(0px) rotate(0deg)',
             transition: isOpen
               ? [
-                  'top 260ms cubic-bezier(0.4,0,0.2,1)',
-                  'transform 340ms cubic-bezier(0.22,1,0.36,1) 70ms',
-                  'background-color 280ms ease 40ms',
+                  'transform 380ms cubic-bezier(0.4,0,0.2,1)',
+                  'background-color 300ms ease 120ms',
                 ].join(', ')
               : [
-                  'top 260ms cubic-bezier(0.4,0,0.2,1) 80ms',
-                  'transform 280ms cubic-bezier(0.4,0,0.2,1)',
-                  'background-color 220ms ease',
+                  'transform 360ms cubic-bezier(0.4,0,0.2,1)',
+                  'background-color 240ms ease',
                 ].join(', '),
           }}
         />
 
-        {/* Middle line */}
+        {/* Middle line: always at center, collapses in place */}
         <span
           aria-hidden="true"
           style={{
             position: 'absolute',
+            top: '9px',
             left: 0,
             right: 0,
             height: '1.5px',
             borderRadius: '2px',
-            top: '50%',
             transformOrigin: 'center center',
             backgroundColor: '#ffffff',
-            transform: isOpen ? 'translateY(-50%) scaleX(0)' : 'translateY(-50%) scaleX(1)',
+            transform: isOpen ? 'scaleX(0)' : 'scaleX(1)',
             opacity: isOpen ? 0 : 1,
             transition: isOpen
-              ? [
-                  'transform 180ms cubic-bezier(0.4,0,1,1)',
-                  'opacity 160ms ease',
-                ].join(', ')
-              : [
-                  'transform 220ms cubic-bezier(0,0,0.2,1) 140ms',
-                  'opacity 200ms ease 120ms',
-                ].join(', '),
+              ? 'transform 160ms cubic-bezier(0.4,0,1,1), opacity 140ms ease'
+              : 'transform 200ms cubic-bezier(0,0,0.2,1) 180ms, opacity 180ms ease 160ms',
           }}
         />
 
-        {/* Bottom line */}
+        {/* Bottom line: rests at bottom 0 (top 18px), translates to center (9px) then rotates */}
         <span
           aria-hidden="true"
           style={{
             position: 'absolute',
+            top: '18px',
             left: 0,
             right: 0,
             height: '1.5px',
             borderRadius: '2px',
             transformOrigin: 'center center',
             backgroundColor: isOpen ? '#FFC300' : '#ffffff',
-            bottom: isOpen ? '50%' : '0px',
-            transform: isOpen ? 'translateY(50%) rotate(-45deg)' : 'translateY(0) rotate(0deg)',
+            transform: isOpen
+              ? 'translateY(-9px) rotate(-45deg)'
+              : 'translateY(0px) rotate(0deg)',
             transition: isOpen
               ? [
-                  'bottom 260ms cubic-bezier(0.4,0,0.2,1)',
-                  'transform 340ms cubic-bezier(0.22,1,0.36,1) 70ms',
-                  'background-color 280ms ease 40ms',
+                  'transform 380ms cubic-bezier(0.4,0,0.2,1)',
+                  'background-color 300ms ease 120ms',
                 ].join(', ')
               : [
-                  'bottom 260ms cubic-bezier(0.4,0,0.2,1) 80ms',
-                  'transform 280ms cubic-bezier(0.4,0,0.2,1)',
-                  'background-color 220ms ease',
+                  'transform 360ms cubic-bezier(0.4,0,0.2,1)',
+                  'background-color 240ms ease',
                 ].join(', '),
           }}
         />
