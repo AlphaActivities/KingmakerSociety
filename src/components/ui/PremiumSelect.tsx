@@ -44,6 +44,7 @@ export default function PremiumSelect({
   const [search, setSearch] = useState('');
   const [dropdownPos, setDropdownPos] = useState<DropdownPos | null>(null);
   const revealTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const suppressScrollRef = useRef(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -113,7 +114,9 @@ export default function PremiumSelect({
     }
 
     const delay = scrollNeeded ? 420 : 0;
+    if (scrollNeeded) suppressScrollRef.current = true;
     revealTimerRef.current = setTimeout(() => {
+      suppressScrollRef.current = false;
       calculatePosition();
       setVisible(true);
     }, delay);
@@ -152,6 +155,7 @@ export default function PremiumSelect({
     };
 
     const handleScroll = (e: Event) => {
+      if (suppressScrollRef.current) return;
       if (dropdownRef.current?.contains(e.target as Node)) return;
       if (revealTimerRef.current) clearTimeout(revealTimerRef.current);
       setOpen(false);
