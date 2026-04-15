@@ -156,7 +156,12 @@ export default function TimezoneSelect({ label, value, onChange, error, required
       }
     };
 
-    const handleScroll = () => calculatePosition();
+    const handleScroll = () => {
+      if (revealTimerRef.current) clearTimeout(revealTimerRef.current);
+      setOpen(false);
+      setVisible(false);
+      setSearch('');
+    };
 
     document.addEventListener('mousedown', handleOutside);
     window.addEventListener('scroll', handleScroll, true);
@@ -228,7 +233,7 @@ export default function TimezoneSelect({ label, value, onChange, error, required
               top: dropdownPos.top,
               left: dropdownPos.left,
               width: dropdownPos.width,
-              zIndex: 9999,
+              zIndex: 90,
               opacity: visible ? 1 : 0,
               pointerEvents: visible ? 'auto' : 'none',
               transition: visible ? 'opacity 150ms ease' : 'none',

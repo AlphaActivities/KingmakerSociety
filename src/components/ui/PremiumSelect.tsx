@@ -152,7 +152,10 @@ export default function PremiumSelect({
     };
 
     const handleScroll = () => {
-      calculatePosition();
+      if (revealTimerRef.current) clearTimeout(revealTimerRef.current);
+      setOpen(false);
+      setVisible(false);
+      setSearch('');
     };
 
     document.addEventListener('mousedown', handleOutside);
@@ -229,7 +232,7 @@ export default function PremiumSelect({
               top: dropdownPos.top,
               left: dropdownPos.left,
               width: dropdownPos.width,
-              zIndex: 9999,
+              zIndex: 90,
               opacity: visible ? 1 : 0,
               pointerEvents: visible ? 'auto' : 'none',
               transition: visible ? 'opacity 150ms ease' : 'none',
