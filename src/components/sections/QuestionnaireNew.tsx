@@ -257,7 +257,7 @@ export default function Questionnaire() {
                   label="Have you been trying to do this alone?"
                   placeholder="Select one"
                   options={[
-                    { value: 'yes', label: 'Yes', description: 'No real accountability or brotherhood around me' },
+                    { value: 'yes', label: 'Yes', description: 'No accountability or brotherhood' },
                     { value: 'no', label: 'No', description: 'I have some support in my corner' },
                   ]}
                   value={formData.tryingAlone}
@@ -268,7 +268,7 @@ export default function Questionnaire() {
                   label="Do you believe a structured brotherhood and accountability would accelerate your results?"
                   placeholder="Select one"
                   options={[
-                    { value: 'yes', label: 'Yes', description: 'Brotherhood and structure would make a real difference' },
+                    { value: 'yes', label: 'Yes', description: 'Brotherhood and structure would make a real difference for my life' },
                     { value: 'no', label: 'No', description: 'I think I can get there on my own' },
                   ]}
                   value={formData.believeBrotherhoodHelps}
