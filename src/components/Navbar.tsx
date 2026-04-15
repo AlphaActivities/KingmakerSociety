@@ -2,9 +2,11 @@ import { useState, useEffect, useRef } from 'react';
 import Button from './ui/Button';
 import HamburgerIcon from './ui/HamburgerIcon';
 import MobileMenu from './ui/MobileMenu';
-import { luxuryScrollToSection, luxuryScrollToTop, luxuryScrollToTopFrom, scrollToApplication } from '../utils/luxuryScroll';
+import { useNavigate } from 'react-router-dom';
+import { luxuryScrollToSection, luxuryScrollToTop, luxuryScrollToTopFrom } from '../utils/luxuryScroll';
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMenuPrewarmed, setIsMenuPrewarmed] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -70,7 +72,7 @@ export default function Navbar() {
   const handleMobileCtaClick = () => {
     setIsMobileMenuOpen(false);
     setTimeout(() => {
-      scrollToApplication();
+      navigate('/apply');
     }, 32);
   };
 
@@ -161,7 +163,7 @@ export default function Navbar() {
             <Button
               variant="secondary"
               size="sm"
-              onClick={scrollToApplication}
+              onClick={() => navigate('/apply')}
             >
               Start Application
             </Button>
