@@ -42,7 +42,7 @@ export default function WelcomeStep({ onContinue }: WelcomeStepProps) {
         Your application has been received.
       </p>
       <p className="text-lg text-gray-400 max-w-xl mx-auto mb-16 leading-relaxed">
-        What comes next is not a form. It is an assessment — a chance for us to understand who you are,
+        What comes next is not a form. It is an assessment, a chance for us to understand who you are,
         where you are, and whether this brotherhood is the right environment to carry you forward.
       </p>
 

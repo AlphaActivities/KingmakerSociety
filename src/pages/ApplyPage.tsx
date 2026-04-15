@@ -151,6 +151,7 @@ export default function ApplyPage() {
               data={goalsData}
               onChange={setGoalsData}
               onContinue={() => goToStep('current-reality')}
+              onBack={() => goToStep('welcome')}
             />
           )}
 
@@ -159,6 +160,7 @@ export default function ApplyPage() {
               data={realityData}
               onChange={setRealityData}
               onContinue={() => goToStep('belief-commitment')}
+              onBack={() => goToStep('goals-vision')}
             />
           )}
 
@@ -167,6 +169,7 @@ export default function ApplyPage() {
               data={beliefData}
               onChange={setBeliefData}
               onContinue={handleSubmitQuestionnaire}
+              onBack={() => goToStep('current-reality')}
               isSubmitting={isSubmitting}
             />
           )}

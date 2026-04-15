@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronRight, Loader } from 'lucide-react';
+import { ChevronRight, ChevronLeft, Loader, Check } from 'lucide-react';
 
 interface BeliefCommitmentData {
   tryingAlone: string;
@@ -14,6 +14,7 @@ interface BeliefCommitmentStepProps {
   data: BeliefCommitmentData;
   onChange: (data: BeliefCommitmentData) => void;
   onContinue: () => void;
+  onBack: () => void;
   isSubmitting: boolean;
 }
 
@@ -34,14 +35,14 @@ const INVEST = [
 ];
 
 const PATHS = [
-  { value: 'community', label: 'Brotherhood Community', desc: '$30/mo — Access to the brotherhood and shared accountability', color: 'gray' },
-  { value: 'guided', label: 'Guided Growth', desc: '$60/mo — Small group mentorship with structured programming', color: 'red' },
-  { value: 'vip', label: 'VIP Mentorship', desc: '$90/mo — 1-on-1 support with direct access to leadership', color: 'gold' },
+  { value: 'community', label: 'Brotherhood Community', desc: '$30/mo, Access to the brotherhood and shared accountability', color: 'gray' },
+  { value: 'guided', label: 'Guided Growth', desc: '$60/mo, Small group mentorship with structured programming', color: 'red' },
+  { value: 'vip', label: 'VIP Mentorship', desc: '$90/mo, 1-on-1 support with direct access to leadership', color: 'gold' },
 ];
 
 const SERIOUSNESS = Array.from({ length: 10 }, (_, i) => ({ value: String(i + 1), label: `${i + 1}` }));
 
-export default function BeliefCommitmentStep({ data, onChange, onContinue, isSubmitting }: BeliefCommitmentStepProps) {
+export default function BeliefCommitmentStep({ data, onChange, onContinue, onBack, isSubmitting }: BeliefCommitmentStepProps) {
   const [subStep, setSubStep] = useState(0);
   const [localError, setLocalError] = useState('');
 
@@ -60,16 +61,23 @@ export default function BeliefCommitmentStep({ data, onChange, onContinue, isSub
     setSubStep(s => s + 1);
   };
 
+  const goBack = () => {
+    setLocalError('');
+    if (subStep === 0) {
+      onBack();
+    } else {
+      setSubStep(s => s - 1);
+    }
+  };
+
   const SelectCards = ({
     options,
     selected,
     onSelect,
-    colorScheme = 'gold',
   }: {
     options: { value: string; label: string; desc: string }[];
     selected: string;
     onSelect: (v: string) => void;
-    colorScheme?: string;
   }) => (
     <div className="space-y-3">
       {options.map(opt => (
@@ -89,7 +97,7 @@ export default function BeliefCommitmentStep({ data, onChange, onContinue, isSub
             </div>
             {selected === opt.value && (
               <div className="w-6 h-6 bg-[#FFC300] rounded-full flex items-center justify-center flex-shrink-0 ml-4">
-                <div className="w-2 h-2 bg-[#0B0B0B] rounded-full"></div>
+                <Check className="w-4 h-4 text-[#0B0B0B]" strokeWidth={3} />
               </div>
             )}
           </div>
@@ -145,6 +153,7 @@ export default function BeliefCommitmentStep({ data, onChange, onContinue, isSub
             placeholder="Be brutally honest with yourself here..."
             value={data.costOfStaying}
             onChange={e => onChange({ ...data, costOfStaying: e.target.value })}
+            spellCheck
           />
         </div>
       )}
@@ -208,7 +217,7 @@ export default function BeliefCommitmentStep({ data, onChange, onContinue, isSub
                   </div>
                   {data.interestedPath === path.value && (
                     <div className="w-6 h-6 bg-[#FFC300] rounded-full flex items-center justify-center flex-shrink-0 ml-4">
-                      <div className="w-2 h-2 bg-[#0B0B0B] rounded-full"></div>
+                      <Check className="w-4 h-4 text-[#0B0B0B]" strokeWidth={3} />
                     </div>
                   )}
                 </div>
@@ -222,23 +231,33 @@ export default function BeliefCommitmentStep({ data, onChange, onContinue, isSub
         <p className="mt-4 text-[#D11F2A] text-sm">{localError}</p>
       )}
 
-      <button
-        onClick={advance}
-        disabled={isSubmitting && subStep === 5}
-        className="group mt-10 flex items-center space-x-3 px-10 py-4 bg-gradient-to-r from-[#FFC300] via-[#FFD033] to-[#D4A000] text-[#0B0B0B] font-bold text-base rounded-xl shadow-[0_4px_20px_rgba(255,195,0,0.35)] hover:shadow-[0_8px_40px_rgba(255,195,0,0.55)] hover:-translate-y-0.5 transition-all duration-300 overflow-hidden disabled:opacity-60 disabled:cursor-not-allowed"
-      >
-        {isSubmitting && subStep === 5 ? (
-          <>
-            <Loader className="w-5 h-5 animate-spin" />
-            <span>Submitting...</span>
-          </>
-        ) : (
-          <>
-            <span>{subStep === 5 ? 'Submit & Continue' : 'Next'}</span>
-            <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
-          </>
-        )}
-      </button>
+      <div className="mt-10 flex items-center space-x-4">
+        <button
+          onClick={goBack}
+          disabled={isSubmitting && subStep === 5}
+          className="flex items-center space-x-2 px-6 py-4 border-2 border-[#2B2B2B] bg-[#1B1B1B] text-gray-400 hover:text-white hover:border-[#3B3B3B] font-bold text-base rounded-xl transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          <ChevronLeft className="w-5 h-5" />
+          <span>Back</span>
+        </button>
+        <button
+          onClick={advance}
+          disabled={isSubmitting && subStep === 5}
+          className="group flex items-center space-x-3 px-10 py-4 bg-gradient-to-r from-[#FFC300] via-[#FFD033] to-[#D4A000] text-[#0B0B0B] font-bold text-base rounded-xl shadow-[0_4px_20px_rgba(255,195,0,0.35)] hover:shadow-[0_8px_40px_rgba(255,195,0,0.55)] hover:-translate-y-0.5 transition-all duration-300 overflow-hidden disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          {isSubmitting && subStep === 5 ? (
+            <>
+              <Loader className="w-5 h-5 animate-spin" />
+              <span>Submitting...</span>
+            </>
+          ) : (
+            <>
+              <span>{subStep === 5 ? 'Submit & Continue' : 'Next'}</span>
+              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
+            </>
+          )}
+        </button>
+      </div>
     </div>
   );
 }

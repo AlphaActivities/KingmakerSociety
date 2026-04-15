@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, ChevronLeft } from 'lucide-react';
 
 interface CurrentRealityData {
   alreadyTried: string;
@@ -13,6 +13,7 @@ interface CurrentRealityStepProps {
   data: CurrentRealityData;
   onChange: (data: CurrentRealityData) => void;
   onContinue: () => void;
+  onBack: () => void;
 }
 
 const RATINGS = Array.from({ length: 10 }, (_, i) => ({
@@ -25,7 +26,7 @@ const DAYS = Array.from({ length: 8 }, (_, i) => ({
   label: i === 0 ? '0 days' : i === 1 ? '1 day' : `${i} days`,
 }));
 
-export default function CurrentRealityStep({ data, onChange, onContinue }: CurrentRealityStepProps) {
+export default function CurrentRealityStep({ data, onChange, onContinue, onBack }: CurrentRealityStepProps) {
   const [subStep, setSubStep] = useState(0);
   const [localError, setLocalError] = useState('');
 
@@ -41,6 +42,15 @@ export default function CurrentRealityStep({ data, onChange, onContinue }: Curre
       return;
     }
     setSubStep(s => s + 1);
+  };
+
+  const goBack = () => {
+    setLocalError('');
+    if (subStep === 0) {
+      onBack();
+    } else {
+      setSubStep(s => s - 1);
+    }
   };
 
   return (
@@ -66,9 +76,10 @@ export default function CurrentRealityStep({ data, onChange, onContinue }: Curre
           <textarea
             className="w-full bg-[#1B1B1B] border-2 border-[#3B3B3B] focus:border-[#FFC300] text-white rounded-xl p-5 text-lg resize-none transition-colors duration-200 outline-none placeholder:text-gray-600"
             rows={4}
-            placeholder="Programs, routines, coaches, habits — what have you attempted?"
+            placeholder="Programs, routines, coaches, habits, what have you attempted?"
             value={data.alreadyTried}
             onChange={e => onChange({ ...data, alreadyTried: e.target.value })}
+            spellCheck
           />
         </div>
       )}
@@ -82,9 +93,10 @@ export default function CurrentRealityStep({ data, onChange, onContinue }: Curre
           <textarea
             className="w-full bg-[#1B1B1B] border-2 border-[#3B3B3B] focus:border-[#FFC300] text-white rounded-xl p-5 text-lg resize-none transition-colors duration-200 outline-none placeholder:text-gray-600"
             rows={4}
-            placeholder="Be honest — what is the real obstacle?"
+            placeholder="Be honest, what is the real obstacle?"
             value={data.whatStopsConsistency}
             onChange={e => onChange({ ...data, whatStopsConsistency: e.target.value })}
+            spellCheck
           />
         </div>
       )}
@@ -166,13 +178,22 @@ export default function CurrentRealityStep({ data, onChange, onContinue }: Curre
         <p className="mt-4 text-[#D11F2A] text-sm">{localError}</p>
       )}
 
-      <button
-        onClick={advance}
-        className="group mt-10 flex items-center space-x-3 px-10 py-4 bg-gradient-to-r from-[#FFC300] via-[#FFD033] to-[#D4A000] text-[#0B0B0B] font-bold text-base rounded-xl shadow-[0_4px_20px_rgba(255,195,0,0.35)] hover:shadow-[0_8px_40px_rgba(255,195,0,0.55)] hover:-translate-y-0.5 transition-all duration-300 overflow-hidden"
-      >
-        <span>{subStep === 4 ? 'Continue' : 'Next'}</span>
-        <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
-      </button>
+      <div className="mt-10 flex items-center space-x-4">
+        <button
+          onClick={goBack}
+          className="flex items-center space-x-2 px-6 py-4 border-2 border-[#2B2B2B] bg-[#1B1B1B] text-gray-400 hover:text-white hover:border-[#3B3B3B] font-bold text-base rounded-xl transition-all duration-200"
+        >
+          <ChevronLeft className="w-5 h-5" />
+          <span>Back</span>
+        </button>
+        <button
+          onClick={advance}
+          className="group flex items-center space-x-3 px-10 py-4 bg-gradient-to-r from-[#FFC300] via-[#FFD033] to-[#D4A000] text-[#0B0B0B] font-bold text-base rounded-xl shadow-[0_4px_20px_rgba(255,195,0,0.35)] hover:shadow-[0_8px_40px_rgba(255,195,0,0.55)] hover:-translate-y-0.5 transition-all duration-300 overflow-hidden"
+        >
+          <span>{subStep === 4 ? 'Continue' : 'Next'}</span>
+          <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
+        </button>
+      </div>
     </div>
   );
 }

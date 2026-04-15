@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, ChevronLeft, Check } from 'lucide-react';
 
 interface GoalsVisionData {
   mainGoal90Days: string;
@@ -12,6 +12,7 @@ interface GoalsVisionStepProps {
   data: GoalsVisionData;
   onChange: (data: GoalsVisionData) => void;
   onContinue: () => void;
+  onBack: () => void;
 }
 
 const IMPROVEMENT_OPTIONS = [
@@ -28,7 +29,7 @@ const BUSINESS_OPTIONS = [
   { value: 'unsure', label: 'Unsure', desc: "I haven't decided yet" },
 ];
 
-export default function GoalsVisionStep({ data, onChange, onContinue }: GoalsVisionStepProps) {
+export default function GoalsVisionStep({ data, onChange, onContinue, onBack }: GoalsVisionStepProps) {
   const [subStep, setSubStep] = useState(0);
   const [localError, setLocalError] = useState('');
 
@@ -57,6 +58,15 @@ export default function GoalsVisionStep({ data, onChange, onContinue }: GoalsVis
     setSubStep(s => s + 1);
   };
 
+  const goBack = () => {
+    setLocalError('');
+    if (subStep === 0) {
+      onBack();
+    } else {
+      setSubStep(s => s - 1);
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-[70vh] w-full max-w-2xl mx-auto px-4">
       <div className="w-full mb-10">
@@ -80,9 +90,10 @@ export default function GoalsVisionStep({ data, onChange, onContinue }: GoalsVis
           <textarea
             className="w-full bg-[#1B1B1B] border-2 border-[#3B3B3B] focus:border-[#FFC300] text-white rounded-xl p-5 text-lg resize-none transition-colors duration-200 outline-none placeholder:text-gray-600"
             rows={4}
-            placeholder="Be specific — what do you want to achieve?"
+            placeholder="Be specific, what do you want to achieve?"
             value={data.mainGoal90Days}
             onChange={e => onChange({ ...data, mainGoal90Days: e.target.value })}
+            spellCheck
           />
         </div>
       )}
@@ -96,9 +107,10 @@ export default function GoalsVisionStep({ data, onChange, onContinue }: GoalsVis
           <textarea
             className="w-full bg-[#1B1B1B] border-2 border-[#3B3B3B] focus:border-[#FFC300] text-white rounded-xl p-5 text-lg resize-none transition-colors duration-200 outline-none placeholder:text-gray-600"
             rows={4}
-            placeholder="Paint the picture — what does that version of you look like?"
+            placeholder="Paint the picture, what does that version of you look like?"
             value={data.life12Months}
             onChange={e => onChange({ ...data, life12Months: e.target.value })}
+            spellCheck
           />
         </div>
       )}
@@ -127,7 +139,7 @@ export default function GoalsVisionStep({ data, onChange, onContinue }: GoalsVis
                   </div>
                   {data.wantBusiness === opt.value && (
                     <div className="w-6 h-6 bg-[#FFC300] rounded-full flex items-center justify-center flex-shrink-0 ml-4">
-                      <div className="w-2 h-2 bg-[#0B0B0B] rounded-full"></div>
+                      <Check className="w-4 h-4 text-[#0B0B0B]" strokeWidth={3} />
                     </div>
                   )}
                 </div>
@@ -141,7 +153,7 @@ export default function GoalsVisionStep({ data, onChange, onContinue }: GoalsVis
         <div className="w-full space-y-6">
           <p className="text-sm font-semibold text-[#FFC300] uppercase tracking-widest">Goals & Vision</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight">
-            Which area do you want the most improvement in?
+            Which area do you want improvement in?
           </h2>
           <div className="space-y-3">
             {IMPROVEMENT_OPTIONS.map(opt => (
@@ -161,7 +173,7 @@ export default function GoalsVisionStep({ data, onChange, onContinue }: GoalsVis
                   </div>
                   {data.improvementArea === opt.value && (
                     <div className="w-6 h-6 bg-[#FFC300] rounded-full flex items-center justify-center flex-shrink-0 ml-4">
-                      <div className="w-2 h-2 bg-[#0B0B0B] rounded-full"></div>
+                      <Check className="w-4 h-4 text-[#0B0B0B]" strokeWidth={3} />
                     </div>
                   )}
                 </div>
@@ -175,13 +187,22 @@ export default function GoalsVisionStep({ data, onChange, onContinue }: GoalsVis
         <p className="mt-4 text-[#D11F2A] text-sm">{localError}</p>
       )}
 
-      <button
-        onClick={advance}
-        className="group mt-10 flex items-center space-x-3 px-10 py-4 bg-gradient-to-r from-[#FFC300] via-[#FFD033] to-[#D4A000] text-[#0B0B0B] font-bold text-base rounded-xl shadow-[0_4px_20px_rgba(255,195,0,0.35)] hover:shadow-[0_8px_40px_rgba(255,195,0,0.55)] hover:-translate-y-0.5 transition-all duration-300 overflow-hidden"
-      >
-        <span>{subStep === 3 ? 'Continue' : 'Next'}</span>
-        <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
-      </button>
+      <div className="mt-10 flex items-center space-x-4">
+        <button
+          onClick={goBack}
+          className="flex items-center space-x-2 px-6 py-4 border-2 border-[#2B2B2B] bg-[#1B1B1B] text-gray-400 hover:text-white hover:border-[#3B3B3B] font-bold text-base rounded-xl transition-all duration-200"
+        >
+          <ChevronLeft className="w-5 h-5" />
+          <span>Back</span>
+        </button>
+        <button
+          onClick={advance}
+          className="group flex items-center space-x-3 px-10 py-4 bg-gradient-to-r from-[#FFC300] via-[#FFD033] to-[#D4A000] text-[#0B0B0B] font-bold text-base rounded-xl shadow-[0_4px_20px_rgba(255,195,0,0.35)] hover:shadow-[0_8px_40px_rgba(255,195,0,0.55)] hover:-translate-y-0.5 transition-all duration-300 overflow-hidden"
+        >
+          <span>{subStep === 3 ? 'Continue' : 'Next'}</span>
+          <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
+        </button>
+      </div>
     </div>
   );
 }
