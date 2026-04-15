@@ -7,61 +7,124 @@ export default function HamburgerIcon({ isOpen, onClick }: HamburgerIconProps) {
   return (
     <button
       onClick={onClick}
-      className="md:hidden relative w-10 h-10 flex items-center justify-center group z-[110]"
+      className="md:hidden relative w-11 h-11 flex items-center justify-center z-[200]"
       aria-label={isOpen ? 'Close menu' : 'Open menu'}
       aria-expanded={isOpen}
+      style={{ WebkitTapHighlightColor: 'transparent' }}
     >
-      <div className="relative w-6 h-5 flex flex-col justify-center">
+      {/* Gold ring that materializes when open */}
+      <span
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          borderRadius: '50%',
+          border: isOpen ? '1px solid rgba(255,195,0,0.45)' : '1px solid transparent',
+          boxShadow: isOpen ? '0 0 14px rgba(255,195,0,0.18), inset 0 0 10px rgba(255,195,0,0.08)' : 'none',
+          transition: 'border-color 400ms cubic-bezier(0.4,0,0.2,1), box-shadow 400ms cubic-bezier(0.4,0,0.2,1)',
+        }}
+      />
+
+      {/* Dark fill that breathes in */}
+      <span
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          inset: 0,
+          borderRadius: '50%',
+          background: isOpen ? 'rgba(255,195,0,0.07)' : 'transparent',
+          transition: 'background 380ms cubic-bezier(0.4,0,0.2,1)',
+        }}
+      />
+
+      {/* Lines container */}
+      <div
+        style={{
+          position: 'relative',
+          width: '22px',
+          height: '16px',
+        }}
+      >
+        {/* Top line */}
         <span
-          className={`absolute w-full h-0.5 bg-white ${
-            isOpen
-              ? 'top-1/2 rotate-45 bg-[#FFC300]'
-              : 'top-0 group-hover:bg-[#FFC300]'
-          }`}
+          aria-hidden="true"
           style={{
-            transformOrigin: 'center',
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            height: '1.5px',
+            borderRadius: '2px',
+            transformOrigin: 'center center',
+            backgroundColor: isOpen ? '#FFC300' : '#ffffff',
+            top: isOpen ? '50%' : '0px',
+            transform: isOpen ? 'translateY(-50%) rotate(45deg)' : 'translateY(0) rotate(0deg)',
             transition: isOpen
-              ? 'top 220ms cubic-bezier(0.4,0,0.2,1), transform 280ms cubic-bezier(0.34,1.2,0.64,1) 60ms, background-color 200ms ease-out'
-              : 'top 240ms cubic-bezier(0.4,0,0.2,1) 40ms, transform 260ms cubic-bezier(0.4,0,0.2,1), background-color 200ms ease-out',
+              ? [
+                  'top 260ms cubic-bezier(0.4,0,0.2,1)',
+                  'transform 320ms cubic-bezier(0.34,1.1,0.64,1) 80ms',
+                  'background-color 280ms ease 40ms',
+                ].join(', ')
+              : [
+                  'top 260ms cubic-bezier(0.4,0,0.2,1) 80ms',
+                  'transform 280ms cubic-bezier(0.4,0,0.6,1)',
+                  'background-color 220ms ease',
+                ].join(', '),
           }}
         />
+
+        {/* Middle line */}
         <span
-          className={`absolute w-full h-0.5 bg-white top-1/2 -translate-y-1/2 ${
-            isOpen
-              ? 'opacity-0 scale-x-0'
-              : 'opacity-100 scale-x-100 group-hover:bg-[#FFC300]'
-          }`}
+          aria-hidden="true"
           style={{
-            transformOrigin: 'center',
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            height: '1.5px',
+            borderRadius: '2px',
+            top: '50%',
+            transformOrigin: 'center center',
+            backgroundColor: '#ffffff',
+            transform: isOpen ? 'translateY(-50%) scaleX(0)' : 'translateY(-50%) scaleX(1)',
+            opacity: isOpen ? 0 : 1,
             transition: isOpen
-              ? 'opacity 140ms ease-out, transform 160ms cubic-bezier(0.4,0,1,1), background-color 200ms ease-out'
-              : 'opacity 200ms ease-out 120ms, transform 220ms cubic-bezier(0,0,0.2,1) 100ms, background-color 200ms ease-out',
+              ? [
+                  'transform 180ms cubic-bezier(0.4,0,1,1)',
+                  'opacity 160ms ease',
+                ].join(', ')
+              : [
+                  'transform 220ms cubic-bezier(0,0,0.2,1) 140ms',
+                  'opacity 200ms ease 120ms',
+                ].join(', '),
           }}
         />
+
+        {/* Bottom line */}
         <span
-          className={`absolute w-full h-0.5 bg-white ${
-            isOpen
-              ? 'bottom-1/2 -rotate-45 bg-[#FFC300]'
-              : 'bottom-0 group-hover:bg-[#FFC300]'
-          }`}
+          aria-hidden="true"
           style={{
-            transformOrigin: 'center',
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            height: '1.5px',
+            borderRadius: '2px',
+            transformOrigin: 'center center',
+            backgroundColor: isOpen ? '#FFC300' : '#ffffff',
+            bottom: isOpen ? '50%' : '0px',
+            transform: isOpen ? 'translateY(50%) rotate(-45deg)' : 'translateY(0) rotate(0deg)',
             transition: isOpen
-              ? 'bottom 220ms cubic-bezier(0.4,0,0.2,1), transform 280ms cubic-bezier(0.34,1.2,0.64,1) 60ms, background-color 200ms ease-out'
-              : 'bottom 240ms cubic-bezier(0.4,0,0.2,1) 40ms, transform 260ms cubic-bezier(0.4,0,0.2,1), background-color 200ms ease-out',
+              ? [
+                  'bottom 260ms cubic-bezier(0.4,0,0.2,1)',
+                  'transform 320ms cubic-bezier(0.34,1.1,0.64,1) 80ms',
+                  'background-color 280ms ease 40ms',
+                ].join(', ')
+              : [
+                  'bottom 260ms cubic-bezier(0.4,0,0.2,1) 80ms',
+                  'transform 280ms cubic-bezier(0.4,0,0.6,1)',
+                  'background-color 220ms ease',
+                ].join(', '),
           }}
         />
       </div>
-      <div
-        className={`absolute inset-0 rounded-full ${
-          isOpen
-            ? 'bg-[#FFC300]/10 scale-110'
-            : 'bg-transparent scale-100 group-hover:bg-[#FFC300]/5 group-hover:scale-110'
-        }`}
-        style={{
-          transition: 'background-color 300ms ease-out, transform 300ms cubic-bezier(0.34,1.2,0.64,1)',
-        }}
-      />
     </button>
   );
 }

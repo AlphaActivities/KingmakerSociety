@@ -87,7 +87,7 @@ export default function Navbar() {
     <nav
       role="navigation"
       aria-label="Main navigation"
-      className={`fixed top-0 left-0 right-0 z-[100] transition-[background-color,border-color,box-shadow] duration-300 ease-out ${
+      className={`fixed top-0 left-0 right-0 z-[150] transition-[background-color,border-color,box-shadow] duration-300 ease-out ${
         isScrolled
           ? 'bg-[#0B0B0B]/98 backdrop-blur-xl shadow-2xl shadow-black/60 border-b border-[#FFC300]/20'
           : 'bg-[#0B0B0B]/30 backdrop-blur-sm border-b border-transparent'
@@ -167,30 +167,18 @@ export default function Navbar() {
             </Button>
           </div>
 
-          <div className={isMobileMenuOpen ? 'opacity-0 pointer-events-none' : ''} aria-hidden={isMobileMenuOpen}>
-            <HamburgerIcon
-              isOpen={false}
-              onClick={() => {
+          <HamburgerIcon
+            isOpen={isMobileMenuOpen}
+            onClick={() => {
+              if (!isMobileMenuOpen) {
                 scrollYBeforeMenuRef.current = window.pageYOffset;
-                setIsMobileMenuOpen(true);
-              }}
-            />
-          </div>
+              }
+              setIsMobileMenuOpen(!isMobileMenuOpen);
+            }}
+          />
         </div>
       </div>
     </nav>
-
-    {isMobileMenuOpen && (
-      <div
-        className="fixed top-0 right-0 z-[200] flex items-start justify-end"
-        style={{ paddingTop: '20px', paddingRight: '16px' }}
-      >
-        <HamburgerIcon
-          isOpen={true}
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
-      </div>
-    )}
 
     <MobileMenu
       isOpen={isMobileMenuOpen}
