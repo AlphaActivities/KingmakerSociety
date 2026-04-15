@@ -102,9 +102,8 @@ export default function MobileMenu({
           pointerEvents: isOpen ? 'auto' : 'none',
           visibility: isOpen || isPrewarmingPhase ? 'visible' : 'hidden',
           background: '#0B0B0B',
-          borderLeft: '1px solid rgba(209,31,42,0.45)',
-          borderTop: '1px solid rgba(209,31,42,0.3)',
-          boxShadow: '-4px 0 32px rgba(209,31,42,0.12), -1px 0 0 rgba(255,195,0,0.08)',
+          borderTop: '1px solid rgba(255,195,0,0.15)',
+          boxShadow: '-4px 0 32px rgba(0,0,0,0.5), -1px 0 0 rgba(255,195,0,0.08)',
         }}
         role="dialog"
         aria-modal="true"
