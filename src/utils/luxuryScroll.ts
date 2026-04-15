@@ -28,7 +28,9 @@ export const luxuryScrollToTop = () => {
 export const luxuryScrollToTopFrom = (knownScrollY: number) => {
   if (knownScrollY < 1) return;
   requestAnimationFrame(() => {
-    runScrollAnimation(knownScrollY, 0);
+    void document.documentElement.offsetHeight;
+    const from = Math.max(knownScrollY, window.pageYOffset);
+    runScrollAnimation(from, 0);
   });
 };
 
