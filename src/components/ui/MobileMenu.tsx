@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface NavLink {
   label: string;
@@ -62,6 +62,20 @@ export default function MobileMenu({
   }, [isOpen, onClose]);
 
   const [activeLink, setActiveLink] = useState<string | null>(null);
+  const [barReady, setBarReady] = useState(false);
+  const barTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (barTimerRef.current) clearTimeout(barTimerRef.current);
+    if (isOpen) {
+      barTimerRef.current = setTimeout(() => setBarReady(true), 16);
+    } else {
+      setBarReady(false);
+    }
+    return () => {
+      if (barTimerRef.current) clearTimeout(barTimerRef.current);
+    };
+  }, [isOpen]);
 
   const handleNavClick = (id: string) => {
     onNavigate(id);
@@ -102,6 +116,9 @@ export default function MobileMenu({
           style={{
             background: 'linear-gradient(to bottom, #D11F2A, #FFC300 50%, #D11F2A)',
             boxShadow: '2px 0 18px rgba(209,31,42,0.5), 4px 0 32px rgba(255,195,0,0.15)',
+            transform: barReady ? 'scaleY(1)' : 'scaleY(0)',
+            transformOrigin: 'top',
+            transition: barReady ? 'transform 480ms cubic-bezier(0.22, 1, 0.36, 1)' : 'none',
           }}
           aria-hidden="true"
         />
