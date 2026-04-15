@@ -62,34 +62,29 @@ export const submitLead = async (data: LeadData): Promise<{ success: boolean; le
 };
 
 export const submitQuestionnaire = async (
-  leadId: string,
-  data: QuestionnaireData
+  _leadId: string | null,
+  data: QuestionnaireData,
+  email?: string
 ): Promise<{ success: boolean; error?: string }> => {
   try {
-    const { error } = await supabase.from('questionnaire_responses').insert([
-      {
-        lead_id: leadId,
-        main_goal_90_days: data.mainGoal90Days,
-        life_12_months: data.life12Months,
-        want_business: data.wantBusiness,
-        improvement_area: data.improvementArea,
-        already_tried: data.alreadyTried,
-        what_stops_consistency: data.whatStopsConsistency,
-        discipline_rating: parseInt(data.disciplineRating),
-        training_days_per_week: parseInt(data.trainingDaysPerWeek),
-        prayer_days_per_week: parseInt(data.prayerDaysPerWeek),
-        trying_alone: data.tryingAlone === 'yes',
-        believe_brotherhood_helps: data.believeBrotherhoodHelps === 'yes',
-        cost_of_staying: data.costOfStaying,
-        seriousness_rating: parseInt(data.seriousnessRating),
-        willing_to_invest: data.willingToInvest,
-        interested_path: data.interestedPath,
-      },
-    ]);
+    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-    if (error) {
-      console.error('Questionnaire submission error:', error);
-      return { success: false, error: error.message };
+    const res = await fetch(`${supabaseUrl}/functions/v1/submit-questionnaire`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${supabaseAnonKey}`,
+        'Apikey': supabaseAnonKey,
+      },
+      body: JSON.stringify({ email: email ?? '', data }),
+    });
+
+    const json = await res.json();
+
+    if (!res.ok || json.error) {
+      console.error('Questionnaire submission error:', json.error);
+      return { success: false, error: json.error || 'Failed to submit questionnaire.' };
     }
 
     return { success: true };

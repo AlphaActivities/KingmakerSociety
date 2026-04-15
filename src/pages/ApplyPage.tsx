@@ -35,7 +35,7 @@ const PROGRESS_STEPS: ApplyStep[] = ['welcome', 'goals-vision', 'current-reality
 
 export default function ApplyPage() {
   const navigate = useNavigate();
-  const { applyStep, setApplyStep, leadId, setQuestionnaireSubmitted, leadSubmitted } = useApplication();
+  const { applyStep, setApplyStep, leadEmail, setQuestionnaireSubmitted, leadSubmitted } = useApplication();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
 
@@ -72,16 +72,11 @@ export default function ApplyPage() {
   };
 
   const handleSubmitQuestionnaire = async () => {
-    if (!leadId) {
-      setSubmitError('Session expired. Please restart your application.');
-      return;
-    }
-
     setIsSubmitting(true);
     setSubmitError('');
 
     const allData = { ...goalsData, ...realityData, ...beliefData };
-    const result = await submitQuestionnaire(leadId, allData);
+    const result = await submitQuestionnaire(null, allData, leadEmail);
 
     setIsSubmitting(false);
 
