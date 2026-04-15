@@ -13,6 +13,7 @@ interface DropdownPos {
   top: number;
   left: number;
   width: number;
+  openUpward: boolean;
 }
 
 interface PremiumSelectProps {
@@ -61,13 +62,23 @@ export default function PremiumSelect({
       )
     : displayOptions;
 
+  const DROPDOWN_HEIGHT = 280;
+  const GAP = 8;
+
   const calculatePosition = () => {
     if (!buttonRef.current) return;
     const rect = buttonRef.current.getBoundingClientRect();
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const spaceAbove = rect.top;
+    const openUpward = spaceBelow < DROPDOWN_HEIGHT + GAP && spaceAbove > spaceBelow;
+
     setDropdownPos({
-      top: rect.bottom + window.scrollY + 8,
+      top: openUpward
+        ? rect.top + window.scrollY - DROPDOWN_HEIGHT - GAP
+        : rect.bottom + window.scrollY + GAP,
       left: rect.left + window.scrollX,
       width: rect.width,
+      openUpward,
     });
   };
 
@@ -77,7 +88,17 @@ export default function PremiumSelect({
 
     setTimeout(() => {
       if (buttonRef.current) {
-        buttonRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        const rect = buttonRef.current.getBoundingClientRect();
+        const spaceBelow = window.innerHeight - rect.bottom;
+        const openUpward = spaceBelow < DROPDOWN_HEIGHT + GAP && rect.top > spaceBelow;
+        if (openUpward) {
+          buttonRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          const needed = rect.bottom + DROPDOWN_HEIGHT + GAP;
+          if (needed > window.innerHeight) {
+            window.scrollBy({ top: needed - window.innerHeight + 16, behavior: 'smooth' });
+          }
+        }
       }
     }, 50);
   };
@@ -190,7 +211,7 @@ export default function PremiumSelect({
               width: dropdownPos.width,
               zIndex: 9999,
             }}
-            className="bg-[#1B1B1B] border-2 border-[#FFC300]/30 rounded-xl shadow-[0_8px_40px_rgba(0,0,0,0.85)] overflow-hidden"
+            className={`bg-[#1B1B1B] border-2 border-[#FFC300]/30 shadow-[0_8px_40px_rgba(0,0,0,0.85)] overflow-hidden ${dropdownPos.openUpward ? 'rounded-t-xl rounded-b-lg' : 'rounded-xl'}`}
           >
             {searchable && (
               <div className="p-3 border-b border-[#2B2B2B]">
