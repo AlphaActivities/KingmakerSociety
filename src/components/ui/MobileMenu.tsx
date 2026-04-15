@@ -114,11 +114,11 @@ export default function MobileMenu({
         <div
           className="absolute top-0 left-0 bottom-0 w-[3px] z-10"
           style={{
-            background: 'linear-gradient(to bottom, #D11F2A, #FFC300 50%, #D11F2A)',
+            background: 'linear-gradient(to bottom, #D11F2A 0%, #FFC300 45%, #D11F2A 75%, transparent 100%)',
             boxShadow: '2px 0 18px rgba(209,31,42,0.5), 4px 0 32px rgba(255,195,0,0.15)',
             transform: barReady ? 'scaleY(1)' : 'scaleY(0)',
             transformOrigin: 'top',
-            transition: barReady ? 'transform 480ms cubic-bezier(0.22, 1, 0.36, 1)' : 'none',
+            transition: barReady ? 'transform 900ms cubic-bezier(0.16, 1, 0.3, 1)' : 'none',
           }}
           aria-hidden="true"
         />
