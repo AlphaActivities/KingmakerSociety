@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { ChevronDown, Search, Clock } from 'lucide-react';
 
@@ -42,6 +42,7 @@ interface DropdownPos {
   top: number;
   left: number;
   width: number;
+  openUpward: boolean;
 }
 
 interface TimezoneSelectProps {
@@ -52,10 +53,15 @@ interface TimezoneSelectProps {
   required?: boolean;
 }
 
+const DROPDOWN_HEIGHT = 320;
+const GAP = 8;
+
 export default function TimezoneSelect({ label, value, onChange, error, required }: TimezoneSelectProps) {
   const [open, setOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
   const [search, setSearch] = useState('');
   const [dropdownPos, setDropdownPos] = useState<DropdownPos | null>(null);
+  const revealTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -74,23 +80,65 @@ export default function TimezoneSelect({ label, value, onChange, error, required
       )
     : TIMEZONES;
 
-  const calculatePosition = () => {
+  const calculatePosition = useCallback(() => {
     if (!buttonRef.current) return;
     const rect = buttonRef.current.getBoundingClientRect();
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const spaceAbove = rect.top;
+    const openUpward = spaceBelow < DROPDOWN_HEIGHT + GAP && spaceAbove > spaceBelow;
     setDropdownPos({
-      top: rect.bottom + window.scrollY + 8,
+      top: openUpward
+        ? rect.top + window.scrollY - DROPDOWN_HEIGHT - GAP
+        : rect.bottom + window.scrollY + GAP,
       left: rect.left + window.scrollX,
       width: rect.width,
+      openUpward,
     });
+  }, []);
+
+  const handleOpen = () => {
+    if (revealTimerRef.current) clearTimeout(revealTimerRef.current);
+
+    calculatePosition();
+    setOpen(true);
+    setVisible(false);
+
+    if (!buttonRef.current) return;
+
+    const rect = buttonRef.current.getBoundingClientRect();
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const openUpward = spaceBelow < DROPDOWN_HEIGHT + GAP && rect.top > spaceBelow;
+    let scrollNeeded = false;
+
+    if (openUpward) {
+      const scrollAmount = rect.top - window.innerHeight / 2 + rect.height / 2;
+      if (Math.abs(scrollAmount) > 4) {
+        scrollNeeded = true;
+        window.scrollBy({ top: scrollAmount - rect.height / 2, behavior: 'smooth' });
+      }
+    } else {
+      const needed = rect.bottom + DROPDOWN_HEIGHT + GAP;
+      if (needed > window.innerHeight) {
+        scrollNeeded = true;
+        window.scrollBy({ top: needed - window.innerHeight + 16, behavior: 'smooth' });
+      }
+    }
+
+    const delay = scrollNeeded ? 420 : 0;
+    revealTimerRef.current = setTimeout(() => {
+      calculatePosition();
+      setVisible(true);
+    }, delay);
   };
 
   const handleToggle = () => {
     if (open) {
+      if (revealTimerRef.current) clearTimeout(revealTimerRef.current);
       setOpen(false);
+      setVisible(false);
       setSearch('');
     } else {
-      calculatePosition();
-      setOpen(true);
+      handleOpen();
     }
   };
 
@@ -119,7 +167,7 @@ export default function TimezoneSelect({ label, value, onChange, error, required
       window.removeEventListener('scroll', handleScroll, true);
       window.removeEventListener('resize', handleScroll);
     };
-  }, [open]);
+  }, [open, calculatePosition]);
 
   const handleSelect = (tz: TimezoneOption) => {
     onChange(tz.value);
@@ -181,8 +229,11 @@ export default function TimezoneSelect({ label, value, onChange, error, required
               left: dropdownPos.left,
               width: dropdownPos.width,
               zIndex: 9999,
+              opacity: visible ? 1 : 0,
+              pointerEvents: visible ? 'auto' : 'none',
+              transition: visible ? 'opacity 150ms ease' : 'none',
             }}
-            className="bg-[#1B1B1B] border-2 border-[#FFC300]/30 rounded-xl shadow-[0_8px_40px_rgba(0,0,0,0.85)] overflow-hidden"
+            className={`bg-[#1B1B1B] border-2 border-[#FFC300]/30 shadow-[0_8px_40px_rgba(0,0,0,0.85)] overflow-hidden ${dropdownPos.openUpward ? 'rounded-t-xl rounded-b-lg' : 'rounded-xl'}`}
           >
             <div className="p-3 border-b border-[#2B2B2B]">
               <div className="flex items-center gap-2 px-3 py-2 bg-[#2B2B2B] rounded-lg border border-[#3B3B3B] focus-within:border-[#FFC300]/60">
