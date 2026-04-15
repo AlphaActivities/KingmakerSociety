@@ -114,7 +114,7 @@ export default function Hero() {
 
             <LuxFadeIn delay={0.3}>
               <p className="text-xl sm:text-2xl text-gray-300 leading-relaxed">
-                A structured brotherhood for faith-driven men working a 9-to-5 who want to build their body, discipline, goals, and future business
+                A structured brotherhood for <span className="whitespace-nowrap">faith-driven</span> men working a <span className="whitespace-nowrap">9-to-5</span> who want to build their body, discipline, goals, and future business
                 <span className="text-[#FFC300] font-semibold"> without doing it alone.</span>
               </p>
               <p className="text-lg sm:text-xl text-gray-400 italic mt-4">
