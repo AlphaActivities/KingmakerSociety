@@ -239,17 +239,15 @@ export default function Hero() {
                     required
                   />
 
-                  <div className="relative">
-                    <PremiumSelect
-                      label="Biggest Struggle"
-                      placeholder="Select your biggest struggle"
-                      options={struggles}
-                      value={formData.struggle}
-                      onChange={(val) => setFormData({ ...formData, struggle: val })}
-                      error={errors.struggle}
-                      required
-                    />
-                  </div>
+                  <PremiumSelect
+                    label="Biggest Struggle"
+                    placeholder="Select your biggest struggle"
+                    options={struggles}
+                    value={formData.struggle}
+                    onChange={(val) => setFormData({ ...formData, struggle: val })}
+                    error={errors.struggle}
+                    required
+                  />
 
                   <Button type="submit" variant="secondary" size="lg" className="w-full mt-6" disabled={isSubmitting}>
                     {isSubmitting ? 'Submitting...' : 'Submit Application'}

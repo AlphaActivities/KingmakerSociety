@@ -144,8 +144,7 @@ export default function Questionnaire() {
                 onChange={(e) => setFormData({ ...formData, life12Months: e.target.value })}
                 required
               />
-              <div className="relative">
-                <PremiumSelect
+              <PremiumSelect
                   label="Do you want to build your own business or income path one day?"
                   placeholder="Select one"
                   options={[
@@ -157,9 +156,7 @@ export default function Questionnaire() {
                   onChange={(val) => setFormData({ ...formData, wantBusiness: val })}
                   required
                 />
-              </div>
-              <div className="relative">
-                <PremiumSelect
+              <PremiumSelect
                   label="Which area do you want the most improvement in?"
                   placeholder="Select one"
                   options={[
@@ -173,7 +170,6 @@ export default function Questionnaire() {
                   onChange={(val) => setFormData({ ...formData, improvementArea: val })}
                   required
                 />
-              </div>
             </div>
           </Card>
         </LuxFadeIn>
@@ -196,8 +192,7 @@ export default function Questionnaire() {
                 onChange={(e) => setFormData({ ...formData, whatStopsConsistency: e.target.value })}
                 required
               />
-              <div className="relative">
-                <PremiumSelect
+              <PremiumSelect
                   label="Rate your current discipline from 1 to 10"
                   placeholder="Select a rating"
                   options={[
@@ -216,9 +211,7 @@ export default function Questionnaire() {
                   onChange={(val) => setFormData({ ...formData, disciplineRating: val })}
                   required
                 />
-              </div>
-              <div className="relative">
-                <PremiumSelect
+              <PremiumSelect
                   label="How many days per week are you currently training?"
                   placeholder="Select days per week"
                   options={[
@@ -235,9 +228,7 @@ export default function Questionnaire() {
                   onChange={(val) => setFormData({ ...formData, trainingDaysPerWeek: val })}
                   required
                 />
-              </div>
-              <div className="relative">
-                <PremiumSelect
+              <PremiumSelect
                   label="How many days per week are you currently reading scripture or praying?"
                   placeholder="Select days per week"
                   options={[
@@ -254,7 +245,6 @@ export default function Questionnaire() {
                   onChange={(val) => setFormData({ ...formData, prayerDaysPerWeek: val })}
                   required
                 />
-              </div>
             </div>
           </Card>
         </LuxFadeIn>
@@ -263,8 +253,7 @@ export default function Questionnaire() {
           <Card variant="premium" className="p-8">
             <h3 className="text-2xl font-bold text-[#FFC300] mb-6">Belief & Commitment</h3>
             <div className="space-y-4">
-              <div className="relative">
-                <PremiumSelect
+              <PremiumSelect
                   label="Have you been trying to do this alone?"
                   placeholder="Select one"
                   options={[
@@ -275,9 +264,7 @@ export default function Questionnaire() {
                   onChange={(val) => setFormData({ ...formData, tryingAlone: val })}
                   required
                 />
-              </div>
-              <div className="relative">
-                <PremiumSelect
+              <PremiumSelect
                   label="Do you believe a structured brotherhood and accountability would accelerate your results?"
                   placeholder="Select one"
                   options={[
@@ -288,7 +275,6 @@ export default function Questionnaire() {
                   onChange={(val) => setFormData({ ...formData, believeBrotherhoodHelps: val })}
                   required
                 />
-              </div>
               <Input
                 label="What is the cost of staying where you are for another year?"
                 type="text"
@@ -296,8 +282,7 @@ export default function Questionnaire() {
                 onChange={(e) => setFormData({ ...formData, costOfStaying: e.target.value })}
                 required
               />
-              <div className="relative">
-                <PremiumSelect
+              <PremiumSelect
                   label="How serious are you about changing your life right now? (1-10)"
                   placeholder="Select a rating"
                   options={[
@@ -316,9 +301,7 @@ export default function Questionnaire() {
                   onChange={(val) => setFormData({ ...formData, seriousnessRating: val })}
                   required
                 />
-              </div>
-              <div className="relative">
-                <PremiumSelect
+              <PremiumSelect
                   label="If accepted, are you willing to invest in mentorship and accountability?"
                   placeholder="Select one"
                   options={[
@@ -330,9 +313,7 @@ export default function Questionnaire() {
                   onChange={(val) => setFormData({ ...formData, willingToInvest: val })}
                   required
                 />
-              </div>
-              <div className="relative">
-                <PremiumSelect
+              <PremiumSelect
                   label="Which path are you most interested in?"
                   placeholder="Select one"
                   options={[
@@ -344,7 +325,6 @@ export default function Questionnaire() {
                   onChange={(val) => setFormData({ ...formData, interestedPath: val })}
                   required
                 />
-              </div>
             </div>
           </Card>
         </LuxFadeIn>

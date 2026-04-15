@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { ChevronDown, Search, Clock } from 'lucide-react';
 
 interface TimezoneOption {
@@ -37,6 +38,12 @@ const TIMEZONES: TimezoneOption[] = [
   { value: 'Pacific/Auckland', label: 'New Zealand Time', offset: 'UTC+12/+13', cities: 'Auckland, Wellington, Christchurch' },
 ];
 
+interface DropdownPos {
+  top: number;
+  left: number;
+  width: number;
+}
+
 interface TimezoneSelectProps {
   label?: string;
   value: string;
@@ -48,8 +55,12 @@ interface TimezoneSelectProps {
 export default function TimezoneSelect({ label, value, onChange, error, required }: TimezoneSelectProps) {
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
+  const [dropdownPos, setDropdownPos] = useState<DropdownPos | null>(null);
+
   const containerRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const inputId = 'input-time-zone';
 
   const selected = TIMEZONES.find((tz) => tz.value === value);
@@ -63,6 +74,31 @@ export default function TimezoneSelect({ label, value, onChange, error, required
       )
     : TIMEZONES;
 
+  const calculatePosition = () => {
+    if (!buttonRef.current) return;
+    const rect = buttonRef.current.getBoundingClientRect();
+    setDropdownPos({
+      top: rect.bottom + window.scrollY + 8,
+      left: rect.left + window.scrollX,
+      width: rect.width,
+    });
+  };
+
+  const handleToggle = () => {
+    if (open) {
+      setOpen(false);
+      setSearch('');
+    } else {
+      calculatePosition();
+      setOpen(true);
+      setTimeout(() => {
+        if (buttonRef.current) {
+          buttonRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }, 50);
+    }
+  };
+
   useEffect(() => {
     if (open && searchRef.current) {
       searchRef.current.focus();
@@ -70,15 +106,30 @@ export default function TimezoneSelect({ label, value, onChange, error, required
   }, [open]);
 
   useEffect(() => {
+    if (!open) return;
+
     const handleOutside = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      const target = e.target as Node;
+      const insideContainer = containerRef.current?.contains(target);
+      const insideDropdown = dropdownRef.current?.contains(target);
+      if (!insideContainer && !insideDropdown) {
         setOpen(false);
         setSearch('');
       }
     };
+
+    const handleScroll = () => calculatePosition();
+
     document.addEventListener('mousedown', handleOutside);
-    return () => document.removeEventListener('mousedown', handleOutside);
-  }, []);
+    window.addEventListener('scroll', handleScroll, true);
+    window.addEventListener('resize', handleScroll);
+
+    return () => {
+      document.removeEventListener('mousedown', handleOutside);
+      window.removeEventListener('scroll', handleScroll, true);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, [open]);
 
   const handleSelect = (tz: TimezoneOption) => {
     onChange(tz.value);
@@ -96,9 +147,10 @@ export default function TimezoneSelect({ label, value, onChange, error, required
       )}
 
       <button
+        ref={buttonRef}
         id={inputId}
         type="button"
-        onClick={() => setOpen((o) => !o)}
+        onClick={handleToggle}
         className={`w-full px-4 py-3 bg-[#2B2B2B]/80 border-2 rounded-lg text-left flex items-center justify-between transition-all duration-300 focus:outline-none ${
           open
             ? 'border-[#FFC300] ring-4 ring-[#FFC300]/30 bg-[#2B2B2B] shadow-[0_0_20px_rgba(255,195,0,0.15)]'
@@ -129,49 +181,61 @@ export default function TimezoneSelect({ label, value, onChange, error, required
         </p>
       )}
 
-      {open && (
-        <div className="absolute z-50 mt-2 w-full max-w-sm bg-[#1B1B1B] border-2 border-[#FFC300]/30 rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.7)] overflow-hidden">
-          <div className="p-3 border-b border-[#2B2B2B]">
-            <div className="flex items-center gap-2 px-3 py-2 bg-[#2B2B2B] rounded-lg border border-[#3B3B3B] focus-within:border-[#FFC300]/60">
-              <Search className="w-4 h-4 text-gray-400 shrink-0" />
-              <input
-                ref={searchRef}
-                type="text"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                placeholder="Search city or zone..."
-                className="flex-1 bg-transparent text-white text-sm placeholder-gray-500 focus:outline-none"
-              />
+      {open && dropdownPos &&
+        createPortal(
+          <div
+            ref={dropdownRef}
+            style={{
+              position: 'absolute',
+              top: dropdownPos.top,
+              left: dropdownPos.left,
+              width: dropdownPos.width,
+              zIndex: 9999,
+            }}
+            className="bg-[#1B1B1B] border-2 border-[#FFC300]/30 rounded-xl shadow-[0_8px_40px_rgba(0,0,0,0.85)] overflow-hidden"
+          >
+            <div className="p-3 border-b border-[#2B2B2B]">
+              <div className="flex items-center gap-2 px-3 py-2 bg-[#2B2B2B] rounded-lg border border-[#3B3B3B] focus-within:border-[#FFC300]/60">
+                <Search className="w-4 h-4 text-gray-400 shrink-0" />
+                <input
+                  ref={searchRef}
+                  type="text"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Search city or zone..."
+                  className="flex-1 bg-transparent text-white text-sm placeholder-gray-500 focus:outline-none"
+                />
+              </div>
             </div>
-          </div>
 
-          <ul className="max-h-64 overflow-y-auto overscroll-contain">
-            {filtered.length === 0 ? (
-              <li className="px-4 py-3 text-gray-500 text-sm text-center">No results found</li>
-            ) : (
-              filtered.map((tz) => (
-                <li key={tz.value}>
-                  <button
-                    type="button"
-                    onClick={() => handleSelect(tz)}
-                    className={`w-full text-left px-4 py-3 hover:bg-[#FFC300]/10 transition-colors duration-150 ${
-                      value === tz.value ? 'bg-[#FFC300]/10 border-l-2 border-[#FFC300]' : ''
-                    }`}
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <div className="min-w-0">
-                        <p className="text-white text-sm font-medium truncate">{tz.label}</p>
-                        <p className="text-gray-500 text-xs truncate mt-0.5">{tz.cities}</p>
+            <ul className="max-h-64 overflow-y-auto overscroll-contain">
+              {filtered.length === 0 ? (
+                <li className="px-4 py-3 text-gray-500 text-sm text-center">No results found</li>
+              ) : (
+                filtered.map((tz) => (
+                  <li key={tz.value}>
+                    <button
+                      type="button"
+                      onClick={() => handleSelect(tz)}
+                      className={`w-full text-left px-4 py-3 hover:bg-[#FFC300]/10 transition-colors duration-150 ${
+                        value === tz.value ? 'bg-[#FFC300]/10 border-l-2 border-[#FFC300]' : 'border-l-2 border-transparent'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="min-w-0">
+                          <p className="text-white text-sm font-medium truncate">{tz.label}</p>
+                          <p className="text-gray-500 text-xs truncate mt-0.5">{tz.cities}</p>
+                        </div>
+                        <span className="text-[#FFC300] text-xs font-mono shrink-0">{tz.offset}</span>
                       </div>
-                      <span className="text-[#FFC300] text-xs font-mono shrink-0">{tz.offset}</span>
-                    </div>
-                  </button>
-                </li>
-              ))
-            )}
-          </ul>
-        </div>
-      )}
+                    </button>
+                  </li>
+                ))
+              )}
+            </ul>
+          </div>,
+          document.body
+        )}
     </div>
   );
 }
