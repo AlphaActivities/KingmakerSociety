@@ -212,24 +212,26 @@ export default function PremiumSelect({
               {filtered.length === 0 ? (
                 <li className="px-4 py-3 text-gray-500 text-sm text-center">No results found</li>
               ) : (
-                filtered.map((opt) => (
-                  <li key={opt.value}>
+                filtered.map((opt, idx) => (
+                  <li key={opt.value} className={idx !== 0 ? 'border-t border-white/[0.05]' : ''}>
                     <button
                       type="button"
                       onClick={() => handleSelect(opt)}
-                      className={`w-full text-left px-4 py-3 hover:bg-[#FFC300]/10 transition-colors duration-150 flex items-center justify-between gap-3 ${
+                      className={`w-full text-left px-4 py-3.5 transition-all duration-150 flex items-start justify-between gap-3 group ${
                         value === opt.value
-                          ? 'bg-[#FFC300]/10 border-l-2 border-[#FFC300]'
-                          : 'border-l-2 border-transparent'
+                          ? 'bg-gradient-to-r from-[#FFC300]/15 to-transparent border-l-2 border-[#FFC300]'
+                          : 'border-l-2 border-transparent hover:bg-white/[0.04] hover:border-l-2 hover:border-[#FFC300]/40'
                       }`}
                     >
-                      <div className="min-w-0 flex-1">
-                        <p className="text-white text-sm font-medium truncate">{opt.label}</p>
+                      <div className="flex-1">
+                        <p className={`text-sm font-semibold leading-snug ${value === opt.value ? 'text-[#FFC300]' : 'text-white group-hover:text-[#FFC300]/90 transition-colors duration-150'}`}>
+                          {opt.label}
+                        </p>
                         {opt.description && (
-                          <p className="text-gray-500 text-xs truncate mt-0.5">{opt.description}</p>
+                          <p className="text-gray-400 text-xs leading-relaxed mt-1 whitespace-normal">{opt.description}</p>
                         )}
                       </div>
-                      <div className="flex items-center gap-2 shrink-0">
+                      <div className="flex items-center gap-2 shrink-0 pt-0.5">
                         {opt.badge && (
                           <span className="text-[#FFC300] text-xs font-mono">{opt.badge}</span>
                         )}
