@@ -151,7 +151,7 @@ export default function TimezoneSelect({ label, value, onChange, error, required
         id={inputId}
         type="button"
         onClick={handleToggle}
-        className={`w-full px-4 py-3 bg-[#2B2B2B]/80 border-2 rounded-lg text-left flex items-center justify-between transition-all duration-300 focus:outline-none ${
+        className={`w-full px-4 py-3 bg-[#2B2B2B]/80 border-2 rounded-lg text-left flex items-center justify-between transition-all duration-300 focus:outline-none text-base ${
           open
             ? 'border-[#FFC300] ring-4 ring-[#FFC300]/30 bg-[#2B2B2B] shadow-[0_0_20px_rgba(255,195,0,0.15)]'
             : error

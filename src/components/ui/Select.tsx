@@ -21,7 +21,7 @@ export default function Select({ label, error, options, className = '', id, ...p
         id={selectId}
         aria-invalid={error ? 'true' : 'false'}
         aria-describedby={error ? errorId : undefined}
-        className={`w-full px-4 py-3 bg-[#2B2B2B] border border-[#3B3B3B] rounded-lg text-white focus:outline-none focus:border-[#FFC300] focus:ring-2 focus:ring-[#FFC300]/20 transition-all duration-200 ${className}`}
+        className={`w-full px-4 py-3 bg-[#2B2B2B] border border-[#3B3B3B] rounded-lg text-white text-base focus:outline-none focus:border-[#FFC300] focus:ring-2 focus:ring-[#FFC300]/20 transition-all duration-200 ${className}`}
         {...props}
       >
         {options.map((option) => (

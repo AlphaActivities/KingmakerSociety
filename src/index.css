@@ -5,6 +5,12 @@
 @tailwind utilities;
 
 @layer base {
+  select,
+  input,
+  textarea,
+  button {
+    font-size: 16px;
+  }
   @media (max-width: 767px) {
     html {
       scrollbar-width: none;
