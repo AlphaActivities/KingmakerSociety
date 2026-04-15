@@ -113,8 +113,8 @@ export default function MobileMenu({
         <div
           className="absolute top-0 left-0 bottom-0 w-[3px] z-10"
           style={{
-            background: 'linear-gradient(to bottom, #D11F2A 0%, #FFC300 40%, #FFC300 100%)',
-            boxShadow: '2px 0 18px rgba(209,31,42,0.5), 4px 0 32px rgba(255,195,0,0.15)',
+            background: 'linear-gradient(to bottom, #B8151E 0%, #D11F2A 12%, #E8451A 28%, #FFC300 52%, #E8A800 72%, rgba(232,168,0,0.45) 88%, transparent 100%)',
+            boxShadow: '1px 0 10px rgba(209,31,42,0.65), 3px 0 22px rgba(209,31,42,0.30), 2px 0 28px rgba(255,195,0,0.20)',
             transform: barReady ? 'scaleY(1)' : 'scaleY(0)',
             transformOrigin: 'top',
             transition: barReady ? 'transform 900ms cubic-bezier(0.16, 1, 0.3, 1)' : 'none',
