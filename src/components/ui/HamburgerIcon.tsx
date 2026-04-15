@@ -61,12 +61,12 @@ export default function HamburgerIcon({ isOpen, onClick }: HamburgerIconProps) {
             transition: isOpen
               ? [
                   'top 260ms cubic-bezier(0.4,0,0.2,1)',
-                  'transform 320ms cubic-bezier(0.34,1.1,0.64,1) 80ms',
+                  'transform 340ms cubic-bezier(0.22,1,0.36,1) 70ms',
                   'background-color 280ms ease 40ms',
                 ].join(', ')
               : [
                   'top 260ms cubic-bezier(0.4,0,0.2,1) 80ms',
-                  'transform 280ms cubic-bezier(0.4,0,0.6,1)',
+                  'transform 280ms cubic-bezier(0.4,0,0.2,1)',
                   'background-color 220ms ease',
                 ].join(', '),
           }}
@@ -114,12 +114,12 @@ export default function HamburgerIcon({ isOpen, onClick }: HamburgerIconProps) {
             transition: isOpen
               ? [
                   'bottom 260ms cubic-bezier(0.4,0,0.2,1)',
-                  'transform 320ms cubic-bezier(0.34,1.1,0.64,1) 80ms',
+                  'transform 340ms cubic-bezier(0.22,1,0.36,1) 70ms',
                   'background-color 280ms ease 40ms',
                 ].join(', ')
               : [
                   'bottom 260ms cubic-bezier(0.4,0,0.2,1) 80ms',
-                  'transform 280ms cubic-bezier(0.4,0,0.6,1)',
+                  'transform 280ms cubic-bezier(0.4,0,0.2,1)',
                   'background-color 220ms ease',
                 ].join(', '),
           }}
