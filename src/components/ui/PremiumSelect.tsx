@@ -208,7 +208,7 @@ export default function PremiumSelect({
               </div>
             )}
 
-            <ul className="max-h-64 overflow-y-auto overscroll-contain">
+            <ul className="max-h-64 overflow-y-auto overscroll-contain dropdown-scroll">
               {filtered.length === 0 ? (
                 <li className="px-4 py-3 text-gray-500 text-sm text-center">No results found</li>
               ) : (
