@@ -4,7 +4,7 @@ import Section from '../ui/Section';
 import Card from '../ui/Card';
 import LuxFadeIn from '../ui/LuxFadeIn';
 import Input from '../ui/Input';
-import Select from '../ui/Select';
+import PremiumSelect from '../ui/PremiumSelect';
 import Button from '../ui/Button';
 import { useApplication } from '../../context/ApplicationContext';
 import { submitQuestionnaire } from '../../services/leadService';
@@ -144,32 +144,36 @@ export default function Questionnaire() {
                 onChange={(e) => setFormData({ ...formData, life12Months: e.target.value })}
                 required
               />
-              <Select
-                label="Do you want to build your own business or income path one day?"
-                options={[
-                  { value: '', label: 'Select one' },
-                  { value: 'yes', label: 'Yes' },
-                  { value: 'no', label: 'No' },
-                  { value: 'unsure', label: 'Unsure' },
-                ]}
-                value={formData.wantBusiness}
-                onChange={(e) => setFormData({ ...formData, wantBusiness: e.target.value })}
-                required
-              />
-              <Select
-                label="Which area do you want the most improvement in?"
-                options={[
-                  { value: '', label: 'Select one' },
-                  { value: 'fitness', label: 'Fitness' },
-                  { value: 'faith', label: 'Faith' },
-                  { value: 'health', label: 'Health' },
-                  { value: 'goals', label: 'Goals' },
-                  { value: 'business', label: 'Business' },
-                ]}
-                value={formData.improvementArea}
-                onChange={(e) => setFormData({ ...formData, improvementArea: e.target.value })}
-                required
-              />
+              <div className="relative">
+                <PremiumSelect
+                  label="Do you want to build your own business or income path one day?"
+                  placeholder="Select one"
+                  options={[
+                    { value: 'yes', label: 'Yes', description: 'I want to build something of my own' },
+                    { value: 'no', label: 'No', description: 'I am focused on other goals right now' },
+                    { value: 'unsure', label: 'Unsure', description: "I haven't decided yet" },
+                  ]}
+                  value={formData.wantBusiness}
+                  onChange={(val) => setFormData({ ...formData, wantBusiness: val })}
+                  required
+                />
+              </div>
+              <div className="relative">
+                <PremiumSelect
+                  label="Which area do you want the most improvement in?"
+                  placeholder="Select one"
+                  options={[
+                    { value: 'fitness', label: 'Fitness', description: 'Strength, physique, and athletic performance' },
+                    { value: 'faith', label: 'Faith', description: 'Spiritual growth and connection to God' },
+                    { value: 'health', label: 'Health', description: 'Nutrition, recovery, and long-term vitality' },
+                    { value: 'goals', label: 'Goals', description: 'Clarity, direction, and executing on your vision' },
+                    { value: 'business', label: 'Business', description: 'Building income and entrepreneurial skills' },
+                  ]}
+                  value={formData.improvementArea}
+                  onChange={(val) => setFormData({ ...formData, improvementArea: val })}
+                  required
+                />
+              </div>
             </div>
           </Card>
         </LuxFadeIn>
@@ -192,27 +196,65 @@ export default function Questionnaire() {
                 onChange={(e) => setFormData({ ...formData, whatStopsConsistency: e.target.value })}
                 required
               />
-              <Select
-                label="Rate your current discipline from 1 to 10"
-                options={Array.from({ length: 11 }, (_, i) => ({ value: i.toString(), label: i.toString() }))}
-                value={formData.disciplineRating}
-                onChange={(e) => setFormData({ ...formData, disciplineRating: e.target.value })}
-                required
-              />
-              <Select
-                label="How many days per week are you currently training?"
-                options={Array.from({ length: 8 }, (_, i) => ({ value: i.toString(), label: i.toString() }))}
-                value={formData.trainingDaysPerWeek}
-                onChange={(e) => setFormData({ ...formData, trainingDaysPerWeek: e.target.value })}
-                required
-              />
-              <Select
-                label="How many days per week are you currently reading scripture or praying?"
-                options={Array.from({ length: 8 }, (_, i) => ({ value: i.toString(), label: i.toString() }))}
-                value={formData.prayerDaysPerWeek}
-                onChange={(e) => setFormData({ ...formData, prayerDaysPerWeek: e.target.value })}
-                required
-              />
+              <div className="relative">
+                <PremiumSelect
+                  label="Rate your current discipline from 1 to 10"
+                  placeholder="Select a rating"
+                  options={[
+                    { value: '1', label: '1 — Barely started', description: 'Little to no consistent habits yet' },
+                    { value: '2', label: '2 — Struggling', description: 'Inconsistent, more misses than wins' },
+                    { value: '3', label: '3 — Below average', description: 'Some effort but lacking structure' },
+                    { value: '4', label: '4 — Getting there', description: 'Occasional wins, still inconsistent' },
+                    { value: '5', label: '5 — Average', description: 'Half and half — room to level up' },
+                    { value: '6', label: '6 — Above average', description: 'Mostly consistent with some gaps' },
+                    { value: '7', label: '7 — Solid', description: 'Strong habits, occasional slip-ups' },
+                    { value: '8', label: '8 — Very disciplined', description: 'High output, rare misses' },
+                    { value: '9', label: '9 — Elite', description: 'Near-daily execution on commitments' },
+                    { value: '10', label: '10 — Locked in', description: 'No excuses, full accountability every day' },
+                  ]}
+                  value={formData.disciplineRating}
+                  onChange={(val) => setFormData({ ...formData, disciplineRating: val })}
+                  required
+                />
+              </div>
+              <div className="relative">
+                <PremiumSelect
+                  label="How many days per week are you currently training?"
+                  placeholder="Select days per week"
+                  options={[
+                    { value: '0', label: '0 days', description: 'Not training yet' },
+                    { value: '1', label: '1 day', description: 'Just getting started' },
+                    { value: '2', label: '2 days', description: 'Light schedule' },
+                    { value: '3', label: '3 days', description: 'Moderate consistency' },
+                    { value: '4', label: '4 days', description: 'Solid training week' },
+                    { value: '5', label: '5 days', description: 'Strong commitment' },
+                    { value: '6', label: '6 days', description: 'High frequency' },
+                    { value: '7', label: '7 days', description: 'Every single day' },
+                  ]}
+                  value={formData.trainingDaysPerWeek}
+                  onChange={(val) => setFormData({ ...formData, trainingDaysPerWeek: val })}
+                  required
+                />
+              </div>
+              <div className="relative">
+                <PremiumSelect
+                  label="How many days per week are you currently reading scripture or praying?"
+                  placeholder="Select days per week"
+                  options={[
+                    { value: '0', label: '0 days', description: 'Not yet practicing' },
+                    { value: '1', label: '1 day', description: 'Occasionally' },
+                    { value: '2', label: '2 days', description: 'A couple times a week' },
+                    { value: '3', label: '3 days', description: 'Several times a week' },
+                    { value: '4', label: '4 days', description: 'More than half the week' },
+                    { value: '5', label: '5 days', description: 'Most days' },
+                    { value: '6', label: '6 days', description: 'Nearly every day' },
+                    { value: '7', label: '7 days', description: 'Daily practice' },
+                  ]}
+                  value={formData.prayerDaysPerWeek}
+                  onChange={(val) => setFormData({ ...formData, prayerDaysPerWeek: val })}
+                  required
+                />
+              </div>
             </div>
           </Card>
         </LuxFadeIn>
@@ -221,28 +263,32 @@ export default function Questionnaire() {
           <Card variant="premium" className="p-8">
             <h3 className="text-2xl font-bold text-[#FFC300] mb-6">Belief & Commitment</h3>
             <div className="space-y-4">
-              <Select
-                label="Have you been trying to do this alone?"
-                options={[
-                  { value: '', label: 'Select one' },
-                  { value: 'yes', label: 'Yes' },
-                  { value: 'no', label: 'No' },
-                ]}
-                value={formData.tryingAlone}
-                onChange={(e) => setFormData({ ...formData, tryingAlone: e.target.value })}
-                required
-              />
-              <Select
-                label="Do you believe a structured brotherhood and accountability would accelerate your results?"
-                options={[
-                  { value: '', label: 'Select one' },
-                  { value: 'yes', label: 'Yes' },
-                  { value: 'no', label: 'No' },
-                ]}
-                value={formData.believeBrotherhoodHelps}
-                onChange={(e) => setFormData({ ...formData, believeBrotherhoodHelps: e.target.value })}
-                required
-              />
+              <div className="relative">
+                <PremiumSelect
+                  label="Have you been trying to do this alone?"
+                  placeholder="Select one"
+                  options={[
+                    { value: 'yes', label: 'Yes', description: 'No real accountability or brotherhood around me' },
+                    { value: 'no', label: 'No', description: 'I have some support in my corner' },
+                  ]}
+                  value={formData.tryingAlone}
+                  onChange={(val) => setFormData({ ...formData, tryingAlone: val })}
+                  required
+                />
+              </div>
+              <div className="relative">
+                <PremiumSelect
+                  label="Do you believe a structured brotherhood and accountability would accelerate your results?"
+                  placeholder="Select one"
+                  options={[
+                    { value: 'yes', label: 'Yes', description: 'Brotherhood and structure would make a real difference' },
+                    { value: 'no', label: 'No', description: 'I think I can get there on my own' },
+                  ]}
+                  value={formData.believeBrotherhoodHelps}
+                  onChange={(val) => setFormData({ ...formData, believeBrotherhoodHelps: val })}
+                  required
+                />
+              </div>
               <Input
                 label="What is the cost of staying where you are for another year?"
                 type="text"
@@ -250,37 +296,55 @@ export default function Questionnaire() {
                 onChange={(e) => setFormData({ ...formData, costOfStaying: e.target.value })}
                 required
               />
-              <Select
-                label="How serious are you about changing your life right now? (1-10)"
-                options={Array.from({ length: 11 }, (_, i) => ({ value: i.toString(), label: i.toString() }))}
-                value={formData.seriousnessRating}
-                onChange={(e) => setFormData({ ...formData, seriousnessRating: e.target.value })}
-                required
-              />
-              <Select
-                label="If accepted, are you willing to invest in mentorship and accountability?"
-                options={[
-                  { value: '', label: 'Select one' },
-                  { value: 'yes', label: 'Yes' },
-                  { value: 'no', label: 'No' },
-                  { value: 'depends', label: 'Depends' },
-                ]}
-                value={formData.willingToInvest}
-                onChange={(e) => setFormData({ ...formData, willingToInvest: e.target.value })}
-                required
-              />
-              <Select
-                label="Which path are you most interested in?"
-                options={[
-                  { value: '', label: 'Select one' },
-                  { value: 'community', label: 'Brotherhood community only' },
-                  { value: 'guided', label: 'Guided growth with small group mentorship' },
-                  { value: 'vip', label: 'VIP mentorship with 1-on-1 support' },
-                ]}
-                value={formData.interestedPath}
-                onChange={(e) => setFormData({ ...formData, interestedPath: e.target.value })}
-                required
-              />
+              <div className="relative">
+                <PremiumSelect
+                  label="How serious are you about changing your life right now? (1-10)"
+                  placeholder="Select a rating"
+                  options={[
+                    { value: '1', label: '1 — Just curious', description: 'Exploring, not fully committed yet' },
+                    { value: '2', label: '2 — Thinking about it', description: 'Interested but not ready to act' },
+                    { value: '3', label: '3 — Somewhat serious', description: 'Want change but hesitant' },
+                    { value: '4', label: '4 — Getting motivated', description: 'Starting to feel the urgency' },
+                    { value: '5', label: '5 — Serious', description: 'Ready to make moves soon' },
+                    { value: '6', label: '6 — Very serious', description: 'Actively looking for a solution' },
+                    { value: '7', label: '7 — Committed', description: 'I know I need to change now' },
+                    { value: '8', label: '8 — Highly committed', description: 'This is a top priority for me' },
+                    { value: '9', label: '9 — All in', description: "I'm ready to invest and execute" },
+                    { value: '10', label: '10 — No going back', description: 'I am fully committed — let\'s go' },
+                  ]}
+                  value={formData.seriousnessRating}
+                  onChange={(val) => setFormData({ ...formData, seriousnessRating: val })}
+                  required
+                />
+              </div>
+              <div className="relative">
+                <PremiumSelect
+                  label="If accepted, are you willing to invest in mentorship and accountability?"
+                  placeholder="Select one"
+                  options={[
+                    { value: 'yes', label: 'Yes', description: 'I am ready to invest in my growth' },
+                    { value: 'no', label: 'No', description: 'Not at this time' },
+                    { value: 'depends', label: 'Depends', description: 'Need more information first' },
+                  ]}
+                  value={formData.willingToInvest}
+                  onChange={(val) => setFormData({ ...formData, willingToInvest: val })}
+                  required
+                />
+              </div>
+              <div className="relative">
+                <PremiumSelect
+                  label="Which path are you most interested in?"
+                  placeholder="Select one"
+                  options={[
+                    { value: 'community', label: 'Brotherhood Community', description: 'Access to the brotherhood and shared accountability' },
+                    { value: 'guided', label: 'Guided Growth', description: 'Small group mentorship with structured programming' },
+                    { value: 'vip', label: 'VIP Mentorship', description: '1-on-1 support with direct access to leadership' },
+                  ]}
+                  value={formData.interestedPath}
+                  onChange={(val) => setFormData({ ...formData, interestedPath: val })}
+                  required
+                />
+              </div>
             </div>
           </Card>
         </LuxFadeIn>

@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { Shield, Calendar, CheckCircle } from 'lucide-react';
 import Button from '../ui/Button';
 import Input from '../ui/Input';
-import Select from '../ui/Select';
 import Container from '../ui/Container';
 import TimezoneSelect from '../ui/TimezoneSelect';
+import PremiumSelect from '../ui/PremiumSelect';
 import LuxFadeIn from '../ui/LuxFadeIn';
 import HeroBackgroundSlider from '../ui/HeroBackgroundSlider';
 import { luxuryScrollToSection, scrollToApplication } from '../../utils/luxuryScroll';
@@ -78,13 +78,12 @@ export default function Hero() {
   };
 
   const struggles = [
-    { value: '', label: 'Select your biggest struggle' },
-    { value: 'discipline-consistency', label: 'Discipline & Consistency' },
-    { value: 'fitness-body', label: 'Fitness & Body' },
-    { value: 'faith-purpose', label: 'Faith & Purpose' },
-    { value: 'direction-goals', label: 'Direction & Goals' },
-    { value: 'energy-health', label: 'Energy & Health' },
-    { value: 'building-business', label: 'Building a Future Business' },
+    { value: 'discipline-consistency', label: 'Discipline & Consistency', description: 'Building habits and staying consistent day after day' },
+    { value: 'fitness-body', label: 'Fitness & Body', description: 'Transforming your physique and physical performance' },
+    { value: 'faith-purpose', label: 'Faith & Purpose', description: 'Deepening your faith and finding your calling' },
+    { value: 'direction-goals', label: 'Direction & Goals', description: 'Gaining clarity and building a roadmap for your life' },
+    { value: 'energy-health', label: 'Energy & Health', description: 'Optimizing your vitality and daily energy levels' },
+    { value: 'building-business', label: 'Building a Future Business', description: 'Developing income paths and entrepreneurial skills' },
   ];
 
   return (
@@ -240,14 +239,17 @@ export default function Hero() {
                     required
                   />
 
-                  <Select
-                    label="Biggest Struggle"
-                    options={struggles}
-                    value={formData.struggle}
-                    onChange={(e) => setFormData({ ...formData, struggle: e.target.value })}
-                    error={errors.struggle}
-                    required
-                  />
+                  <div className="relative">
+                    <PremiumSelect
+                      label="Biggest Struggle"
+                      placeholder="Select your biggest struggle"
+                      options={struggles}
+                      value={formData.struggle}
+                      onChange={(val) => setFormData({ ...formData, struggle: val })}
+                      error={errors.struggle}
+                      required
+                    />
+                  </div>
 
                   <Button type="submit" variant="secondary" size="lg" className="w-full mt-6" disabled={isSubmitting}>
                     {isSubmitting ? 'Submitting...' : 'Submit Application'}
