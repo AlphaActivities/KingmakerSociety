@@ -10,6 +10,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const isMobileMenuOpenRef = useRef(false);
+  const scrollYBeforeMenuRef = useRef(0);
 
   useEffect(() => {
     isMobileMenuOpenRef.current = isMobileMenuOpen;
@@ -55,7 +56,7 @@ export default function Navbar() {
   };
 
   const handleNavigate = (id: string) => {
-    const capturedScrollY = window.pageYOffset;
+    const capturedScrollY = scrollYBeforeMenuRef.current;
     setIsMobileMenuOpen(false);
     setTimeout(() => {
       if (id === 'hero') {
@@ -169,7 +170,10 @@ export default function Navbar() {
           <div className={isMobileMenuOpen ? 'opacity-0 pointer-events-none' : ''} aria-hidden={isMobileMenuOpen}>
             <HamburgerIcon
               isOpen={false}
-              onClick={() => setIsMobileMenuOpen(true)}
+              onClick={() => {
+                scrollYBeforeMenuRef.current = window.pageYOffset;
+                setIsMobileMenuOpen(true);
+              }}
             />
           </div>
         </div>
