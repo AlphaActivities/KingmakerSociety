@@ -94,11 +94,6 @@ export default function TimezoneSelect({ label, value, onChange, error, required
     }
   };
 
-  useEffect(() => {
-    if (open && searchRef.current) {
-      searchRef.current.focus();
-    }
-  }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -198,7 +193,8 @@ export default function TimezoneSelect({ label, value, onChange, error, required
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search city or zone..."
-                  className="flex-1 bg-transparent text-white text-sm placeholder-gray-500 focus:outline-none"
+                  className="flex-1 bg-transparent text-white placeholder-gray-500 focus:outline-none"
+                  style={{ fontSize: '16px' }}
                 />
               </div>
             </div>
