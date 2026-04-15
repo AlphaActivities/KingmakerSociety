@@ -712,26 +712,26 @@
   }
 
   .dropdown-scroll::-webkit-scrollbar {
-    width: 6px;
+    width: 5px;
   }
 
   .dropdown-scroll::-webkit-scrollbar-track {
     background: #111111;
-    border-radius: 3px;
+    border-radius: 4px;
   }
 
   .dropdown-scroll::-webkit-scrollbar-thumb {
-    background: #D11F2A;
-    border-radius: 3px;
+    background: linear-gradient(180deg, #FFC300 0%, #D4A017 50%, #A8320A 100%);
+    border-radius: 4px;
   }
 
   .dropdown-scroll::-webkit-scrollbar-thumb:hover {
-    background: #FFC300;
+    background: linear-gradient(180deg, #FFD740 0%, #FFC300 50%, #C0310E 100%);
   }
 
   .dropdown-scroll {
     scrollbar-width: thin;
-    scrollbar-color: #D11F2A #111111;
+    scrollbar-color: #C89A00 #111111;
   }
 
   @media (prefers-reduced-motion: reduce) {
