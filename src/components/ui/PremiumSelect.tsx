@@ -267,13 +267,16 @@ export default function PremiumSelect({
                           : 'border-l-2 border-transparent hover:bg-white/[0.04] hover:border-l-2 hover:border-[#FFC300]/40'
                       }`}
                     >
-                      <div className="flex-1">
-                        <p className={`text-sm font-semibold leading-snug ${value === opt.value ? 'text-[#FFC300]' : 'text-white group-hover:text-[#FFC300]/90 transition-colors duration-150'}`}>
-                          {opt.label}
-                        </p>
-                        {opt.description && (
-                          <p className="text-gray-400 text-xs leading-relaxed mt-1 whitespace-normal">{opt.description}</p>
-                        )}
+                      <div className="flex-1 flex items-start gap-2.5">
+                        <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full bg-[#FFC300]" aria-hidden="true" />
+                        <div>
+                          <p className={`text-sm font-semibold leading-snug ${value === opt.value ? 'text-[#FFC300]' : 'text-white group-hover:text-[#FFC300]/90 transition-colors duration-150'}`}>
+                            {opt.label}
+                          </p>
+                          {opt.description && (
+                            <p className="text-gray-400 text-xs leading-relaxed mt-1 whitespace-normal">{opt.description}</p>
+                          )}
+                        </div>
                       </div>
                       <div className="flex items-center gap-2 shrink-0 pt-0.5">
                         {opt.badge && (
