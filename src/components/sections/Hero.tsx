@@ -16,7 +16,7 @@ import { trackBeginApplication, trackCompleteLeadForm } from '../../utils/analyt
 
 export default function Hero() {
   const navigate = useNavigate();
-  const { setLeadId, setLeadSubmitted, setFirstName } = useApplication();
+  const { setLeadSubmitted, setFirstName } = useApplication();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -60,7 +60,6 @@ export default function Hero() {
     if (result.success) {
       setLeadSubmitted(true);
       setSubmitSuccess(true);
-      if (result.leadId) setLeadId(result.leadId);
       setFirstName(formData.firstName);
 
       trackCompleteLeadForm({
