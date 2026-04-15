@@ -78,12 +78,12 @@ export default function Hero() {
   };
 
   const struggles = [
-    { value: 'discipline-consistency', label: 'Discipline & Consistency', description: 'Building habits and staying consistent day after day' },
-    { value: 'fitness-body', label: 'Fitness & Body', description: 'Transforming your physique and physical performance' },
-    { value: 'faith-purpose', label: 'Faith & Purpose', description: 'Deepening your faith and finding your calling' },
-    { value: 'direction-goals', label: 'Direction & Goals', description: 'Gaining clarity and building a roadmap for your life' },
-    { value: 'energy-health', label: 'Energy & Health', description: 'Optimizing your vitality and daily energy levels' },
-    { value: 'building-business', label: 'Building a Future Business', description: 'Developing income paths and entrepreneurial skills' },
+    { value: 'discipline-consistency', label: 'Discipline & Consistency' },
+    { value: 'fitness-body', label: 'Fitness & Body' },
+    { value: 'faith-purpose', label: 'Faith & Purpose' },
+    { value: 'direction-goals', label: 'Direction & Goals' },
+    { value: 'energy-health', label: 'Energy & Health' },
+    { value: 'building-business', label: 'Building a Future Business' },
   ];
 
   return (
