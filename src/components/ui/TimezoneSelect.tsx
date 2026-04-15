@@ -91,11 +91,6 @@ export default function TimezoneSelect({ label, value, onChange, error, required
     } else {
       calculatePosition();
       setOpen(true);
-      setTimeout(() => {
-        if (buttonRef.current) {
-          buttonRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-      }, 50);
     }
   };
 
