@@ -17,7 +17,7 @@ export default function FinalCTA() {
 
   const handleBookCallClick = () => {
     trackFinalCTA('book_call');
-    window.open('https://calendly.com/jordanaliwork/30min', '_blank');
+    scrollToSection('book-call');
   };
 
   return (

@@ -1,12 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Button from './ui/Button';
 import HamburgerIcon from './ui/HamburgerIcon';
 import MobileMenu from './ui/MobileMenu';
 import { luxuryScrollToSection, luxuryScrollToTop, luxuryScrollToTopFrom, scrollToApplication } from '../utils/luxuryScroll';
 
 export default function Navbar() {
-  const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMenuPrewarmed, setIsMenuPrewarmed] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -60,10 +58,6 @@ export default function Navbar() {
   const handleNavigate = (id: string) => {
     const capturedScrollY = scrollYBeforeMenuRef.current;
     setIsMobileMenuOpen(false);
-    if (id === 'pricing') {
-      setTimeout(() => navigate('/apply'), 32);
-      return;
-    }
     setTimeout(() => {
       if (id === 'hero') {
         luxuryScrollToTopFrom(capturedScrollY);
@@ -157,7 +151,7 @@ export default function Navbar() {
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#FFC300] group-hover:w-full transition-all duration-300" aria-hidden="true"></span>
             </button>
             <button
-              onClick={() => navigate('/apply')}
+              onClick={() => scrollToSection('pricing')}
               className="text-white hover:text-[#FFC300] transition-all duration-300 font-medium relative group"
               aria-label="Navigate to Pricing"
             >
