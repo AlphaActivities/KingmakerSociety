@@ -156,7 +156,8 @@ export default function TimezoneSelect({ label, value, onChange, error, required
       }
     };
 
-    const handleScroll = () => {
+    const handleScroll = (e: Event) => {
+      if (dropdownRef.current?.contains(e.target as Node)) return;
       if (revealTimerRef.current) clearTimeout(revealTimerRef.current);
       setOpen(false);
       setVisible(false);
