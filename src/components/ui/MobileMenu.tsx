@@ -63,17 +63,23 @@ export default function MobileMenu({
 
   const [activeLink, setActiveLink] = useState<string | null>(null);
   const [barReady, setBarReady] = useState(false);
+  const [linksReady, setLinksReady] = useState(false);
   const barTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const linksTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (barTimerRef.current) clearTimeout(barTimerRef.current);
+    if (linksTimerRef.current) clearTimeout(linksTimerRef.current);
     if (isOpen) {
       barTimerRef.current = setTimeout(() => setBarReady(true), 16);
+      linksTimerRef.current = setTimeout(() => setLinksReady(true), 32);
     } else {
       setBarReady(false);
+      setLinksReady(false);
     }
     return () => {
       if (barTimerRef.current) clearTimeout(barTimerRef.current);
+      if (linksTimerRef.current) clearTimeout(linksTimerRef.current);
     };
   }, [isOpen]);
 
@@ -145,10 +151,19 @@ export default function MobileMenu({
             <div className="px-6 pt-6 pb-4">
               <nav aria-label="Mobile navigation links">
                 <ul className="space-y-0">
-                  {navLinks.map((link) => {
+                  {navLinks.map((link, index) => {
                     const isActive = activeLink === link.id;
                     return (
-                      <li key={link.id}>
+                      <li
+                        key={link.id}
+                        style={{
+                          opacity: linksReady ? 1 : 0,
+                          transform: linksReady ? 'translateX(0)' : 'translateX(18px)',
+                          transition: linksReady
+                            ? `opacity 260ms ease ${index * 48}ms, transform 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 48}ms`
+                            : 'none',
+                        }}
+                      >
                         <button
                           onClick={() => handleNavClick(link.id)}
                           onMouseEnter={() => activateLink(link.id)}
