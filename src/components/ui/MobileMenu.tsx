@@ -117,7 +117,7 @@ export default function MobileMenu({
             boxShadow: '1px 0 10px rgba(209,31,42,0.65), 3px 0 22px rgba(209,31,42,0.30), 2px 0 28px rgba(255,195,0,0.20)',
             transform: barReady ? 'scaleY(1)' : 'scaleY(0)',
             transformOrigin: 'top',
-            transition: barReady ? 'transform 900ms cubic-bezier(0.16, 1, 0.3, 1)' : 'none',
+            transition: barReady ? 'transform 1080ms cubic-bezier(0.16, 1, 0.3, 1)' : 'none',
           }}
           aria-hidden="true"
         />
