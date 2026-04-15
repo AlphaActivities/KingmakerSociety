@@ -34,7 +34,7 @@ export const submitLead = async (data: LeadData): Promise<{ success: boolean; le
     const parsedAge = parseInt(data.age);
     const ageValue = !isNaN(parsedAge) ? parsedAge : null;
 
-    const { data: inserted, error } = await supabase
+    const { error } = await supabase
       .from('leads')
       .insert([
         {
@@ -47,16 +47,14 @@ export const submitLead = async (data: LeadData): Promise<{ success: boolean; le
           occupation: data.occupation,
           biggest_struggle: data.struggle,
         },
-      ])
-      .select('id')
-      .maybeSingle();
+      ]);
 
     if (error) {
       console.error('Lead submission error:', error);
       return { success: false, error: error.message };
     }
 
-    return { success: true, leadId: inserted?.id };
+    return { success: true };
   } catch (error) {
     console.error('Lead submission error:', error);
     return { success: false, error: 'Failed to submit application. Please try again.' };

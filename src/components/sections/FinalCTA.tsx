@@ -1,5 +1,4 @@
 import { Crown, ArrowRight } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 import Section from '../ui/Section';
 import Button from '../ui/Button';
 import LuxFadeIn from '../ui/LuxFadeIn';
@@ -7,15 +6,13 @@ import { luxuryScrollToSection } from '../../utils/luxuryScroll';
 import { trackFinalCTA } from '../../utils/analytics';
 
 export default function FinalCTA() {
-  const navigate = useNavigate();
-
   const scrollToSection = (id: string) => {
     luxuryScrollToSection(id, 80);
   };
 
   const handleApplyClick = () => {
     trackFinalCTA('apply');
-    navigate('/apply');
+    scrollToSection('hero');
   };
 
   const handleBookCallClick = () => {
