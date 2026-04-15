@@ -4,6 +4,7 @@ import Button from '../ui/Button';
 import Input from '../ui/Input';
 import Select from '../ui/Select';
 import Container from '../ui/Container';
+import TimezoneSelect from '../ui/TimezoneSelect';
 import LuxFadeIn from '../ui/LuxFadeIn';
 import HeroBackgroundSlider from '../ui/HeroBackgroundSlider';
 import { luxuryScrollToSection, scrollToApplication } from '../../utils/luxuryScroll';
@@ -206,22 +207,27 @@ export default function Hero() {
                   <div className="grid sm:grid-cols-2 gap-4">
                     <Input
                       label="Age"
-                      type="number"
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]*"
                       placeholder="25"
                       value={formData.age}
-                      onChange={(e) => setFormData({ ...formData, age: e.target.value })}
+                      onChange={(e) => {
+                        const val = e.target.value.replace(/\D/g, '');
+                        setFormData({ ...formData, age: val });
+                      }}
                       error={errors.age}
                       required
                     />
-                    <Input
-                      label="Time Zone"
-                      type="text"
-                      placeholder="EST, PST, etc."
-                      value={formData.timezone}
-                      onChange={(e) => setFormData({ ...formData, timezone: e.target.value })}
-                      error={errors.timezone}
-                      required
-                    />
+                    <div className="relative">
+                      <TimezoneSelect
+                        label="Time Zone"
+                        value={formData.timezone}
+                        onChange={(val) => setFormData({ ...formData, timezone: val })}
+                        error={errors.timezone}
+                        required
+                      />
+                    </div>
                   </div>
 
                   <Input
