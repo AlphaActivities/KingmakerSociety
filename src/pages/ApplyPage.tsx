@@ -35,7 +35,7 @@ const PROGRESS_STEPS: ApplyStep[] = ['welcome', 'goals-vision', 'current-reality
 
 export default function ApplyPage() {
   const navigate = useNavigate();
-  const { applyStep, setApplyStep, leadEmail, setQuestionnaireSubmitted, leadSubmitted } = useApplication();
+  const { applyStep, setApplyStep, leadId, leadEmail, setQuestionnaireSubmitted, leadSubmitted } = useApplication();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
 
@@ -76,7 +76,7 @@ export default function ApplyPage() {
     setSubmitError('');
 
     const allData = { ...goalsData, ...realityData, ...beliefData };
-    const result = await submitQuestionnaire(null, allData, leadEmail);
+    const result = await submitQuestionnaire(leadId, allData, leadEmail);
 
     setIsSubmitting(false);
 
