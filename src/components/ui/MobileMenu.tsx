@@ -64,22 +64,28 @@ export default function MobileMenu({
   const [activeLink, setActiveLink] = useState<string | null>(null);
   const [barReady, setBarReady] = useState(false);
   const [linksReady, setLinksReady] = useState(false);
+  const [stackReady, setStackReady] = useState(false);
   const barTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const linksTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const stackTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (barTimerRef.current) clearTimeout(barTimerRef.current);
     if (linksTimerRef.current) clearTimeout(linksTimerRef.current);
+    if (stackTimerRef.current) clearTimeout(stackTimerRef.current);
     if (isOpen) {
       barTimerRef.current = setTimeout(() => setBarReady(true), 16);
       linksTimerRef.current = setTimeout(() => setLinksReady(true), 32);
+      stackTimerRef.current = setTimeout(() => setStackReady(true), 48);
     } else {
       setBarReady(false);
       setLinksReady(false);
+      setStackReady(false);
     }
     return () => {
       if (barTimerRef.current) clearTimeout(barTimerRef.current);
       if (linksTimerRef.current) clearTimeout(linksTimerRef.current);
+      if (stackTimerRef.current) clearTimeout(stackTimerRef.current);
     };
   }, [isOpen]);
 
@@ -219,7 +225,16 @@ export default function MobileMenu({
 
           <div className="px-6 pt-6 pb-7 border-t border-white/10 space-y-5">
             {/* Elite Members badge */}
-            <div className="flex items-center justify-center">
+            <div
+              className="flex items-center justify-center"
+              style={{
+                opacity: stackReady ? 1 : 0,
+                transform: stackReady ? 'translateY(0)' : 'translateY(10px)',
+                transition: stackReady
+                  ? 'opacity 280ms ease 0ms, transform 320ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0ms'
+                  : 'none',
+              }}
+            >
               <div className="relative inline-flex items-center">
                 {/* Outer pulse halo */}
                 <span
@@ -252,7 +267,16 @@ export default function MobileMenu({
             </div>
 
             {/* Start Application CTA */}
-            <div className="relative">
+            <div
+              className="relative"
+              style={{
+                opacity: stackReady ? 1 : 0,
+                transform: stackReady ? 'translateY(0)' : 'translateY(10px)',
+                transition: stackReady
+                  ? 'opacity 280ms ease 56ms, transform 320ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 56ms'
+                  : 'none',
+              }}
+            >
               {/* Ambient under-glow — sits below, not on top */}
               <span
                 className="absolute pointer-events-none"
