@@ -10,22 +10,26 @@ interface MembersOnlyModalProps {
 export default function MembersOnlyModal({ isOpen, onClose }: MembersOnlyModalProps) {
   const [isExiting, setIsExiting] = useState(false);
   const shouldRestoreScrollRef = useRef(true);
+  const savedScrollYRef = useRef(0);
 
   useEffect(() => {
     if (isOpen) {
-      const scrollY = window.scrollY;
-      document.body.style.top = `-${scrollY}px`;
+      savedScrollYRef.current = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = '0px';
+      document.body.style.width = '100%';
       document.body.classList.add('modal-open');
       setIsExiting(false);
       shouldRestoreScrollRef.current = true;
 
       return () => {
         document.body.classList.remove('modal-open');
-        const scrollY = document.body.style.top;
+        document.body.style.position = '';
         document.body.style.top = '';
+        document.body.style.width = '';
 
         if (shouldRestoreScrollRef.current) {
-          window.scrollTo(0, parseInt(scrollY || '0') * -1);
+          window.scrollTo(0, savedScrollYRef.current);
         }
       };
     }
@@ -41,12 +45,13 @@ export default function MembersOnlyModal({ isOpen, onClose }: MembersOnlyModalPr
 
   const handleViewMembership = () => {
     shouldRestoreScrollRef.current = false;
-    setIsExiting(false);
     onClose();
 
-    setTimeout(() => {
-      luxuryScrollToSection('pricing', 80);
-    }, 100);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        luxuryScrollToSection('pricing', 80);
+      });
+    });
   };
 
   useEffect(() => {
