@@ -65,7 +65,7 @@ export default function PremiumSelect({
       )
     : displayOptions;
 
-  const DROPDOWN_HEIGHT = 280;
+  const DROPDOWN_HEIGHT = 380;
   const GAP = 8;
 
   const calculatePosition = () => {
@@ -260,7 +260,7 @@ export default function PremiumSelect({
               </div>
             )}
 
-            <ul className="max-h-64 overflow-y-auto overscroll-contain dropdown-scroll">
+            <ul className="overflow-y-visible overscroll-contain dropdown-scroll">
               {filtered.length === 0 ? (
                 <li className="px-4 py-3 text-gray-500 text-sm text-center">No results found</li>
               ) : (
