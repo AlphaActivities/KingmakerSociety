@@ -41,12 +41,14 @@ export default function MembersOnlyModal({ isOpen, onClose }: MembersOnlyModalPr
 
   const handleViewMembership = () => {
     shouldRestoreScrollRef.current = false;
-    setIsExiting(false);
-    onClose();
-
+    setIsExiting(true);
     setTimeout(() => {
-      luxuryScrollToSection('pricing', 80);
-    }, 100);
+      onClose();
+      setIsExiting(false);
+      requestAnimationFrame(() => {
+        luxuryScrollToSection('pricing', 80);
+      });
+    }, 350);
   };
 
   useEffect(() => {
