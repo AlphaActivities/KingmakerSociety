@@ -65,7 +65,7 @@ export default function PremiumSelect({
       )
     : displayOptions;
 
-  const DROPDOWN_HEIGHT = 380;
+  const DROPDOWN_HEIGHT = 280;
   const GAP = 8;
 
   const calculatePosition = () => {
