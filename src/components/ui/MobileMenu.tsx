@@ -236,31 +236,46 @@ export default function MobileMenu({
               }}
             >
               <div className="relative inline-flex items-center">
-                {/* Outer pulse halo */}
+                {/* Outer pulse halo — primary ring, wide warm bloom */}
                 <span
-                  className="absolute inset-0 rounded-full animate-badge-pulse pointer-events-none"
-                  style={{ background: 'rgba(255,195,0,0.18)' }}
+                  className="absolute rounded-full animate-badge-pulse pointer-events-none"
+                  style={{
+                    inset: '-6px',
+                    background: 'radial-gradient(ellipse at center, rgba(255,195,0,0.30) 0%, rgba(255,160,0,0.12) 50%, transparent 78%)',
+                  }}
+                  aria-hidden="true"
+                />
+                {/* Inner pulse halo — secondary ring, half-phase offset, hotter gold core */}
+                <span
+                  className="absolute rounded-full animate-badge-pulse-inner pointer-events-none"
+                  style={{
+                    inset: '-2px',
+                    background: 'radial-gradient(ellipse at center, rgba(255,218,50,0.34) 0%, rgba(255,195,0,0.14) 55%, transparent 82%)',
+                  }}
                   aria-hidden="true"
                 />
                 {/* Badge pill */}
                 <span
                   className="relative inline-flex items-center gap-1.5 px-4 py-[5px] rounded-full uppercase"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(255,195,0,0.22) 0%, rgba(255,195,0,0.10) 60%, rgba(255,195,0,0.16) 100%)',
-                    border: '1px solid rgba(255,195,0,0.55)',
-                    boxShadow: '0 0 12px rgba(255,195,0,0.20) inset, 0 0 18px rgba(255,195,0,0.12)',
+                    background: 'linear-gradient(135deg, rgba(255,218,50,0.28) 0%, rgba(255,195,0,0.13) 55%, rgba(255,182,0,0.22) 100%)',
+                    border: '1px solid rgba(255,195,0,0.68)',
+                    boxShadow: '0 0 18px rgba(255,195,0,0.30) inset, 0 0 26px rgba(255,195,0,0.20), 0 0 7px rgba(255,195,0,0.32)',
                   }}
                 >
-                  {/* Live dot */}
+                  {/* Live dot — warm bright gold with double bloom */}
                   <span
                     className="w-1.5 h-1.5 rounded-full shrink-0"
-                    style={{ background: '#FFC300', boxShadow: '0 0 5px rgba(255,195,0,0.8)' }}
+                    style={{
+                      background: '#FFD84D',
+                      boxShadow: '0 0 6px 1px rgba(255,218,40,0.90), 0 0 13px rgba(255,195,0,0.58)',
+                    }}
                     aria-hidden="true"
                   />
                   <span className="text-[11px] font-extrabold tracking-[0.07em] text-[#FFC300]">100+</span>
                   <span
                     className="text-[10px] font-semibold tracking-[0.14em]"
-                    style={{ color: 'rgba(255,210,60,0.85)' }}
+                    style={{ color: 'rgba(255,218,70,0.92)' }}
                   >Elite Members</span>
                 </span>
               </div>

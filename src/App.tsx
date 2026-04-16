@@ -13,12 +13,14 @@ import Solution from './components/sections/Solution';
 import Schedule from './components/sections/Schedule';
 import Proof from './components/sections/Proof';
 import Mentors from './components/sections/Mentors';
+import Questionnaire from './components/sections/QuestionnaireNew';
+import BookCall from './components/sections/BookCall';
+import Pricing from './components/sections/Pricing';
 import SocialProof from './components/sections/SocialProof';
 import FinalCTA from './components/sections/FinalCTA';
 import Footer from './components/Footer';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
-import ApplyPage from './pages/ApplyPage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 
 function LandingPage() {
@@ -42,6 +44,9 @@ function LandingPage() {
         <Schedule />
         <Proof />
         <Mentors />
+        <Questionnaire />
+        <BookCall />
+        <Pricing />
         <SocialProof onMembersClick={() => setIsMembersModalOpen(true)} />
         <FinalCTA />
         <Footer onMembersClick={() => setIsMembersModalOpen(true)} />
@@ -50,19 +55,10 @@ function LandingPage() {
   );
 }
 
-function ApplyRoute() {
-  return (
-    <ApplicationProvider>
-      <ApplyPage />
-    </ApplicationProvider>
-  );
-}
-
 export default function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
-      <Route path="/apply" element={<ApplyRoute />} />
       <Route path="/login" element={<LoginPage />} />
       <Route
         path="/dashboard"
