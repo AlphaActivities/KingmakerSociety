@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CheckCircle, ArrowRight } from 'lucide-react';
+import { ArrowRight, ArrowLeft, CheckCircle } from 'lucide-react';
 import Input from '../ui/Input';
 import PremiumSelect from '../ui/PremiumSelect';
 import Button from '../ui/Button';
@@ -7,7 +7,25 @@ import { useApplication } from '../../context/ApplicationContext';
 import { submitQuestionnaire } from '../../services/leadService';
 import { trackCompleteQuestionnaire } from '../../utils/analytics';
 
-const INITIAL_FORM = {
+type FormData = {
+  mainGoal90Days: string;
+  life12Months: string;
+  wantBusiness: string;
+  improvementArea: string;
+  alreadyTried: string;
+  whatStopsConsistency: string;
+  disciplineRating: string;
+  trainingDaysPerWeek: string;
+  prayerDaysPerWeek: string;
+  tryingAlone: string;
+  believeBrotherhoodHelps: string;
+  costOfStaying: string;
+  seriousnessRating: string;
+  willingToInvest: string;
+  interestedPath: string;
+};
+
+const INITIAL_FORM: FormData = {
   mainGoal90Days: '',
   life12Months: '',
   wantBusiness: '',
@@ -26,80 +44,337 @@ const INITIAL_FORM = {
 };
 
 const DAYS_OPTIONS = [
-  { value: '0', label: '0 days', description: 'Not yet' },
-  { value: '1', label: '1 day', description: 'Just starting' },
-  { value: '2', label: '2 days', description: 'Light' },
-  { value: '3', label: '3 days', description: 'Moderate' },
-  { value: '4', label: '4 days', description: 'Solid' },
-  { value: '5', label: '5 days', description: 'Strong' },
-  { value: '6', label: '6 days', description: 'High frequency' },
-  { value: '7', label: '7 days', description: 'Every day' },
+  { value: '0', label: '0 days' },
+  { value: '1', label: '1 day' },
+  { value: '2', label: '2 days' },
+  { value: '3', label: '3 days' },
+  { value: '4', label: '4 days' },
+  { value: '5', label: '5 days' },
+  { value: '6', label: '6 days' },
+  { value: '7', label: '7 days' },
 ];
 
-const RATING_10_OPTIONS = (labels: string[]) =>
-  Array.from({ length: 10 }, (_, i) => ({
-    value: String(i + 1),
-    label: `${i + 1} — ${labels[i]}`,
-    description: '',
-  }));
-
-const DISCIPLINE_LABELS = [
-  'Barely started', 'Struggling', 'Below average', 'Getting there', 'Average',
-  'Above average', 'Solid', 'Very disciplined', 'Elite', 'Locked in',
+const DISCIPLINE_OPTIONS = [
+  { value: '1', label: '1 — Barely started' },
+  { value: '2', label: '2 — Struggling' },
+  { value: '3', label: '3 — Below average' },
+  { value: '4', label: '4 — Getting there' },
+  { value: '5', label: '5 — Average' },
+  { value: '6', label: '6 — Above average' },
+  { value: '7', label: '7 — Solid' },
+  { value: '8', label: '8 — Very disciplined' },
+  { value: '9', label: '9 — Elite' },
+  { value: '10', label: '10 — Locked in' },
 ];
 
-const SERIOUSNESS_LABELS = [
-  'Just curious', 'Thinking about it', 'Somewhat serious', 'Getting motivated', 'Serious',
-  'Very serious', 'Committed', 'Highly committed', 'All in', 'No going back',
+const SERIOUSNESS_OPTIONS = [
+  { value: '1', label: '1 — Just curious' },
+  { value: '2', label: '2 — Thinking about it' },
+  { value: '3', label: '3 — Somewhat serious' },
+  { value: '4', label: '4 — Getting motivated' },
+  { value: '5', label: '5 — Serious' },
+  { value: '6', label: '6 — Very serious' },
+  { value: '7', label: '7 — Committed' },
+  { value: '8', label: '8 — Highly committed' },
+  { value: '9', label: '9 — All in' },
+  { value: '10', label: '10 — No going back' },
 ];
 
-interface SectionProps {
-  title: string;
-  children: React.ReactNode;
+const SCREEN_COUNT = 3;
+type ScreenKey = 0 | 1 | 2;
+
+const SCREENS: { title: string; subtitle: string }[] = [
+  { title: 'Your Vision', subtitle: 'Where do you want to go?' },
+  { title: 'Current Reality', subtitle: 'Where are you right now?' },
+  { title: 'Your Commitment', subtitle: 'Are you ready to move?' },
+];
+
+type ScreenError = Partial<Record<keyof FormData, string>>;
+
+function validateScreen(screen: ScreenKey, form: FormData): ScreenError {
+  const errors: ScreenError = {};
+  if (screen === 0) {
+    if (!form.mainGoal90Days.trim()) errors.mainGoal90Days = 'Required';
+    if (!form.life12Months.trim()) errors.life12Months = 'Required';
+    if (!form.wantBusiness) errors.wantBusiness = 'Required';
+    if (!form.improvementArea) errors.improvementArea = 'Required';
+  }
+  if (screen === 1) {
+    if (!form.alreadyTried.trim()) errors.alreadyTried = 'Required';
+    if (!form.whatStopsConsistency.trim()) errors.whatStopsConsistency = 'Required';
+    if (!form.disciplineRating) errors.disciplineRating = 'Required';
+    if (!form.trainingDaysPerWeek) errors.trainingDaysPerWeek = 'Required';
+    if (!form.prayerDaysPerWeek) errors.prayerDaysPerWeek = 'Required';
+  }
+  if (screen === 2) {
+    if (!form.tryingAlone) errors.tryingAlone = 'Required';
+    if (!form.believeBrotherhoodHelps) errors.believeBrotherhoodHelps = 'Required';
+    if (!form.costOfStaying.trim()) errors.costOfStaying = 'Required';
+    if (!form.seriousnessRating) errors.seriousnessRating = 'Required';
+    if (!form.willingToInvest) errors.willingToInvest = 'Required';
+    if (!form.interestedPath) errors.interestedPath = 'Required';
+  }
+  return errors;
 }
 
-function FormSection({ title, children }: SectionProps) {
+interface ScreenProps {
+  form: FormData;
+  errors: ScreenError;
+  set: (key: keyof FormData) => (val: string) => void;
+  setInput: (key: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+function ScreenVision({ form, errors, set, setInput }: ScreenProps) {
   return (
-    <div className="bg-white/3 border border-white/8 rounded-2xl p-6 space-y-5">
-      <h3 className="text-xs font-bold tracking-[0.2em] text-[#FFC300]/70 uppercase">{title}</h3>
-      {children}
+    <div className="space-y-5">
+      <Input
+        label="What is your main goal for the next 90 days?"
+        type="text"
+        placeholder="Be specific"
+        value={form.mainGoal90Days}
+        onChange={setInput('mainGoal90Days')}
+        error={errors.mainGoal90Days}
+        required
+      />
+      <Input
+        label="What would your life look like 12 months from now if you stayed consistent?"
+        type="text"
+        placeholder="Describe it clearly"
+        value={form.life12Months}
+        onChange={setInput('life12Months')}
+        error={errors.life12Months}
+        required
+      />
+      <PremiumSelect
+        label="Do you want to build your own business or income path one day?"
+        placeholder="Select one"
+        options={[
+          { value: 'yes', label: 'Yes', description: 'I want to build something of my own' },
+          { value: 'no', label: 'No', description: 'Focused on other goals right now' },
+          { value: 'unsure', label: 'Unsure', description: "Haven't decided yet" },
+        ]}
+        value={form.wantBusiness}
+        onChange={set('wantBusiness')}
+        error={errors.wantBusiness}
+        required
+      />
+      <PremiumSelect
+        label="Which area do you want the most improvement in?"
+        placeholder="Select one"
+        options={[
+          { value: 'fitness', label: 'Fitness', description: 'Strength, physique, athletic performance' },
+          { value: 'faith', label: 'Faith', description: 'Spiritual growth and connection to God' },
+          { value: 'health', label: 'Health', description: 'Nutrition, recovery, and long-term vitality' },
+          { value: 'goals', label: 'Goals', description: 'Clarity, direction, and executing on your vision' },
+          { value: 'business', label: 'Business', description: 'Building income and entrepreneurial skills' },
+        ]}
+        value={form.improvementArea}
+        onChange={set('improvementArea')}
+        error={errors.improvementArea}
+        required
+      />
+    </div>
+  );
+}
+
+function ScreenReality({ form, errors, set, setInput }: ScreenProps) {
+  return (
+    <div className="space-y-5">
+      <Input
+        label="What have you already tried to reach your goals?"
+        type="text"
+        placeholder="Programs, approaches, habits..."
+        value={form.alreadyTried}
+        onChange={setInput('alreadyTried')}
+        error={errors.alreadyTried}
+        required
+      />
+      <Input
+        label="What keeps stopping you from being consistent?"
+        type="text"
+        placeholder="Be honest"
+        value={form.whatStopsConsistency}
+        onChange={setInput('whatStopsConsistency')}
+        error={errors.whatStopsConsistency}
+        required
+      />
+      <PremiumSelect
+        label="Rate your current level of discipline (1–10)"
+        placeholder="Select a rating"
+        options={DISCIPLINE_OPTIONS}
+        value={form.disciplineRating}
+        onChange={set('disciplineRating')}
+        error={errors.disciplineRating}
+        required
+      />
+      <PremiumSelect
+        label="How many days per week are you currently training?"
+        placeholder="Select days"
+        options={DAYS_OPTIONS}
+        value={form.trainingDaysPerWeek}
+        onChange={set('trainingDaysPerWeek')}
+        error={errors.trainingDaysPerWeek}
+        required
+      />
+      <PremiumSelect
+        label="How many days per week are you reading scripture or praying?"
+        placeholder="Select days"
+        options={DAYS_OPTIONS}
+        value={form.prayerDaysPerWeek}
+        onChange={set('prayerDaysPerWeek')}
+        error={errors.prayerDaysPerWeek}
+        required
+      />
+    </div>
+  );
+}
+
+function ScreenCommitment({ form, errors, set, setInput }: ScreenProps) {
+  return (
+    <div className="space-y-5">
+      <PremiumSelect
+        label="Have you been trying to figure this out alone?"
+        placeholder="Select one"
+        options={[
+          { value: 'yes', label: 'Yes', description: 'No accountability or brotherhood' },
+          { value: 'no', label: 'No', description: 'I have some support already' },
+        ]}
+        value={form.tryingAlone}
+        onChange={set('tryingAlone')}
+        error={errors.tryingAlone}
+        required
+      />
+      <PremiumSelect
+        label="Would structured brotherhood and accountability accelerate your results?"
+        placeholder="Select one"
+        options={[
+          { value: 'yes', label: 'Yes', description: 'Brotherhood and structure would make a real difference' },
+          { value: 'no', label: 'No', description: 'I think I can get there on my own' },
+        ]}
+        value={form.believeBrotherhoodHelps}
+        onChange={set('believeBrotherhoodHelps')}
+        error={errors.believeBrotherhoodHelps}
+        required
+      />
+      <Input
+        label="What is the real cost of staying where you are for another year?"
+        type="text"
+        placeholder="Think about it honestly"
+        value={form.costOfStaying}
+        onChange={setInput('costOfStaying')}
+        error={errors.costOfStaying}
+        required
+      />
+      <PremiumSelect
+        label="How serious are you about changing your life right now? (1–10)"
+        placeholder="Select a rating"
+        options={SERIOUSNESS_OPTIONS}
+        value={form.seriousnessRating}
+        onChange={set('seriousnessRating')}
+        error={errors.seriousnessRating}
+        required
+      />
+      <PremiumSelect
+        label="If accepted, are you ready to invest in your growth?"
+        placeholder="Select one"
+        options={[
+          { value: 'yes', label: 'Yes', description: 'Ready to invest in mentorship and accountability' },
+          { value: 'no', label: 'No', description: 'Not at this time' },
+          { value: 'depends', label: 'Depends', description: 'Need more information first' },
+        ]}
+        value={form.willingToInvest}
+        onChange={set('willingToInvest')}
+        error={errors.willingToInvest}
+        required
+      />
+      <PremiumSelect
+        label="Which path interests you most?"
+        placeholder="Select one"
+        options={[
+          { value: 'community', label: 'Brotherhood Community', description: 'Shared accountability and brotherhood access' },
+          { value: 'guided', label: 'Guided Growth', description: 'Small group mentorship with structured programming' },
+          { value: 'vip', label: 'VIP Mentorship', description: '1-on-1 direct access to leadership' },
+        ]}
+        value={form.interestedPath}
+        onChange={set('interestedPath')}
+        error={errors.interestedPath}
+        required
+      />
     </div>
   );
 }
 
 export default function ApplyQuestionnaire() {
   const { applicationToken, setQuestionnaireSubmitted, setApplicationStep } = useApplication();
-  const [formData, setFormData] = useState(INITIAL_FORM);
+  const [form, setForm] = useState<FormData>(INITIAL_FORM);
+  const [screen, setScreen] = useState<ScreenKey>(0);
+  const [errors, setErrors] = useState<ScreenError>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
 
-  const set = (key: keyof typeof INITIAL_FORM) => (val: string) =>
-    setFormData((prev) => ({ ...prev, [key]: val }));
+  if (!applicationToken) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px] space-y-6 text-center">
+        <div className="w-14 h-14 rounded-full bg-[#D11F2A]/10 border border-[#D11F2A]/30 flex items-center justify-center mx-auto">
+          <span className="text-[#D11F2A] text-2xl font-bold">!</span>
+        </div>
+        <div>
+          <h2 className="text-xl font-bold text-white mb-2">Session Expired</h2>
+          <p className="text-gray-400 text-sm max-w-xs mx-auto">
+            Your session could not be verified. Please start your application from the beginning.
+          </p>
+        </div>
+        <Button variant="outline" size="md" onClick={() => setApplicationStep('lead-form')}>
+          Restart Application
+        </Button>
+      </div>
+    );
+  }
 
-  const setInput = (key: keyof typeof INITIAL_FORM) => (e: React.ChangeEvent<HTMLInputElement>) =>
-    setFormData((prev) => ({ ...prev, [key]: e.target.value }));
+  const set = (key: keyof FormData) => (val: string) =>
+    setForm((prev) => ({ ...prev, [key]: val }));
+
+  const setInput = (key: keyof FormData) => (e: React.ChangeEvent<HTMLInputElement>) =>
+    setForm((prev) => ({ ...prev, [key]: e.target.value }));
+
+  const handleNext = () => {
+    const errs = validateScreen(screen, form);
+    if (Object.keys(errs).length > 0) {
+      setErrors(errs);
+      return;
+    }
+    setErrors({});
+    setScreen((s) => (s + 1) as ScreenKey);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleBack = () => {
+    setErrors({});
+    setScreen((s) => (s - 1) as ScreenKey);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!applicationToken) {
-      setSubmitError('Session expired. Please restart your application.');
+    const errs = validateScreen(screen, form);
+    if (Object.keys(errs).length > 0) {
+      setErrors(errs);
       return;
     }
 
     setIsSubmitting(true);
-    const result = await submitQuestionnaire(applicationToken, formData);
+    const result = await submitQuestionnaire(applicationToken, form);
     setIsSubmitting(false);
 
     if (result.success) {
       setQuestionnaireSubmitted(true);
       setSubmitSuccess(true);
-      trackCompleteQuestionnaire(formData);
+      trackCompleteQuestionnaire(form);
 
       setTimeout(() => {
         setApplicationStep('call-booking');
-      }, 1200);
+      }, 1400);
     } else {
       setSubmitError(result.error || 'Failed to submit. Please try again.');
     }
@@ -116,7 +391,7 @@ export default function ApplyQuestionnaire() {
           <h2 className="text-2xl font-bold text-white mb-2">Goals Recorded</h2>
           <p className="text-gray-400 text-sm">Preparing your final step...</p>
         </div>
-        <div className="flex space-x-1">
+        <div className="flex space-x-1.5">
           {[0, 1, 2].map((i) => (
             <div
               key={i}
@@ -129,15 +404,31 @@ export default function ApplyQuestionnaire() {
     );
   }
 
+  const screenInfo = SCREENS[screen];
+  const isLastScreen = screen === SCREEN_COUNT - 1;
+
   return (
     <div className="space-y-6">
-      <div className="text-center space-y-3 mb-8">
+      <div className="text-center space-y-2 mb-8">
+        <div className="flex items-center justify-center space-x-1.5 mb-4">
+          {Array.from({ length: SCREEN_COUNT }, (_, i) => (
+            <div
+              key={i}
+              className={[
+                'h-0.5 rounded-full transition-all duration-500',
+                i === 0 ? 'w-10' : 'w-8',
+                i <= screen ? 'bg-[#FFC300]' : 'bg-white/10',
+              ].join(' ')}
+            />
+          ))}
+          <span className="text-[11px] text-white/25 font-medium tracking-widest ml-2 uppercase">
+            {screen + 1} / {SCREEN_COUNT}
+          </span>
+        </div>
         <h1 className="text-3xl sm:text-4xl font-bold text-white leading-tight">
-          Your Goals
+          {screenInfo.title}
         </h1>
-        <p className="text-gray-400 text-base leading-relaxed max-w-md mx-auto">
-          Be honest. These answers help us determine the best path for you.
-        </p>
+        <p className="text-gray-400 text-base">{screenInfo.subtitle}</p>
       </div>
 
       {submitError && (
@@ -146,172 +437,59 @@ export default function ApplyQuestionnaire() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-5">
-        <FormSection title="Vision">
-          <Input
-            label="What is your main goal for the next 90 days?"
-            type="text"
-            value={formData.mainGoal90Days}
-            onChange={setInput('mainGoal90Days')}
-            required
-          />
-          <Input
-            label="What would your life look like 12 months from now if you stayed consistent?"
-            type="text"
-            value={formData.life12Months}
-            onChange={setInput('life12Months')}
-            required
-          />
-          <PremiumSelect
-            label="Do you want to build your own business or income path one day?"
-            placeholder="Select one"
-            options={[
-              { value: 'yes', label: 'Yes', description: 'I want to build something of my own' },
-              { value: 'no', label: 'No', description: 'Focused on other goals right now' },
-              { value: 'unsure', label: 'Unsure', description: "Haven't decided yet" },
-            ]}
-            value={formData.wantBusiness}
-            onChange={set('wantBusiness')}
-            required
-          />
-          <PremiumSelect
-            label="Which area do you want the most improvement in?"
-            placeholder="Select one"
-            options={[
-              { value: 'fitness', label: 'Fitness', description: 'Strength, physique, athletic performance' },
-              { value: 'faith', label: 'Faith', description: 'Spiritual growth and connection to God' },
-              { value: 'health', label: 'Health', description: 'Nutrition, recovery, and long-term vitality' },
-              { value: 'goals', label: 'Goals', description: 'Clarity, direction, and executing on your vision' },
-              { value: 'business', label: 'Business', description: 'Building income and entrepreneurial skills' },
-            ]}
-            value={formData.improvementArea}
-            onChange={set('improvementArea')}
-            required
-          />
-        </FormSection>
+      <div key={screen} className="fade-in">
+        <div className="bg-white/3 border border-white/8 rounded-2xl p-6">
+          {screen === 0 && <ScreenVision form={form} errors={errors} set={set} setInput={setInput} />}
+          {screen === 1 && <ScreenReality form={form} errors={errors} set={set} setInput={setInput} />}
+          {screen === 2 && <ScreenCommitment form={form} errors={errors} set={set} setInput={setInput} />}
+        </div>
+      </div>
 
-        <FormSection title="Current Reality">
-          <Input
-            label="What have you already tried to reach your goals?"
-            type="text"
-            value={formData.alreadyTried}
-            onChange={setInput('alreadyTried')}
-            required
-          />
-          <Input
-            label="What keeps stopping you from being consistent?"
-            type="text"
-            value={formData.whatStopsConsistency}
-            onChange={setInput('whatStopsConsistency')}
-            required
-          />
-          <PremiumSelect
-            label="Rate your current discipline (1–10)"
-            placeholder="Select a rating"
-            options={RATING_10_OPTIONS(DISCIPLINE_LABELS)}
-            value={formData.disciplineRating}
-            onChange={set('disciplineRating')}
-            required
-          />
-          <PremiumSelect
-            label="How many days per week are you currently training?"
-            placeholder="Select days per week"
-            options={DAYS_OPTIONS}
-            value={formData.trainingDaysPerWeek}
-            onChange={set('trainingDaysPerWeek')}
-            required
-          />
-          <PremiumSelect
-            label="How many days per week are you reading scripture or praying?"
-            placeholder="Select days per week"
-            options={DAYS_OPTIONS}
-            value={formData.prayerDaysPerWeek}
-            onChange={set('prayerDaysPerWeek')}
-            required
-          />
-        </FormSection>
-
-        <FormSection title="Commitment">
-          <PremiumSelect
-            label="Have you been trying to do this alone?"
-            placeholder="Select one"
-            options={[
-              { value: 'yes', label: 'Yes', description: 'No accountability or brotherhood' },
-              { value: 'no', label: 'No', description: 'I have some support' },
-            ]}
-            value={formData.tryingAlone}
-            onChange={set('tryingAlone')}
-            required
-          />
-          <PremiumSelect
-            label="Would a structured brotherhood and accountability accelerate your results?"
-            placeholder="Select one"
-            options={[
-              { value: 'yes', label: 'Yes', description: 'Brotherhood and structure would make a real difference' },
-              { value: 'no', label: 'No', description: 'I think I can get there on my own' },
-            ]}
-            value={formData.believeBrotherhoodHelps}
-            onChange={set('believeBrotherhoodHelps')}
-            required
-          />
-          <Input
-            label="What is the cost of staying where you are for another year?"
-            type="text"
-            value={formData.costOfStaying}
-            onChange={setInput('costOfStaying')}
-            required
-          />
-          <PremiumSelect
-            label="How serious are you about changing your life right now? (1–10)"
-            placeholder="Select a rating"
-            options={RATING_10_OPTIONS(SERIOUSNESS_LABELS)}
-            value={formData.seriousnessRating}
-            onChange={set('seriousnessRating')}
-            required
-          />
-          <PremiumSelect
-            label="If accepted, are you willing to invest in mentorship and accountability?"
-            placeholder="Select one"
-            options={[
-              { value: 'yes', label: 'Yes', description: 'Ready to invest in my growth' },
-              { value: 'no', label: 'No', description: 'Not at this time' },
-              { value: 'depends', label: 'Depends', description: 'Need more information first' },
-            ]}
-            value={formData.willingToInvest}
-            onChange={set('willingToInvest')}
-            required
-          />
-          <PremiumSelect
-            label="Which path are you most interested in?"
-            placeholder="Select one"
-            options={[
-              { value: 'community', label: 'Brotherhood Community', description: 'Access to the brotherhood and shared accountability' },
-              { value: 'guided', label: 'Guided Growth', description: 'Small group mentorship with structured programming' },
-              { value: 'vip', label: 'VIP Mentorship', description: '1-on-1 support with direct access to leadership' },
-            ]}
-            value={formData.interestedPath}
-            onChange={set('interestedPath')}
-            required
-          />
-        </FormSection>
-
-        <Button
-          type="submit"
-          variant="secondary"
-          size="lg"
-          className="w-full"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? (
-            'Submitting...'
-          ) : (
+      <div className="flex items-center gap-3">
+        {screen > 0 && (
+          <button
+            type="button"
+            onClick={handleBack}
+            className="flex items-center space-x-2 px-5 py-3 rounded-xl border border-white/10 text-gray-400 hover:text-white hover:border-white/20 transition-all duration-200 text-sm font-medium shrink-0"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Back</span>
+          </button>
+        )}
+        {isLastScreen ? (
+          <form onSubmit={handleSubmit} className="flex-1">
+            <Button
+              type="submit"
+              variant="secondary"
+              size="lg"
+              className="w-full"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                'Submitting...'
+              ) : (
+                <span className="flex items-center space-x-2">
+                  <span>Submit &amp; Continue</span>
+                  <ArrowRight className="w-5 h-5" />
+                </span>
+              )}
+            </Button>
+          </form>
+        ) : (
+          <Button
+            type="button"
+            variant="secondary"
+            size="lg"
+            className="flex-1"
+            onClick={handleNext}
+          >
             <span className="flex items-center space-x-2">
-              <span>Submit & Continue</span>
+              <span>Continue</span>
               <ArrowRight className="w-5 h-5" />
             </span>
-          )}
-        </Button>
-      </form>
+          </Button>
+        )}
+      </div>
     </div>
   );
 }

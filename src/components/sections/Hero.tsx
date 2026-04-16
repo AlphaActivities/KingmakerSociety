@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Shield, Calendar, CheckCircle } from 'lucide-react';
 import Button from '../ui/Button';
 import Input from '../ui/Input';
@@ -14,6 +15,7 @@ import { useApplication } from '../../context/ApplicationContext';
 import { trackBeginApplication, trackCompleteLeadForm } from '../../utils/analytics';
 
 export default function Hero() {
+  const navigate = useNavigate();
   const { setApplicationToken, setApplicationStep, setLeadSubmitted } = useApplication();
   const [formData, setFormData] = useState({
     firstName: '',
@@ -69,8 +71,8 @@ export default function Hero() {
       });
 
       setTimeout(() => {
-        luxuryScrollToSection('questionnaire', 80);
-      }, 1500);
+        navigate('/apply');
+      }, 1200);
     } else {
       setSubmitError(result.error || 'Failed to submit application. Please try again.');
     }
