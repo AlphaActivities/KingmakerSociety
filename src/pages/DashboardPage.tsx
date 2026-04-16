@@ -1,11 +1,25 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LogOut, Users, UserCheck, Phone, Star, CheckCircle, RefreshCw } from 'lucide-react';
+import { LogOut, Users, UserCheck, Phone, Star, CheckCircle, RefreshCw, ClipboardList } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { fetchLeads, Lead, LeadStatus } from '../services/dashboardService';
+import { fetchLeads, Lead, LeadStatus, ApplicationStage } from '../services/dashboardService';
 import LeadsTable from '../components/dashboard/LeadsTable';
 
 type FilterState = LeadStatus | 'all';
+
+const STAGE_ORDER: ApplicationStage[] = ['lead-form', 'questionnaire', 'call-booking', 'complete'];
+const STAGE_LABELS: Record<ApplicationStage, string> = {
+  'lead-form': 'Lead Only',
+  'questionnaire': 'Questionnaire Done',
+  'call-booking': 'Call Booked',
+  'complete': 'Fully Complete',
+};
+const STAGE_COLORS: Record<ApplicationStage, string> = {
+  'lead-form': 'text-gray-400',
+  'questionnaire': 'text-blue-400',
+  'call-booking': 'text-amber-400',
+  'complete': 'text-green-400',
+};
 
 interface StatCardProps {
   label: string;
@@ -75,6 +89,8 @@ export default function DashboardPage() {
   }, []);
 
   const countByStatus = (status: LeadStatus) => leads.filter((l) => l.status === status).length;
+  const countByStage = (stage: ApplicationStage) => leads.filter((l) => l.application_stage === stage).length;
+  const countWithQuestionnaire = leads.filter((l) => (l.questionnaire_responses?.length ?? 0) > 0).length;
 
   const filteredLeads = activeFilter === 'all'
     ? leads
@@ -90,7 +106,7 @@ export default function DashboardPage() {
 
   const tableHeading = activeFilter === 'all'
     ? 'All Applications'
-    : `${activeFilter.charAt(0).toUpperCase() + activeFilter.slice(1)} Applications`;
+    : `${activeFilter.charAt(0).toUpperCase() + activeFilter.slice(1)} — Applications`;
 
   return (
     <div className="min-h-screen bg-[#0B0B0B] text-white">
@@ -183,6 +199,26 @@ export default function DashboardPage() {
               onClick={() => handleFilterClick('converted')}
             />
           </div>
+        </div>
+
+        <div className="bg-[#141414] border border-white/8 rounded-2xl px-5 py-4">
+          <div className="flex items-center gap-2 mb-3">
+            <ClipboardList className="w-3.5 h-3.5 text-gray-500" />
+            <span className="text-xs font-semibold text-gray-500 uppercase tracking-widest">Application Stage Pipeline</span>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {STAGE_ORDER.map((stage) => (
+              <div key={stage} className="flex flex-col gap-0.5">
+                <span className={`text-xl font-bold ${STAGE_COLORS[stage]}`}>{countByStage(stage)}</span>
+                <span className="text-xs text-gray-600">{STAGE_LABELS[stage]}</span>
+              </div>
+            ))}
+          </div>
+          {countWithQuestionnaire > 0 && (
+            <p className="text-xs text-gray-600 mt-3 pt-3 border-t border-white/5">
+              <span className="text-green-400 font-semibold">{countWithQuestionnaire}</span> of {leads.length} submitted questionnaire answers
+            </p>
+          )}
         </div>
 
         <div>

@@ -8,7 +8,7 @@ import TimezoneSelect from '../ui/TimezoneSelect';
 import PremiumSelect from '../ui/PremiumSelect';
 import LuxFadeIn from '../ui/LuxFadeIn';
 import HeroBackgroundSlider from '../ui/HeroBackgroundSlider';
-import { luxuryScrollToSection, scrollToApplication } from '../../utils/luxuryScroll';
+import { scrollToApplication } from '../../utils/luxuryScroll';
 import { validateLeadForm, ValidationError } from '../../utils/validation';
 import { submitLead } from '../../services/leadService';
 import { useApplication } from '../../context/ApplicationContext';
@@ -78,8 +78,8 @@ export default function Hero() {
     }
   };
 
-  const scrollToSection = (id: string) => {
-    luxuryScrollToSection(id, 80);
+  const handleBookCall = () => {
+    window.open('https://calendly.com/jordanaliwork/30min', '_blank');
   };
 
   const struggles = [
@@ -132,7 +132,7 @@ export default function Hero() {
                 <Button variant="primary" size="lg" onClick={scrollToApplication} className="animate-pulse-glow">
                   Start Application
                 </Button>
-                <Button variant="outline" size="lg" onClick={() => scrollToSection('book-call')} className="whitespace-nowrap">
+                <Button variant="outline" size="lg" onClick={handleBookCall} className="whitespace-nowrap">
                   <Calendar className="w-5 h-5 mr-2" />
                   Book a Call
                 </Button>

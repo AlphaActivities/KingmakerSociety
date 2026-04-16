@@ -27,7 +27,7 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
                 <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-widest">Name</th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-widest hidden sm:table-cell">Email</th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-widest hidden md:table-cell">Phone</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-widest hidden lg:table-cell">Struggle</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-widest hidden lg:table-cell">Stage</th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-widest">Status</th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-widest hidden xl:table-cell">Applied</th>
               </tr>

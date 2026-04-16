@@ -22,7 +22,6 @@ export default function Footer({ onMembersClick }: FooterProps) {
       { label: 'About', id: 'who-this-is-for' },
       { label: 'Schedule', id: 'schedule' },
       { label: 'Mentors', id: 'mentors' },
-      { label: 'Pricing', id: 'pricing' },
     ],
   };
 
