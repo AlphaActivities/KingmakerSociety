@@ -1,23 +1,21 @@
 import { Crown, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import Section from '../ui/Section';
 import Button from '../ui/Button';
 import LuxFadeIn from '../ui/LuxFadeIn';
-import { luxuryScrollToSection } from '../../utils/luxuryScroll';
 import { trackFinalCTA } from '../../utils/analytics';
 
 export default function FinalCTA() {
-  const scrollToSection = (id: string) => {
-    luxuryScrollToSection(id, 80);
-  };
+  const navigate = useNavigate();
 
   const handleApplyClick = () => {
     trackFinalCTA('apply');
-    scrollToSection('hero');
+    navigate('/apply');
   };
 
   const handleBookCallClick = () => {
     trackFinalCTA('book_call');
-    scrollToSection('book-call');
+    window.open('https://calendly.com/jordanaliwork/30min', '_blank');
   };
 
   return (

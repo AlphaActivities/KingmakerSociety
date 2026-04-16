@@ -13,9 +13,6 @@ import Solution from './components/sections/Solution';
 import Schedule from './components/sections/Schedule';
 import Proof from './components/sections/Proof';
 import Mentors from './components/sections/Mentors';
-import Questionnaire from './components/sections/QuestionnaireNew';
-import BookCall from './components/sections/BookCall';
-import Pricing from './components/sections/Pricing';
 import SocialProof from './components/sections/SocialProof';
 import FinalCTA from './components/sections/FinalCTA';
 import Footer from './components/Footer';
@@ -45,9 +42,6 @@ function LandingPage() {
         <Schedule />
         <Proof />
         <Mentors />
-        <Questionnaire />
-        <BookCall />
-        <Pricing />
         <SocialProof onMembersClick={() => setIsMembersModalOpen(true)} />
         <FinalCTA />
         <Footer onMembersClick={() => setIsMembersModalOpen(true)} />
