@@ -81,6 +81,7 @@ export default function Navbar() {
     { label: 'About', id: 'who-this-is-for' },
     { label: 'Schedule', id: 'schedule' },
     { label: 'Mentors', id: 'mentors' },
+    { label: 'Pricing', id: 'final-cta' },
   ];
 
   return (
