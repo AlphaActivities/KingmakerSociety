@@ -14,7 +14,7 @@ import { useApplication } from '../../context/ApplicationContext';
 import { trackBeginApplication, trackCompleteLeadForm } from '../../utils/analytics';
 
 export default function Hero() {
-  const { setLeadId, setApplicationStep, setLeadSubmitted } = useApplication();
+  const { setApplicationToken, setApplicationStep, setLeadSubmitted } = useApplication();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -56,6 +56,9 @@ export default function Hero() {
     setIsSubmitting(false);
 
     if (result.success) {
+      if (result.applicationToken) {
+        setApplicationToken(result.applicationToken);
+      }
       setLeadSubmitted(true);
       setSubmitSuccess(true);
       setApplicationStep('questionnaire');

@@ -12,7 +12,7 @@ import { luxuryScrollToSection } from '../../utils/luxuryScroll';
 import { trackCompleteQuestionnaire } from '../../utils/analytics';
 
 export default function Questionnaire() {
-  const { leadId, leadSubmitted, setQuestionnaireSubmitted, setApplicationStep } = useApplication();
+  const { applicationToken, leadSubmitted, setQuestionnaireSubmitted, setApplicationStep } = useApplication();
   const [formData, setFormData] = useState({
     mainGoal90Days: '',
     life12Months: '',
@@ -37,14 +37,14 @@ export default function Questionnaire() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!leadId) {
+    if (!applicationToken) {
       setSubmitError('Please complete the application form first');
       luxuryScrollToSection('hero', 80);
       return;
     }
 
     setIsSubmitting(true);
-    const result = await submitQuestionnaire(leadId, formData);
+    const result = await submitQuestionnaire(applicationToken, formData);
     setIsSubmitting(false);
 
     if (result.success) {
