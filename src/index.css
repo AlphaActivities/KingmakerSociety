@@ -161,20 +161,38 @@
     animation: pulse-glow 2.5s ease-in-out infinite;
   }
 
-  /* GPU-composited badge pulse — opacity + scale only, no box-shadow paint */
+  /* GPU-composited badge pulse — outer halo, opacity + scale only, no paint */
   @keyframes badge-pulse {
     0%, 100% {
-      opacity: 0.25;
+      opacity: 0.20;
       transform: scale(1);
     }
     50% {
-      opacity: 0.55;
-      transform: scale(1.06);
+      opacity: 0.54;
+      transform: scale(1.11);
     }
   }
 
   .animate-badge-pulse {
-    animation: badge-pulse 2.5s ease-in-out infinite;
+    animation: badge-pulse 2.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    will-change: opacity, transform;
+  }
+
+  /* Secondary inner halo — same compositor path, phase-offset by half period */
+  @keyframes badge-pulse-inner {
+    0%, 100% {
+      opacity: 0.28;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.66;
+      transform: scale(1.05);
+    }
+  }
+
+  .animate-badge-pulse-inner {
+    animation: badge-pulse-inner 2.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    animation-delay: 1.4s;
     will-change: opacity, transform;
   }
 
