@@ -166,7 +166,7 @@ export default function MobileMenu({
                           opacity: linksReady ? 1 : 0,
                           transform: linksReady ? 'translateX(0)' : 'translateX(18px)',
                           transition: linksReady
-                            ? `opacity 260ms ease ${index * 48}ms, transform 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 48}ms`
+                            ? `opacity 520ms ease ${index * 96}ms, transform 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 96}ms`
                             : 'none',
                         }}
                       >
