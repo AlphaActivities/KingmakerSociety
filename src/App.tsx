@@ -21,6 +21,7 @@ import FinalCTA from './components/sections/FinalCTA';
 import Footer from './components/Footer';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
+import ApplyPage from './pages/ApplyPage';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 
 function LandingPage() {
@@ -59,6 +60,7 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
+      <Route path="/apply" element={<ApplyPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route
         path="/dashboard"
