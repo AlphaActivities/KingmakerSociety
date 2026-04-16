@@ -9,16 +9,24 @@ interface MembersOnlyModalProps {
 
 export default function MembersOnlyModal({ isOpen, onClose }: MembersOnlyModalProps) {
   const [isExiting, setIsExiting] = useState(false);
-  const shouldScrollToPricingRef = useRef(false);
+  const shouldRestoreScrollRef = useRef(true);
 
   useEffect(() => {
     if (isOpen) {
-      document.documentElement.style.overflow = 'hidden';
+      const scrollY = window.scrollY;
+      document.body.style.top = `-${scrollY}px`;
+      document.body.classList.add('modal-open');
       setIsExiting(false);
-      shouldScrollToPricingRef.current = false;
+      shouldRestoreScrollRef.current = true;
 
       return () => {
-        document.documentElement.style.overflow = '';
+        document.body.classList.remove('modal-open');
+        const scrollY = document.body.style.top;
+        document.body.style.top = '';
+
+        if (shouldRestoreScrollRef.current) {
+          window.scrollTo(0, parseInt(scrollY || '0') * -1);
+        }
       };
     }
   }, [isOpen]);
@@ -32,13 +40,13 @@ export default function MembersOnlyModal({ isOpen, onClose }: MembersOnlyModalPr
   };
 
   const handleViewMembership = () => {
-    shouldScrollToPricingRef.current = true;
-    document.documentElement.style.overflow = '';
+    shouldRestoreScrollRef.current = false;
+    setIsExiting(false);
     onClose();
 
     setTimeout(() => {
       luxuryScrollToSection('pricing', 80);
-    }, 32);
+    }, 100);
   };
 
   useEffect(() => {

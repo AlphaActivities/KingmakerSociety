@@ -1,4 +1,5 @@
 import { Mail, Facebook, Instagram, Youtube, MessageCircle, Calendar } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { luxuryScrollToSection } from '../utils/luxuryScroll';
 import { trackClickBookCall } from '../utils/analytics';
 
@@ -7,7 +8,12 @@ interface FooterProps {
 }
 
 export default function Footer({ onMembersClick }: FooterProps) {
+  const navigate = useNavigate();
   const scrollToSection = (id: string) => {
+    if (id === 'pricing') {
+      navigate('/apply');
+      return;
+    }
     luxuryScrollToSection(id, 80);
   };
 

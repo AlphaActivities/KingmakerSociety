@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Shield, Calendar, CheckCircle } from 'lucide-react';
 import Button from '../ui/Button';
 import Input from '../ui/Input';
@@ -14,7 +15,8 @@ import { useApplication } from '../../context/ApplicationContext';
 import { trackBeginApplication, trackCompleteLeadForm } from '../../utils/analytics';
 
 export default function Hero() {
-  const { setLeadId, setApplicationStep, setLeadSubmitted } = useApplication();
+  const navigate = useNavigate();
+  const { setLeadSubmitted, setFirstName, setLeadEmail, setLeadId } = useApplication();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -58,7 +60,9 @@ export default function Hero() {
     if (result.success) {
       setLeadSubmitted(true);
       setSubmitSuccess(true);
-      setApplicationStep('questionnaire');
+      setFirstName(formData.firstName);
+      setLeadEmail(formData.email);
+      if (result.leadId) setLeadId(result.leadId);
 
       trackCompleteLeadForm({
         name: `${formData.firstName} ${formData.lastName}`,
@@ -66,8 +70,8 @@ export default function Hero() {
       });
 
       setTimeout(() => {
-        luxuryScrollToSection('questionnaire', 80);
-      }, 1500);
+        navigate('/apply');
+      }, 1200);
     } else {
       setSubmitError(result.error || 'Failed to submit application. Please try again.');
     }
@@ -127,7 +131,7 @@ export default function Hero() {
                 <Button variant="primary" size="lg" onClick={scrollToApplication} className="animate-pulse-glow">
                   Start Application
                 </Button>
-                <Button variant="outline" size="lg" onClick={() => scrollToSection('book-call')} className="whitespace-nowrap">
+                <Button variant="outline" size="lg" onClick={() => window.open('https://calendly.com/jordanaliwork/30min', '_blank')} className="whitespace-nowrap">
                   <Calendar className="w-5 h-5 mr-2" />
                   Book a Call
                 </Button>
@@ -145,7 +149,7 @@ export default function Hero() {
                   <p className="text-gray-300">
                     Thank you for taking the first step. Let's continue with a few more questions to understand your goals.
                   </p>
-                  <p className="text-[#FFC300] text-sm">Redirecting to questionnaire...</p>
+                  <p className="text-[#FFC300] text-sm">Taking you to your assessment...</p>
                 </div>
               </div>
             ) : (

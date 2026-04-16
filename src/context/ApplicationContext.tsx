@@ -1,10 +1,22 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 
+export type ApplyStep =
+  | 'welcome'
+  | 'goals-vision'
+  | 'current-reality'
+  | 'belief-commitment'
+  | 'verdict'
+  | 'pricing';
+
 interface ApplicationContextType {
   leadId: string | null;
   setLeadId: (id: string) => void;
-  applicationStep: 'lead-form' | 'questionnaire' | 'call-booking' | 'pricing' | 'complete';
-  setApplicationStep: (step: 'lead-form' | 'questionnaire' | 'call-booking' | 'pricing' | 'complete') => void;
+  leadEmail: string;
+  setLeadEmail: (email: string) => void;
+  firstName: string;
+  setFirstName: (name: string) => void;
+  applyStep: ApplyStep;
+  setApplyStep: (step: ApplyStep) => void;
   leadSubmitted: boolean;
   setLeadSubmitted: (submitted: boolean) => void;
   questionnaireSubmitted: boolean;
@@ -15,7 +27,9 @@ const ApplicationContext = createContext<ApplicationContextType | undefined>(und
 
 export const ApplicationProvider = ({ children }: { children: ReactNode }) => {
   const [leadId, setLeadId] = useState<string | null>(null);
-  const [applicationStep, setApplicationStep] = useState<'lead-form' | 'questionnaire' | 'call-booking' | 'pricing' | 'complete'>('lead-form');
+  const [leadEmail, setLeadEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [applyStep, setApplyStep] = useState<ApplyStep>('welcome');
   const [leadSubmitted, setLeadSubmitted] = useState(false);
   const [questionnaireSubmitted, setQuestionnaireSubmitted] = useState(false);
 
@@ -24,8 +38,12 @@ export const ApplicationProvider = ({ children }: { children: ReactNode }) => {
       value={{
         leadId,
         setLeadId,
-        applicationStep,
-        setApplicationStep,
+        leadEmail,
+        setLeadEmail,
+        firstName,
+        setFirstName,
+        applyStep,
+        setApplyStep,
         leadSubmitted,
         setLeadSubmitted,
         questionnaireSubmitted,
