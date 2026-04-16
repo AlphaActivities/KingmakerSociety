@@ -13,7 +13,6 @@ interface DropdownPos {
   top: number;
   left: number;
   width: number;
-  openUpward: boolean;
 }
 
 interface PremiumSelectProps {
@@ -71,17 +70,11 @@ export default function PremiumSelect({
   const calculatePosition = () => {
     if (!buttonRef.current) return;
     const rect = buttonRef.current.getBoundingClientRect();
-    const spaceBelow = window.innerHeight - rect.bottom;
-    const spaceAbove = rect.top;
-    const openUpward = spaceBelow < DROPDOWN_HEIGHT + GAP && spaceAbove > spaceBelow;
 
     setDropdownPos({
-      top: openUpward
-        ? rect.top + window.scrollY - DROPDOWN_HEIGHT - GAP
-        : rect.bottom + window.scrollY + GAP,
+      top: rect.bottom + window.scrollY + GAP,
       left: rect.left + window.scrollX,
       width: rect.width,
-      openUpward,
     });
   };
 
@@ -95,22 +88,12 @@ export default function PremiumSelect({
     if (!buttonRef.current) return;
 
     const rect = buttonRef.current.getBoundingClientRect();
-    const spaceBelow = window.innerHeight - rect.bottom;
-    const openUpward = spaceBelow < DROPDOWN_HEIGHT + GAP && rect.top > spaceBelow;
+    const needed = rect.bottom + DROPDOWN_HEIGHT + GAP;
     let scrollNeeded = false;
 
-    if (openUpward) {
-      const scrollAmount = rect.top - (window.innerHeight / 2) + rect.height / 2;
-      if (Math.abs(scrollAmount) > 4) {
-        scrollNeeded = true;
-        window.scrollBy({ top: scrollAmount - rect.height / 2, behavior: 'smooth' });
-      }
-    } else {
-      const needed = rect.bottom + DROPDOWN_HEIGHT + GAP;
-      if (needed > window.innerHeight) {
-        scrollNeeded = true;
-        window.scrollBy({ top: needed - window.innerHeight + 16, behavior: 'smooth' });
-      }
+    if (needed > window.innerHeight) {
+      scrollNeeded = true;
+      window.scrollBy({ top: needed - window.innerHeight + 16, behavior: 'smooth' });
     }
 
     const delay = scrollNeeded ? 420 : 0;
@@ -242,7 +225,7 @@ export default function PremiumSelect({
               pointerEvents: visible ? 'auto' : 'none',
               transition: visible ? 'opacity 150ms ease' : 'none',
             }}
-            className={`bg-[#1B1B1B] border-2 border-[#FFC300]/30 shadow-[0_8px_40px_rgba(0,0,0,0.85)] overflow-hidden ${dropdownPos.openUpward ? 'rounded-t-xl rounded-b-lg' : 'rounded-xl'}`}
+            className="bg-[#1B1B1B] border-2 border-[#FFC300]/30 shadow-[0_8px_40px_rgba(0,0,0,0.85)] overflow-hidden rounded-xl"
           >
             {searchable && (
               <div className="p-3 border-b border-[#2B2B2B]">
