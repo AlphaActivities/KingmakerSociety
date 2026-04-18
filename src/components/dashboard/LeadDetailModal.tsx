@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { X, Save, Loader2, ClipboardList, User, Target, AlertTriangle, Flame } from 'lucide-react';
+import { X, Save, Loader2, ClipboardList, User, Target, AlertTriangle, Flame, Zap } from 'lucide-react';
 import { Lead, LeadStatus, QuestionnaireResponse, updateLead } from '../../services/dashboardService';
 import StatusBadge from './StatusBadge';
 import { StageBadge } from './LeadRow';
@@ -65,6 +65,16 @@ export default function LeadDetailModal({ lead, onClose, onUpdate }: LeadDetailM
 
   const questionnaire: QuestionnaireResponse | null = lead.questionnaire_responses?.[0] ?? null;
 
+  const seriousnessScore = questionnaire?.seriousness_rating;
+  const scoreColor =
+    seriousnessScore != null
+      ? seriousnessScore >= 8
+        ? 'text-green-400'
+        : seriousnessScore >= 6
+        ? 'text-amber-400'
+        : 'text-gray-400'
+      : 'text-gray-500';
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4"
@@ -72,13 +82,12 @@ export default function LeadDetailModal({ lead, onClose, onUpdate }: LeadDetailM
     >
       <div className="absolute inset-0 bg-black/75 backdrop-blur-sm" />
       <div
-        className="relative bg-[#141414] border border-white/10 rounded-t-3xl sm:rounded-2xl w-full sm:max-w-2xl lg:max-w-3xl max-h-[95dvh] sm:max-h-[90vh] overflow-y-auto shadow-2xl flex flex-col"
+        className="relative bg-[#141414] border border-white/10 rounded-t-3xl sm:rounded-2xl w-full sm:max-w-2xl lg:max-w-[760px] max-h-[95dvh] sm:max-h-[92vh] overflow-hidden shadow-2xl flex flex-col"
         onClick={(e) => e.stopPropagation()}
-        style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.08) transparent' }}
       >
-        <div className="flex items-start justify-between px-5 sm:px-7 pt-5 sm:pt-6 pb-4 border-b border-white/[0.07] flex-shrink-0">
+        <div className="flex items-start justify-between px-5 sm:px-8 pt-5 sm:pt-6 pb-4 border-b border-white/[0.07] flex-shrink-0">
           <div className="min-w-0 flex-1 pr-4">
-            <h2 className="text-lg sm:text-xl font-bold text-white leading-tight truncate">
+            <h2 className="text-lg sm:text-xl font-bold text-white leading-tight">
               {lead.first_name} {lead.last_name}
             </h2>
             <p className="text-xs text-gray-500 mt-1">Applied {createdAt}</p>
@@ -87,11 +96,11 @@ export default function LeadDetailModal({ lead, onClose, onUpdate }: LeadDetailM
             onClick={onClose}
             className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 hover:text-white hover:bg-white/8 transition-colors mt-0.5"
           >
-            <X className="w-4.5 h-4.5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
-        <div className="px-5 sm:px-7 pt-5 pb-2 flex items-center gap-3 flex-wrap flex-shrink-0">
+        <div className="px-5 sm:px-8 pt-4 pb-3 flex items-center gap-2.5 flex-wrap flex-shrink-0">
           <StageBadge stage={lead.application_stage ?? 'lead-form'} />
           <StatusBadge status={lead.status} />
           {completedAt && (
@@ -101,11 +110,61 @@ export default function LeadDetailModal({ lead, onClose, onUpdate }: LeadDetailM
           )}
         </div>
 
-        <div className="flex-1 overflow-y-auto px-5 sm:px-7 pb-6 space-y-6 mt-4">
+        {questionnaire && (
+          <div className="mx-5 sm:mx-8 mb-1 flex-shrink-0">
+            <div className="bg-[#111] border border-white/[0.08] rounded-xl px-4 py-4">
+              <div className="flex items-center gap-1.5 mb-3">
+                <Zap className="w-3 h-3 text-[#FFC300]" />
+                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.14em]">Lead Snapshot</span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+                {questionnaire.seriousness_rating != null && (
+                  <SnapshotCell label="Seriousness">
+                    <span className={`text-xl font-bold tabular-nums ${scoreColor}`}>
+                      {questionnaire.seriousness_rating}
+                      <span className="text-xs text-gray-600 font-normal ml-0.5">/10</span>
+                    </span>
+                  </SnapshotCell>
+                )}
+                {questionnaire.want_business != null && questionnaire.want_business !== '' && (
+                  <SnapshotCell label="Wants Business">
+                    <span className={`text-xs font-semibold px-2 py-0.5 rounded-full border ${
+                      questionnaire.want_business?.toLowerCase() === 'yes'
+                        ? 'text-green-400 bg-green-500/10 border-green-500/20'
+                        : 'text-gray-400 bg-white/5 border-white/10'
+                    }`}>
+                      {questionnaire.want_business}
+                    </span>
+                  </SnapshotCell>
+                )}
+                {questionnaire.improvement_area && (
+                  <SnapshotCell label="Focus Area">
+                    <span className="text-sm text-white font-medium leading-snug line-clamp-2">{questionnaire.improvement_area}</span>
+                  </SnapshotCell>
+                )}
+                {questionnaire.interested_path && (
+                  <SnapshotCell label="Path">
+                    <span className="text-sm text-white font-medium leading-snug line-clamp-2">{questionnaire.interested_path}</span>
+                  </SnapshotCell>
+                )}
+              </div>
+              {questionnaire.main_goal_90_days && (
+                <div className="mt-3 pt-3 border-t border-white/[0.06]">
+                  <p className="text-[10px] text-gray-600 font-semibold uppercase tracking-[0.1em] mb-1">Main Goal</p>
+                  <p className="text-sm text-gray-200 leading-relaxed line-clamp-2">{questionnaire.main_goal_90_days}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
+        <div
+          className="flex-1 overflow-y-auto px-5 sm:px-8 pb-8 pt-5 space-y-8"
+          style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.07) transparent' }}
+        >
           <QSection icon={<User className="w-3.5 h-3.5" />} title="Basic Info">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              <InfoField label="Email" value={lead.email} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+              <InfoField label="Email" value={lead.email} wide />
               <InfoField label="Phone" value={lead.phone || '—'} />
               <InfoField label="Age" value={lead.age ? String(lead.age) : '—'} />
               <InfoField label="Timezone" value={lead.timezone || '—'} />
@@ -116,18 +175,24 @@ export default function LeadDetailModal({ lead, onClose, onUpdate }: LeadDetailM
 
           {questionnaire ? (
             <>
-              <QSection icon={<Target className="w-3.5 h-3.5" />} title="Vision &amp; Goals">
-                <div className="space-y-0 divide-y divide-white/[0.05] border border-white/[0.07] rounded-xl overflow-hidden">
-                  <QuestionField label="Main Goal in 90 Days" value={questionnaire.main_goal_90_days} />
-                  <QuestionField label="Life in 12 Months" value={questionnaire.life_12_months} />
-                  <QuestionField label="Wants to Build a Business" value={questionnaire.want_business} />
-                  <QuestionField label="Primary Improvement Area" value={questionnaire.improvement_area} />
-                  <QuestionField label="Interested Path" value={questionnaire.interested_path} />
+              <div className="w-full h-px bg-white/[0.05]" />
+
+              <QSection icon={<Target className="w-3.5 h-3.5" />} title="Vision &amp; Goals" accent>
+                <div className="space-y-2">
+                  <HeadlineQuestionField label="Main Goal in 90 Days" value={questionnaire.main_goal_90_days} />
+                  <HeadlineQuestionField label="Life in 12 Months" value={questionnaire.life_12_months} />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                    <QuestionField label="Wants to Build a Business" value={questionnaire.want_business} />
+                    <QuestionField label="Primary Improvement Area" value={questionnaire.improvement_area} />
+                    <QuestionField label="Interested Path" value={questionnaire.interested_path} />
+                  </div>
                 </div>
               </QSection>
 
+              <div className="w-full h-px bg-white/[0.05]" />
+
               <QSection icon={<AlertTriangle className="w-3.5 h-3.5" />} title="Obstacles &amp; Self-Awareness">
-                <div className="space-y-0 divide-y divide-white/[0.05] border border-white/[0.07] rounded-xl overflow-hidden">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <QuestionField label="Already Tried" value={questionnaire.already_tried} />
                   <QuestionField label="What Stops Consistency" value={questionnaire.what_stops_consistency} />
                   <QuestionField label="Cost of Staying the Same" value={questionnaire.cost_of_staying} />
@@ -136,109 +201,173 @@ export default function LeadDetailModal({ lead, onClose, onUpdate }: LeadDetailM
                 </div>
               </QSection>
 
+              <div className="w-full h-px bg-white/[0.05]" />
+
               <QSection icon={<Flame className="w-3.5 h-3.5" />} title="Commitment &amp; Readiness">
-                <div className="grid grid-cols-2 gap-2.5 mb-2.5">
-                  <InfoField
-                    label="Discipline Rating"
-                    value={questionnaire.discipline_rating != null ? `${questionnaire.discipline_rating} / 10` : '—'}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-3">
+                  <RatingField
+                    label="Discipline"
+                    value={questionnaire.discipline_rating}
+                  />
+                  <RatingField
+                    label="Seriousness"
+                    value={questionnaire.seriousness_rating}
                   />
                   <InfoField
-                    label="Seriousness Rating"
-                    value={questionnaire.seriousness_rating != null ? `${questionnaire.seriousness_rating} / 10` : '—'}
-                  />
-                  <InfoField
-                    label="Training Days / Week"
+                    label="Training Days / Wk"
                     value={questionnaire.training_days_per_week != null ? String(questionnaire.training_days_per_week) : '—'}
                   />
                   <InfoField
-                    label="Prayer Days / Week"
+                    label="Prayer Days / Wk"
                     value={questionnaire.prayer_days_per_week != null ? String(questionnaire.prayer_days_per_week) : '—'}
                   />
                 </div>
-                <div className="divide-y divide-white/[0.05] border border-white/[0.07] rounded-xl overflow-hidden">
-                  <QuestionField label="Willing to Invest" value={questionnaire.willing_to_invest} />
-                </div>
+                <QuestionField label="Willing to Invest" value={questionnaire.willing_to_invest} />
               </QSection>
             </>
           ) : (
-            <div className="flex items-center gap-3 px-4 py-3.5 bg-[#1A1A1A] border border-white/[0.07] rounded-xl">
+            <div className="flex items-center gap-3 px-4 py-4 bg-[#1A1A1A] border border-white/[0.07] rounded-xl">
               <ClipboardList className="w-4 h-4 text-gray-600 flex-shrink-0" />
               <span className="text-sm text-gray-600">Questionnaire not yet completed</span>
             </div>
           )}
 
-          <div className="space-y-2.5 pt-1">
-            <div className="flex items-center gap-2 pb-1">
-              <span className="text-[11px] font-semibold text-gray-500 uppercase tracking-[0.1em]">Update Status</span>
+          <div className="w-full h-px bg-white/[0.05]" />
+
+          <div className="space-y-5">
+            <div className="space-y-3">
+              <SectionLabel>Update Status</SectionLabel>
+              <div className="flex flex-wrap gap-2">
+                {STATUS_OPTIONS.map((s) => (
+                  <button
+                    key={s}
+                    onClick={() => setStatus(s)}
+                    className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all border ${
+                      status === s
+                        ? 'border-[#FFC300]/60 bg-[#FFC300]/10 text-[#FFC300]'
+                        : 'border-white/[0.08] text-gray-500 hover:border-white/25 hover:text-white bg-[#1A1A1A]'
+                    }`}
+                  >
+                    {s.charAt(0).toUpperCase() + s.slice(1)}
+                  </button>
+                ))}
+              </div>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {STATUS_OPTIONS.map((s) => (
-                <button
-                  key={s}
-                  onClick={() => setStatus(s)}
-                  className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all border ${
-                    status === s
-                      ? 'border-[#FFC300]/60 bg-[#FFC300]/10 text-[#FFC300]'
-                      : 'border-white/[0.08] text-gray-500 hover:border-white/25 hover:text-white bg-[#1A1A1A]'
-                  }`}
-                >
-                  {s.charAt(0).toUpperCase() + s.slice(1)}
-                </button>
-              ))}
+
+            <div className="space-y-3">
+              <SectionLabel>Internal Notes</SectionLabel>
+              <textarea
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                rows={4}
+                placeholder="Add notes about this applicant..."
+                className="w-full bg-[#1A1A1A] border border-white/[0.08] rounded-xl px-4 py-3.5 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#FFC300]/40 focus:ring-1 focus:ring-[#FFC300]/20 resize-none transition-colors leading-relaxed"
+              />
             </div>
-          </div>
 
-          <div className="space-y-2.5">
-            <span className="block text-[11px] font-semibold text-gray-500 uppercase tracking-[0.1em]">Internal Notes</span>
-            <textarea
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              rows={4}
-              placeholder="Add notes about this applicant..."
-              className="w-full bg-[#1A1A1A] border border-white/[0.08] rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#FFC300]/40 focus:ring-1 focus:ring-[#FFC300]/20 resize-none transition-colors leading-relaxed"
-            />
-          </div>
-
-          {saveError && (
-            <p className="text-sm text-[#D11F2A] bg-[#D11F2A]/8 border border-[#D11F2A]/20 rounded-lg px-4 py-2.5">{saveError}</p>
-          )}
-
-          <button
-            onClick={handleSave}
-            disabled={saving}
-            className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-[#FFC300] via-[#FFD033] to-[#D4A000] text-[#0B0B0B] text-sm font-bold rounded-xl hover:from-[#FFD033] hover:to-[#E5B100] transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_4px_20px_rgba(255,195,0,0.25)]"
-          >
-            {saving ? (
-              <><Loader2 className="w-4 h-4 animate-spin" /> Saving...</>
-            ) : saved ? (
-              <span>Saved</span>
-            ) : (
-              <><Save className="w-4 h-4" /> Save Changes</>
+            {saveError && (
+              <p className="text-sm text-[#D11F2A] bg-[#D11F2A]/8 border border-[#D11F2A]/20 rounded-lg px-4 py-3">{saveError}</p>
             )}
-          </button>
+
+            <button
+              onClick={handleSave}
+              disabled={saving}
+              className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-r from-[#FFC300] via-[#FFD033] to-[#D4A000] text-[#0B0B0B] text-sm font-bold rounded-xl hover:from-[#FFD033] hover:to-[#E5B100] transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_4px_20px_rgba(255,195,0,0.25)]"
+            >
+              {saving ? (
+                <><Loader2 className="w-4 h-4 animate-spin" /> Saving...</>
+              ) : saved ? (
+                <span>Saved</span>
+              ) : (
+                <><Save className="w-4 h-4" /> Save Changes</>
+              )}
+            </button>
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-function QSection({ icon, title, children }: { icon: React.ReactNode; title: string; children: React.ReactNode }) {
+function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="space-y-3">
+    <p className="text-[11px] font-bold text-gray-500 uppercase tracking-[0.12em]">{children}</p>
+  );
+}
+
+function SnapshotCell({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <p className="text-[10px] text-gray-600 font-semibold uppercase tracking-[0.1em]">{label}</p>
+      {children}
+    </div>
+  );
+}
+
+function RatingField({ label, value }: { label: string; value: number | null | undefined }) {
+  const color =
+    value != null
+      ? value >= 8
+        ? 'text-green-400'
+        : value >= 6
+        ? 'text-amber-400'
+        : 'text-gray-300'
+      : 'text-gray-500';
+
+  return (
+    <div className="bg-[#1A1A1A] border border-white/[0.06] rounded-xl px-4 py-3">
+      <p className="text-[10px] text-gray-600 font-semibold uppercase tracking-[0.1em] mb-1">{label}</p>
+      {value != null ? (
+        <p className={`text-xl font-bold tabular-nums leading-snug ${color}`}>
+          {value}
+          <span className="text-xs text-gray-600 font-normal ml-0.5">/10</span>
+        </p>
+      ) : (
+        <p className="text-sm text-gray-600">—</p>
+      )}
+    </div>
+  );
+}
+
+function QSection({
+  icon,
+  title,
+  children,
+  accent,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  children: React.ReactNode;
+  accent?: boolean;
+}) {
+  return (
+    <div className="space-y-3.5">
       <div className="flex items-center gap-2">
-        <span className="text-[#FFC300]">{icon}</span>
-        <span className="text-[11px] font-semibold text-gray-500 uppercase tracking-[0.1em]">{title}</span>
+        <span className={accent ? 'text-[#FFC300]' : 'text-gray-500'}>{icon}</span>
+        <span className={`text-xs font-bold uppercase tracking-[0.12em] ${accent ? 'text-gray-300' : 'text-gray-500'}`}>
+          {title}
+        </span>
       </div>
       {children}
     </div>
   );
 }
 
-function InfoField({ label, value }: { label: string; value: string }) {
+function InfoField({ label, value, wide }: { label: string; value: string; wide?: boolean }) {
   return (
-    <div className="bg-[#1A1A1A] border border-white/[0.06] rounded-xl px-4 py-3">
+    <div className={`bg-[#1A1A1A] border border-white/[0.06] rounded-xl px-4 py-3 ${wide ? 'sm:col-span-2 lg:col-span-1' : ''}`}>
       <p className="text-[10px] text-gray-600 font-semibold uppercase tracking-[0.1em] mb-1">{label}</p>
       <p className="text-sm text-white leading-snug break-words">{value}</p>
+    </div>
+  );
+}
+
+function HeadlineQuestionField({ label, value }: { label: string; value: string | null | undefined }) {
+  if (value == null || value === '') return null;
+  return (
+    <div className="bg-[#191919] border border-white/[0.08] rounded-xl px-5 py-4">
+      <p className="text-[10px] text-gray-600 font-semibold uppercase tracking-[0.1em] mb-2">{label}</p>
+      <p className="text-[15px] text-white font-medium leading-relaxed">{value}</p>
     </div>
   );
 }
@@ -246,7 +375,7 @@ function InfoField({ label, value }: { label: string; value: string }) {
 function QuestionField({ label, value }: { label: string; value: string | null | undefined }) {
   if (value == null || value === '') return null;
   return (
-    <div className="px-4 py-3.5 bg-[#1A1A1A]">
+    <div className="bg-[#1A1A1A] border border-white/[0.06] rounded-xl px-4 py-3.5">
       <p className="text-[10px] text-gray-600 font-semibold uppercase tracking-[0.1em] mb-1.5">{label}</p>
       <p className="text-sm text-gray-100 leading-relaxed">{value}</p>
     </div>
