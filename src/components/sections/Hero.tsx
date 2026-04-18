@@ -86,9 +86,9 @@ export default function Hero() {
     { value: 'discipline-consistency', label: 'Discipline & Consistency' },
     { value: 'fitness-body', label: 'Fitness & Body' },
     { value: 'faith-purpose', label: 'Faith & Purpose' },
-    { value: 'direction-goals', label: 'Direction & Goals' },
-    { value: 'energy-health', label: 'Energy & Health' },
-    { value: 'building-business', label: 'Building a Future Business' },
+    { value: 'lack-direction-purpose', label: 'Lack of Direction or Purpose' },
+    { value: 'physical-weakness-conditioning', label: 'Physical Weakness or Poor Conditioning' },
+    { value: 'lack-discipline-consistency', label: 'Lack of Discipline & Consistency' },
   ];
 
   return (
@@ -119,11 +119,11 @@ export default function Hero() {
 
             <LuxFadeIn delay={0.3}>
               <p className="text-xl sm:text-2xl text-gray-300 leading-relaxed">
-                A structured brotherhood for <span className="whitespace-nowrap">faith-driven</span> men working a <span className="whitespace-nowrap">9-to-5</span> who want to build their body, discipline, goals, and future business
-                <span className="text-[#FFC300] font-semibold"> without doing it alone.</span>
+                A brotherhood for men who are committed to discipline, training, and becoming stronger, sharper, and more capable
+                <span className="text-[#FFC300] font-semibold"> in every area of life.</span>
               </p>
               <p className="text-lg sm:text-xl text-gray-400 italic mt-4">
-                Built for men who want to lead their life, not just live it.
+                Built for men who train, fight, and refuse to stay average.
               </p>
             </LuxFadeIn>
 
@@ -146,9 +146,9 @@ export default function Hero() {
               <div className="bg-gradient-to-br from-[#1B1B1B] to-[#2B2B2B] border-2 border-[#FFC300]/40 rounded-2xl p-6 sm:p-8 shadow-2xl shadow-[#FFC300]/20">
                 <div className="text-center space-y-6">
                   <CheckCircle className="w-16 h-16 text-[#FFC300] mx-auto" />
-                  <h3 className="text-2xl font-bold text-white">Application Started!</h3>
+                  <h3 className="text-2xl font-bold text-white">Application Received.</h3>
                   <p className="text-gray-300">
-                    Thank you for taking the first step. Let's continue with a few more questions to understand your goals.
+                    Application received. Let's see if you meet the standard.
                   </p>
                   <p className="text-[#FFC300] text-sm">Redirecting to questionnaire...</p>
                 </div>
@@ -235,9 +235,9 @@ export default function Hero() {
                   </div>
 
                   <Input
-                    label="Occupation (9-to-5 Role)"
+                    label="Current Path (Work, Training, or Both)"
                     type="text"
-                    placeholder="Your current job"
+                    placeholder="Your current path"
                     value={formData.occupation}
                     onChange={(e) => setFormData({ ...formData, occupation: e.target.value })}
                     error={errors.occupation}

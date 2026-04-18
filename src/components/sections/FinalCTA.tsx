@@ -42,16 +42,16 @@ export default function FinalCTA() {
 
           <LuxFadeIn delay={0.1}>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              <span className="text-white drop-shadow-[0_2px_15px_rgba(0,0,0,0.8)]">Your Transformation Starts</span>{' '}
+              <span className="text-white drop-shadow-[0_2px_15px_rgba(0,0,0,0.8)]">Step Into</span>{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFC300] via-[#FFD033] to-[#D4A000] drop-shadow-[0_0_35px_rgba(255,195,0,0.5)]">
-                Today
+                The Standard
               </span>
             </h2>
           </LuxFadeIn>
 
           <LuxFadeIn delay={0.2}>
             <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
-              You have two choices. Keep trying to do this alone, watching another year slip by. Or join a brotherhood of faith-driven men building discipline, purpose, and the life they were called to lead.
+              You can keep doing what you've always done and stay the same. Or you can step into an environment that forces you to level up, build discipline, and become someone people respect.
             </p>
           </LuxFadeIn>
 
@@ -63,7 +63,7 @@ export default function FinalCTA() {
               The Question Is Simple:
             </p>
             <p className="text-xl md:text-2xl text-[#FFC300] mb-8">
-              Are you ready to lead your life, not just live it?
+              Are you ready to be pushed beyond your limits?
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
@@ -95,7 +95,7 @@ export default function FinalCTA() {
           <LuxFadeIn delay={0.4}>
             <div className="pt-8">
               <p className="text-gray-400 text-lg">
-                Join hundreds of faith-driven men mastering their body, habits, and purpose through the Kingmaker Society brotherhood.
+                Join a brotherhood of men committed to discipline, strength, and becoming harder to break in every area of life.
               </p>
             </div>
           </LuxFadeIn>

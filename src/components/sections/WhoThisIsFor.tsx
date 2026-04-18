@@ -12,8 +12,8 @@ export default function WhoThisIsFor() {
     },
     {
       icon: Briefcase,
-      title: 'Working a 9-to-5',
-      description: 'Employed professionals building toward something greater',
+      title: 'Men Who Are Ready to Train',
+      description: 'Whether you\'re already training or just starting, you are willing to push yourself physically and mentally.',
     },
     {
       icon: Heart,
@@ -27,13 +27,13 @@ export default function WhoThisIsFor() {
     },
     {
       icon: TrendingUp,
-      title: 'Goal Oriented',
-      description: 'Driven to achieve and exceed your potential',
+      title: 'Men Who Can Handle Pressure',
+      description: 'You don\'t run from discomfort. You grow through it.',
     },
     {
       icon: Users,
-      title: 'Aspiring Entrepreneurs',
-      description: 'Inspired to build a business and create the freedom you deserve',
+      title: 'Men Who Value Discipline',
+      description: 'You understand that discipline is built through action, not motivation.',
     },
   ];
 
@@ -49,7 +49,7 @@ export default function WhoThisIsFor() {
             Who This Is For
           </h2>
           <p className="text-xl text-gray-300">
-            Kingmaker Society is built for faith-driven men ready to master their body, habits, and purpose through structure, brotherhood, and real accountability.
+            Kingmaker Society is built for faith-driven men ready to forge discipline, build strength, and develop the mindset required to become a man others respect.
           </p>
         </div>
       </LuxFadeIn>
@@ -76,8 +76,8 @@ export default function WhoThisIsFor() {
         <div className="mt-12 text-center">
           <Card variant="gold" className="p-8 inline-block">
             <p className="text-xl font-semibold text-white">
-              If this describes you, you're in the right place.
-              <span className="text-[#FFC300]"> Welcome to the Brotherhood.</span>
+              This is not for everyone.
+              <span className="text-[#FFC300]"> If you're ready to be pushed, tested, and held to a higher standard, you belong here.</span>
             </p>
           </Card>
         </div>
