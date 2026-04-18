@@ -8,8 +8,8 @@ export interface SEOMetadata {
 }
 
 export const defaultSEO: SEOMetadata = {
-  title: 'Kingmaker Society | Build Your Body, Business & Brotherhood',
-  description: 'Kingmaker Society is a structured brotherhood for faith-driven men who want to build discipline, fitness, purpose, and future business through accountability, mentorship, and daily structure.',
+  title: 'Kingmaker Society | Brotherhood for Disciplined, Capable Men',
+  description: 'A brotherhood for men committed to discipline, strength, accountability, and becoming capable in every area of life.',
   canonical: 'https://kingmakersociety.com',
   ogType: 'website',
   ogImage: 'https://kingmakersociety.com/images/logos/OG-photo.jpg',
@@ -23,7 +23,7 @@ export const generateOrganizationSchema = () => {
     name: 'Kingmaker Society',
     url: 'https://kingmakersociety.com',
     logo: 'https://kingmakersociety.com/logo.png',
-    description: 'A structured brotherhood for faith-driven men building discipline, fitness, purpose, and future business through accountability and mentorship.',
+    description: 'A structured brotherhood for faith-driven men building discipline, strength, training, and accountability through mentorship.',
     founder: {
       '@type': 'Person',
       name: 'Jordan Ali',
@@ -100,7 +100,7 @@ export const generateFAQSchema = () => {
         name: 'What is Kingmaker Society?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Kingmaker Society is a structured brotherhood for faith-driven men who want to build discipline, fitness, purpose, and future business through accountability, mentorship, and daily structure.'
+          text: 'Kingmaker Society is a structured brotherhood for men committed to discipline, strength, accountability, and becoming capable in every area of life.'
         }
       },
       {

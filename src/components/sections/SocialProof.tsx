@@ -80,7 +80,7 @@ export default function SocialProof({ onMembersClick }: SocialProofProps) {
     },
     {
       value: '1000+',
-      label: 'Transformations',
+      label: 'Men Showing Up & Putting In Work',
       gradient: 'from-[#FFC300] via-[#FFD700] to-[#FFA500]',
       glowColor: 'group-hover:shadow-[#FFC300]/60',
       icon: Flame,
@@ -102,7 +102,7 @@ export default function SocialProof({ onMembersClick }: SocialProofProps) {
             Join the Brotherhood
           </h2>
           <p className="text-xl text-gray-300">
-            Connect with us on social media and see the daily wins, transformations, and brotherhood in action.
+            See the discipline, consistency, and accountability being built inside the brotherhood.
           </p>
         </div>
       </LuxFadeIn>

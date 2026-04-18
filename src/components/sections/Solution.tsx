@@ -8,7 +8,7 @@ export default function Solution() {
     {
       icon: Users,
       title: 'Members Only Hub',
-      description: '24/7 access to a brotherhood of faith-driven men pursuing discipline, fitness, and purpose',
+      description: '24/7 access to a brotherhood of men committed to discipline, training, and holding each other to a higher standard.',
     },
     {
       icon: Video,
@@ -22,12 +22,12 @@ export default function Solution() {
     },
     {
       icon: Target,
-      title: 'Structured Growth System',
-      description: 'Faith, fitness, health, mindset, goals, and business direction all covered weekly',
+      title: 'Structured Discipline System',
+      description: 'Discipline, training, strength, accountability, and execution built into every week.',
     },
     {
       icon: TrendingUp,
-      title: 'Expert Mentorship',
+      title: 'Proven Leadership',
       description: 'Learn from men actively living what they teach: MMA, bodybuilding, calisthenics, business',
     },
     {
@@ -49,7 +49,7 @@ export default function Solution() {
             The Kingmaker System
           </h2>
           <p className="text-xl text-gray-300">
-            A complete brotherhood ecosystem designed to help you master your body, habits, and purpose while building the business and life you were called to lead.
+            A structured brotherhood built to develop discipline, strength, and accountability through consistent action and pressure.
           </p>
         </div>
       </LuxFadeIn>
@@ -76,7 +76,7 @@ export default function Solution() {
           This Is More Than a Community
         </h3>
         <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
-          Kingmaker Society exists to build disciplined, faith-driven men who master their body, habits, and purpose while developing the structure, brotherhood, and accountability to escape mediocrity and create the life and business they were called to lead.
+          Kingmaker Society exists to build disciplined men who master their body, habits, and purpose while developing the structure, brotherhood, and accountability to escape mediocrity and build strength, discipline, and capability.
         </p>
       </Card>
       </LuxFadeIn>

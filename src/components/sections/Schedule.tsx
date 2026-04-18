@@ -8,8 +8,8 @@ export default function Schedule() {
     {
       day: 'Monday',
       icon: Target,
-      focus: 'Goals, Vision & Future Business',
-      description: 'Strategic planning, business development, and long-term vision casting',
+      focus: 'Discipline, Standards & Execution',
+      description: 'Setting standards, building discipline, and executing without excuses.',
     },
     {
       day: 'Tuesday',
@@ -20,8 +20,8 @@ export default function Schedule() {
     {
       day: 'Wednesday',
       icon: Heart,
-      focus: 'Health & Energy Optimization',
-      description: 'Nutrition, recovery, sleep, and peak performance protocols',
+      focus: 'Strength, Conditioning & Recovery',
+      description: 'Building a stronger body, improving conditioning, and recovering like someone who trains hard.',
     },
     {
       day: 'Thursday',
@@ -50,7 +50,7 @@ export default function Schedule() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFC300] via-[#FFD033] to-[#D4A000] drop-shadow-[0_0_30px_rgba(255,195,0,0.4)]">Schedule</span>
           </h2>
           <p className="text-xl text-gray-300 leading-relaxed">
-            Every week follows a proven structure designed to transform every area of your life.
+            Every week is structured to build discipline, strength, and consistency through action.
           </p>
         </div>
       </LuxFadeIn>
