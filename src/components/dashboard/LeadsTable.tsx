@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Lead } from '../../services/dashboardService';
-import LeadRow from './LeadRow';
+import LeadRow, { LeadCard } from './LeadRow';
 import LeadDetailModal from './LeadDetailModal';
 
 interface LeadsTableProps {
@@ -19,24 +19,34 @@ export default function LeadsTable({ leads, onLeadUpdate }: LeadsTableProps) {
 
   return (
     <>
-      <div className="bg-[#141414] border border-white/8 rounded-2xl overflow-hidden">
-        <div className="overflow-x-auto">
+      <div className="bg-[#141414] border border-white/[0.07] rounded-2xl overflow-hidden">
+        <div className="sm:hidden">
+          {leads.length === 0 ? (
+            <div className="px-4 py-14 text-center text-gray-600 text-sm">No applications yet.</div>
+          ) : (
+            leads.map((lead) => (
+              <LeadCard key={lead.id} lead={lead} onClick={setSelectedLead} />
+            ))
+          )}
+        </div>
+
+        <div className="hidden sm:block overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-white/8 bg-[#1B1B1B]">
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-widest">Name</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-widest hidden sm:table-cell">Email</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-widest hidden md:table-cell">Phone</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-widest hidden lg:table-cell">Stage</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-widest">Status</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-400 uppercase tracking-widest hidden xl:table-cell">Applied</th>
+              <tr className="border-b border-white/[0.07] bg-[#191919]">
+                <th className="px-5 py-3.5 text-left text-[11px] font-semibold text-gray-500 uppercase tracking-[0.1em]">Name</th>
+                <th className="px-5 py-3.5 text-left text-[11px] font-semibold text-gray-500 uppercase tracking-[0.1em] hidden sm:table-cell">Email</th>
+                <th className="px-5 py-3.5 text-left text-[11px] font-semibold text-gray-500 uppercase tracking-[0.1em] hidden md:table-cell">Phone</th>
+                <th className="px-5 py-3.5 text-left text-[11px] font-semibold text-gray-500 uppercase tracking-[0.1em] hidden lg:table-cell">Stage</th>
+                <th className="px-5 py-3.5 text-left text-[11px] font-semibold text-gray-500 uppercase tracking-[0.1em]">Status</th>
+                <th className="px-5 py-3.5 text-left text-[11px] font-semibold text-gray-500 uppercase tracking-[0.1em] hidden xl:table-cell">Applied</th>
               </tr>
             </thead>
             <tbody>
               {leads.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-4 py-16 text-center text-gray-500">
-                    No leads yet.
+                  <td colSpan={6} className="px-5 py-14 text-center text-gray-600 text-sm">
+                    No applications yet.
                   </td>
                 </tr>
               ) : (
