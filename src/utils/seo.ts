@@ -59,34 +59,11 @@ export const generateMembershipSchema = () => {
     '@context': 'https://schema.org',
     '@type': 'MemberProgram',
     name: 'Kingmaker Society Membership',
-    description: 'Faith-driven brotherhood with structured accountability, mentorship, and daily live calls',
+    description: 'Faith-driven brotherhood with structured accountability, mentorship, and daily live calls. Membership is granted through an application and approval process.',
     provider: {
       '@type': 'Organization',
       name: 'Kingmaker Society'
-    },
-    offers: [
-      {
-        '@type': 'Offer',
-        name: 'General Access',
-        price: '30.00',
-        priceCurrency: 'USD',
-        description: '24/7 private member community access and live Zoom calls'
-      },
-      {
-        '@type': 'Offer',
-        name: 'VIP Access',
-        price: '60.00',
-        priceCurrency: 'USD',
-        description: 'General Access plus private VIP channel and priority support'
-      },
-      {
-        '@type': 'Offer',
-        name: 'Elite Access',
-        price: '90.00',
-        priceCurrency: 'USD',
-        description: 'VIP Access plus monthly 1-on-1 coaching and direct mentor access'
-      }
-    ]
+    }
   };
 };
 
@@ -113,10 +90,10 @@ export const generateFAQSchema = () => {
       },
       {
         '@type': 'Question',
-        name: 'What are the membership tiers?',
+        name: 'How do I join Kingmaker Society?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'We offer three membership tiers: General Access ($30/month), VIP Access ($60/month), and Elite Access ($90/month). Each tier includes increasing levels of access, support, and mentorship.'
+          text: 'Membership access is granted through an application and approval process. Qualified applicants are guided to the best next step after review. Submit your application at kingmakersociety.com/apply.'
         }
       },
       {

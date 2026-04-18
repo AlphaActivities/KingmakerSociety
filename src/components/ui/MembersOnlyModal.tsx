@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { X, Crown } from 'lucide-react';
-import { luxuryScrollToSection } from '../../utils/luxuryScroll';
+import { useNavigate } from 'react-router-dom';
 
 interface MembersOnlyModalProps {
   isOpen: boolean;
@@ -9,13 +9,12 @@ interface MembersOnlyModalProps {
 
 export default function MembersOnlyModal({ isOpen, onClose }: MembersOnlyModalProps) {
   const [isExiting, setIsExiting] = useState(false);
-  const shouldScrollToPricingRef = useRef(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isOpen) {
       document.documentElement.style.overflow = 'hidden';
       setIsExiting(false);
-      shouldScrollToPricingRef.current = false;
 
       return () => {
         document.documentElement.style.overflow = '';
@@ -31,14 +30,10 @@ export default function MembersOnlyModal({ isOpen, onClose }: MembersOnlyModalPr
     }, 350);
   };
 
-  const handleViewMembership = () => {
-    shouldScrollToPricingRef.current = true;
+  const handleApplyForMembership = () => {
     document.documentElement.style.overflow = '';
     onClose();
-
-    setTimeout(() => {
-      luxuryScrollToSection('pricing', 80);
-    }, 32);
+    navigate('/apply');
   };
 
   useEffect(() => {
@@ -128,19 +123,19 @@ export default function MembersOnlyModal({ isOpen, onClose }: MembersOnlyModalPr
                 </div>
 
                 <h2 className="text-3xl font-bold text-white">
-                  Members Only
+                  Private Membership Access
                 </h2>
 
                 <p className="text-gray-300 text-lg leading-relaxed">
-                  Access to the Kingmaker Brotherhood is granted after enrollment. Join the brotherhood to unlock your member access, live calls, and private community.
+                  Access to the Kingmaker Brotherhood is granted through application and approval. If you are ready to step into the next level, begin your application.
                 </p>
 
                 <div className="space-y-3 pt-4">
                   <button
-                    onClick={handleViewMembership}
+                    onClick={handleApplyForMembership}
                     className="w-full px-6 py-4 bg-gradient-to-r from-[#FFC300] to-[#D4A000] text-black font-bold rounded-lg transition-all duration-300 hover:from-[#FFD033] hover:to-[#FFC300] hover:shadow-lg hover:shadow-[#FFC300]/50 hover:scale-105"
                   >
-                    View Membership Options
+                    Apply for Membership
                   </button>
 
                   <button
