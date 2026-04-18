@@ -28,11 +28,11 @@ export default function ApplyCallBooking() {
       <div className="bg-white/3 border border-white/8 rounded-2xl p-8 text-center space-y-6">
         <div className="flex items-center justify-center space-x-3">
           <Calendar className="w-7 h-7 text-[#FFC300]" />
-          <h2 className="text-xl font-bold text-white">Book Your Strategy Call</h2>
+          <h2 className="text-xl font-bold text-white">Request Your Evaluation Call</h2>
         </div>
 
         <p className="text-gray-400 text-sm max-w-sm mx-auto">
-          A 30-minute call to review your application, answer your questions, and determine the right membership tier for you.
+          A short call to review your application, assess your current level, and determine if you're a fit for the brotherhood.
         </p>
 
         <div className="grid grid-cols-3 gap-4 py-2">

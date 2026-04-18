@@ -15,7 +15,7 @@ const STRUGGLES = [
   { value: 'faith-purpose', label: 'Faith & Purpose' },
   { value: 'direction-goals', label: 'Direction & Goals' },
   { value: 'energy-health', label: 'Energy & Health' },
-  { value: 'building-business', label: 'Building a Future Business' },
+  { value: 'lack-discipline-consistency', label: 'Lack of Discipline & Consistency' },
 ];
 
 export default function ApplyLeadForm() {
@@ -188,9 +188,9 @@ export default function ApplyLeadForm() {
           </div>
 
           <Input
-            label="Current Occupation"
+            label="Current Path (Work, Training, or Both)"
             type="text"
-            placeholder="Your 9-to-5 role"
+            placeholder="What you're currently doing day-to-day"
             value={formData.occupation}
             onChange={(e) => setFormData({ ...formData, occupation: e.target.value })}
             error={errors.occupation}

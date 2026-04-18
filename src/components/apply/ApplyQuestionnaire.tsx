@@ -84,8 +84,8 @@ const SCREEN_COUNT = 3;
 type ScreenKey = 0 | 1 | 2;
 
 const SCREENS: { title: string; subtitle: string }[] = [
-  { title: 'Your Vision', subtitle: 'Where do you want to go?' },
-  { title: 'Current Reality', subtitle: 'Where are you right now?' },
+  { title: 'Your Standard', subtitle: 'What kind of man are you trying to become?' },
+  { title: 'Current State', subtitle: 'Where are you falling short right now?' },
   { title: 'Your Commitment', subtitle: 'Are you ready to move?' },
 ];
 
@@ -96,7 +96,6 @@ function validateScreen(screen: ScreenKey, form: FormData): ScreenError {
   if (screen === 0) {
     if (!form.mainGoal90Days.trim()) errors.mainGoal90Days = 'Required';
     if (!form.life12Months.trim()) errors.life12Months = 'Required';
-    if (!form.wantBusiness) errors.wantBusiness = 'Required';
     if (!form.improvementArea) errors.improvementArea = 'Required';
   }
   if (screen === 1) {
@@ -146,27 +145,14 @@ function ScreenVision({ form, errors, set, setInput }: ScreenProps) {
         required
       />
       <PremiumSelect
-        label="Do you want to build your own business or income path one day?"
-        placeholder="Select one"
-        options={[
-          { value: 'yes', label: 'Yes', description: 'I want to build something of my own' },
-          { value: 'no', label: 'No', description: 'Focused on other goals right now' },
-          { value: 'unsure', label: 'Unsure', description: "Haven't decided yet" },
-        ]}
-        value={form.wantBusiness}
-        onChange={set('wantBusiness')}
-        error={errors.wantBusiness}
-        required
-      />
-      <PremiumSelect
         label="Which area do you want the most improvement in?"
         placeholder="Select one"
         options={[
           { value: 'fitness', label: 'Fitness', description: 'Strength, physique, athletic performance' },
           { value: 'faith', label: 'Faith', description: 'Spiritual growth and connection to God' },
           { value: 'health', label: 'Health', description: 'Nutrition, recovery, and long-term vitality' },
-          { value: 'goals', label: 'Goals', description: 'Clarity, direction, and executing on your vision' },
-          { value: 'business', label: 'Business', description: 'Building income and entrepreneurial skills' },
+          { value: 'discipline', label: 'Discipline', description: 'Clarity, direction, and executing on your vision' },
+          { value: 'physical-strength', label: 'Physical Strength & Conditioning', description: 'Building a stronger, harder body' },
         ]}
         value={form.improvementArea}
         onChange={set('improvementArea')}
@@ -291,8 +277,8 @@ function ScreenCommitment({ form, errors, set, setInput }: ScreenProps) {
         label="Which path interests you most?"
         placeholder="Select one"
         options={[
-          { value: 'community', label: 'Brotherhood Community', description: 'Shared accountability and brotherhood access' },
-          { value: 'guided', label: 'Guided Growth', description: 'Small group mentorship with structured programming' },
+          { value: 'accountability', label: 'Accountability & Pressure', description: 'Shared accountability and brotherhood access' },
+          { value: 'brotherhood', label: 'Structured Brotherhood', description: 'Small group mentorship with structured programming' },
           { value: 'vip', label: 'VIP Mentorship', description: '1-on-1 direct access to leadership' },
         ]}
         value={form.interestedPath}
