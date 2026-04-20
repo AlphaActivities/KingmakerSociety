@@ -61,14 +61,14 @@ const proofGallery = [
     category: 'Mentors',
   },
   {
-    src: '/images/founders/co-founder-ryan.webp',
-    alt: 'Co-Founder Ryan in a boxing ring showing leadership and fighting presence',
-    category: 'Leadership',
-  },
-  {
     src: '/images/pillars/fitness-self-improvement.webp',
     alt: 'Masculinity in fitness visual representing body mastery and physical discipline',
     category: 'Fitness',
+  },
+  {
+    src: '/images/founders/co-founder-ryan.webp',
+    alt: 'Co-Founder Ryan in a boxing ring showing leadership and fighting presence',
+    category: 'Leadership',
   },
   {
     src: '/images/pillars/goal-self-improvement.webp',

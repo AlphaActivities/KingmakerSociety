@@ -29,9 +29,6 @@ export default function VideoPoster({
   };
 
   const handleClick = () => {
-    if (videoUrl) {
-      window.open(videoUrl, '_blank', 'noopener,noreferrer');
-    }
     if (onPlay) {
       onPlay();
     }
