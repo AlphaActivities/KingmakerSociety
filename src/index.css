@@ -4,6 +4,12 @@
 @tailwind components;
 @tailwind utilities;
 
+video::-webkit-media-controls-mute-button,
+video::-webkit-media-controls-volume-slider,
+video::-webkit-media-controls-volume-control-container {
+  display: none !important;
+}
+
 @layer base {
   select,
   input,
