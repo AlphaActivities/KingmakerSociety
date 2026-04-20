@@ -8,7 +8,7 @@ export default function Solution() {
     {
       icon: Users,
       title: 'Members Only Hub',
-      description: 'Constant exposure to men who train, execute, and hold the standard — around the clock.',
+      description: 'Constant exposure to men who train, execute, and hold the standard, around the clock.',
     },
     {
       icon: Video,
@@ -18,7 +18,7 @@ export default function Solution() {
     {
       icon: Shield,
       title: 'Brotherhood Accountability',
-      description: 'You are expected to hold the standard — no one will do it for you',
+      description: 'You are expected to hold the standard. No one will do it for you.',
     },
     {
       icon: Target,

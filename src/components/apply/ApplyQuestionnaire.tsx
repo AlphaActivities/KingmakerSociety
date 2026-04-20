@@ -57,35 +57,35 @@ const DAYS_OPTIONS = [
 ];
 
 const CURRENTLY_TRAINS_OPTIONS = [
-  { value: 'yes-consistently', label: 'Yes — consistently' },
+  { value: 'yes-consistently', label: 'Yes, consistently' },
   { value: 'occasionally', label: 'Occasionally' },
   { value: 'no-ready-to-start', label: 'No, but I\'m ready to start' },
 ];
 
 const DISCIPLINE_OPTIONS = [
-  { value: '1', label: '1 — Barely started' },
-  { value: '2', label: '2 — Struggling' },
-  { value: '3', label: '3 — Below average' },
-  { value: '4', label: '4 — Getting there' },
-  { value: '5', label: '5 — Average' },
-  { value: '6', label: '6 — Above average' },
-  { value: '7', label: '7 — Solid' },
-  { value: '8', label: '8 — Very disciplined' },
-  { value: '9', label: '9 — Elite' },
-  { value: '10', label: '10 — Locked in' },
+  { value: '1', label: '1, Barely started' },
+  { value: '2', label: '2, Struggling' },
+  { value: '3', label: '3, Below average' },
+  { value: '4', label: '4, Getting there' },
+  { value: '5', label: '5, Average' },
+  { value: '6', label: '6, Above average' },
+  { value: '7', label: '7, Solid' },
+  { value: '8', label: '8, Very disciplined' },
+  { value: '9', label: '9, Elite' },
+  { value: '10', label: '10, Locked in' },
 ];
 
 const SERIOUSNESS_OPTIONS = [
-  { value: '1', label: '1 — Just curious' },
-  { value: '2', label: '2 — Thinking about it' },
-  { value: '3', label: '3 — Somewhat serious' },
-  { value: '4', label: '4 — Getting motivated' },
-  { value: '5', label: '5 — Serious' },
-  { value: '6', label: '6 — Very serious' },
-  { value: '7', label: '7 — Committed' },
-  { value: '8', label: '8 — Highly committed' },
-  { value: '9', label: '9 — All in' },
-  { value: '10', label: '10 — No going back' },
+  { value: '1', label: '1, Just curious' },
+  { value: '2', label: '2, Thinking about it' },
+  { value: '3', label: '3, Somewhat serious' },
+  { value: '4', label: '4, Getting motivated' },
+  { value: '5', label: '5, Serious' },
+  { value: '6', label: '6, Very serious' },
+  { value: '7', label: '7, Committed' },
+  { value: '8', label: '8, Highly committed' },
+  { value: '9', label: '9, All in' },
+  { value: '10', label: '10, No going back' },
 ];
 
 const SCREEN_COUNT = 3;

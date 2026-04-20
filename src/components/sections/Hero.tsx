@@ -119,7 +119,7 @@ export default function Hero() {
 
             <LuxFadeIn delay={0.3}>
               <p className="text-xl sm:text-2xl text-gray-300 leading-relaxed">
-                A martial artist-led brotherhood built on training, discipline, and showing up when it's hard — for men who are ready to become stronger, sharper, and
+                A martial artist-led brotherhood built on training, discipline, and showing up when it's hard, for men who are ready to become stronger, sharper, and
                 <span className="text-[#FFC300] font-semibold"> harder to break.</span>
               </p>
               <p className="text-lg sm:text-xl text-gray-400 italic mt-4">

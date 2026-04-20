@@ -13,7 +13,7 @@ export default function WhoThisIsFor() {
     {
       icon: Briefcase,
       title: 'Men Who Are Ready to Train',
-      description: 'If you train — or you\'re serious about starting — and you\'re willing to be pushed physically and mentally.',
+      description: 'If you train, or you\'re serious about starting, and you\'re willing to be pushed physically and mentally.',
     },
     {
       icon: Heart,
@@ -77,7 +77,7 @@ export default function WhoThisIsFor() {
           <Card variant="gold" className="p-8 inline-block">
             <p className="text-xl font-semibold text-white">
               This is not for everyone.
-              <span className="text-[#FFC300]"> Most men won't last here — and that's the point.</span>
+              <span className="text-[#FFC300]"> Most men won't last here, and that's the point.</span>
             </p>
           </Card>
         </div>

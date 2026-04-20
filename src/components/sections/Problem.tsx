@@ -40,7 +40,7 @@ export default function Problem() {
         <LuxFadeIn delay={0.2}>
           <div className="space-y-6 text-lg md:text-xl text-gray-300 leading-relaxed">
             <p>
-              You know what you should be doing — training, staying consistent, showing up — but you're not doing it consistently.
+              You know what you should be doing: training, staying consistent, showing up, but you're not doing it consistently.
             </p>
             <p className="text-white font-semibold">
               But by the end of the day, nothing changes.
@@ -66,7 +66,7 @@ export default function Problem() {
                 The truth is, you don't need more motivation.
               </p>
               <p className="text-xl md:text-2xl text-[#FFC300] mt-4 font-semibold drop-shadow-[0_0_20px_rgba(255,195,0,0.3)]">
-                You don't need more motivation. You need to execute — and most men don't.
+                You don't need more motivation. You need to execute, and most men don't.
               </p>
             </div>
           </div>
