@@ -47,12 +47,6 @@ const supportingVideos = [
     posterImage: '/images/pillars/goal-self-improvement.webp',
     videoUrl: '/videos/Marketing_video_03.mp4',
   },
-  {
-    title: 'Kingmaker Whiteboard Breakdown',
-    description: 'Structured teaching and strategic breakdown from inside the movement.',
-    posterImage: '/images/pillars/mindset-self-improvement.webp',
-    videoUrl: '/videos/Marketing_video_whiteboard.mp4',
-  },
 ];
 
 const proofGallery = [
