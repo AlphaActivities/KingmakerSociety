@@ -102,7 +102,7 @@ export default function SocialProof({ onMembersClick }: SocialProofProps) {
             Join the Brotherhood
           </h2>
           <p className="text-xl text-gray-300">
-            See the discipline, consistency, and accountability men are building by showing up every day.
+            Connect with us on social media and see the daily wins, transformations, and brotherhood in action.
           </p>
         </div>
       </LuxFadeIn>
