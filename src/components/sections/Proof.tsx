@@ -24,7 +24,7 @@ const featuredVideos = [
     title: 'Kingmaker Society | Brotherhood Coaching Call',
     description: 'A real glimpse into live coaching, masculinity, and the brotherhood environment.',
     posterImage: '/images/proof/mentors-4-9.webp',
-    videoUrl: '/videos/Zoom__masculinity_fitness.mp4',
+    videoUrl: '/videos/jordan-ali-brotherhood-promo-reel-01.mp4',
   },
 ];
 
