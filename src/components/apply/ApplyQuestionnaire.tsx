@@ -17,7 +17,6 @@ type FormData = {
   disciplineRating: string;
   currentlyTrains: string;
   trainingDaysPerWeek: string;
-  prayerDaysPerWeek: string;
   tryingAlone: string;
   believeBrotherhoodHelps: string;
   costOfStaying: string;
@@ -36,7 +35,6 @@ const INITIAL_FORM: FormData = {
   disciplineRating: '',
   currentlyTrains: '',
   trainingDaysPerWeek: '',
-  prayerDaysPerWeek: '',
   tryingAlone: '',
   believeBrotherhoodHelps: '',
   costOfStaying: '',
@@ -112,7 +110,6 @@ function validateScreen(screen: ScreenKey, form: FormData): ScreenError {
     if (!form.disciplineRating) errors.disciplineRating = 'Required';
     if (!form.currentlyTrains) errors.currentlyTrains = 'Required';
     if (!form.trainingDaysPerWeek) errors.trainingDaysPerWeek = 'Required';
-    if (!form.prayerDaysPerWeek) errors.prayerDaysPerWeek = 'Required';
   }
   if (screen === 2) {
     if (!form.tryingAlone) errors.tryingAlone = 'Required';
@@ -218,15 +215,6 @@ function ScreenReality({ form, errors, set, setInput }: ScreenProps) {
         value={form.trainingDaysPerWeek}
         onChange={set('trainingDaysPerWeek')}
         error={errors.trainingDaysPerWeek}
-        required
-      />
-      <PremiumSelect
-        label="How many days per week are you reading scripture or praying?"
-        placeholder="Select days"
-        options={DAYS_OPTIONS}
-        value={form.prayerDaysPerWeek}
-        onChange={set('prayerDaysPerWeek')}
-        error={errors.prayerDaysPerWeek}
         required
       />
     </div>

@@ -20,7 +20,6 @@ export interface QuestionnaireData {
   whatStopsConsistency: string;
   disciplineRating: string;
   trainingDaysPerWeek: string;
-  prayerDaysPerWeek: string;
   tryingAlone: string;
   believeBrotherhoodHelps: string;
   costOfStaying: string;
@@ -76,7 +75,6 @@ export const submitQuestionnaire = async (
         what_stops_consistency: data.whatStopsConsistency,
         discipline_rating: data.disciplineRating,
         training_days_per_week: data.trainingDaysPerWeek,
-        prayer_days_per_week: data.prayerDaysPerWeek,
         trying_alone: data.tryingAlone,
         believe_brotherhood_helps: data.believeBrotherhoodHelps,
         cost_of_staying: data.costOfStaying,
