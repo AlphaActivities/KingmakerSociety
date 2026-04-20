@@ -7,6 +7,87 @@ import MediaImage from '../ui/MediaImage';
 import VideoPoster from '../ui/VideoPoster';
 import VideoModal from '../ui/VideoModal';
 
+const featuredVideos = [
+  {
+    title: 'Jordan Ali | The Kingmaker Brotherhood',
+    description: 'A direct look into the energy, structure, and mission behind the brotherhood.',
+    posterImage: '/images/proof/largest-martial-artist-brotherhood.webp',
+    videoUrl: '/videos/Martial_artist_brotherhood.mp4',
+  },
+  {
+    title: 'Jordan Ali | Founder of Kingmaker Society',
+    description: 'Founder-led authority, vision, and movement positioning for the brand.',
+    posterImage: '/images/founders/founder-jordan.webp',
+    videoUrl: '/videos/Marketing_video_01.mp4',
+  },
+  {
+    title: 'Kingmaker Society | Brotherhood Coaching Call',
+    description: 'A real glimpse into live coaching, masculinity, and the brotherhood environment.',
+    posterImage: '/images/proof/mentors-4-9.webp',
+    videoUrl: '/videos/Zoom__masculinity_fitness.mp4',
+  },
+];
+
+const supportingVideos = [
+  {
+    title: 'Fight Promo',
+    description: 'Combat intensity, discipline, and pressure-tested execution.',
+    posterImage: '/images/founders/fitness-mentor-willie.webp',
+    videoUrl: '/videos/Fight_promo.MP4',
+  },
+  {
+    title: 'Kingmaker Marketing | Version 2',
+    description: 'Additional brand positioning and movement-building proof.',
+    posterImage: '/images/founders/co-founder-ryan.webp',
+    videoUrl: '/videos/Marketing_video_02.mp4',
+  },
+  {
+    title: 'Kingmaker Marketing | Version 3',
+    description: 'Expanded visual proof of the mission, message, and audience.',
+    posterImage: '/images/pillars/goal-self-improvement.webp',
+    videoUrl: '/videos/Marketing_video_03.mp4',
+  },
+  {
+    title: 'Kingmaker Whiteboard Breakdown',
+    description: 'Structured teaching and strategic breakdown from inside the movement.',
+    posterImage: '/images/pillars/mindset-self-improvement.webp',
+    videoUrl: '/videos/Marketing_video_whiteboard.mp4',
+  },
+];
+
+const proofGallery = [
+  {
+    src: '/images/proof/largest-martial-artist-brotherhood.webp',
+    alt: 'Largest Martial Artist Brotherhood collage showing combat training, brotherhood, and competition',
+    category: 'Brotherhood',
+  },
+  {
+    src: '/images/proof/mentors-4-9.webp',
+    alt: 'Kingmaker mentors and accomplished martial artists from multiple backgrounds',
+    category: 'Mentors',
+  },
+  {
+    src: '/images/founders/co-founder-ryan.webp',
+    alt: 'Co-Founder Ryan in a boxing ring showing leadership and fighting presence',
+    category: 'Leadership',
+  },
+  {
+    src: '/images/pillars/fitness-self-improvement.webp',
+    alt: 'Masculinity in fitness visual representing body mastery and physical discipline',
+    category: 'Fitness',
+  },
+  {
+    src: '/images/pillars/goal-self-improvement.webp',
+    alt: 'Goal-oriented self-improvement visual representing execution and direction',
+    category: 'Goal Execution',
+  },
+  {
+    src: '/images/founders/fitness-mentor-willie.webp',
+    alt: 'Fitness mentor Willie representing combat mentorship and discipline',
+    category: 'Combat Mentor',
+  },
+];
+
 export default function Proof() {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
   const [activeTitle, setActiveTitle] = useState<string>('');
@@ -20,66 +101,6 @@ export default function Proof() {
     setActiveVideo(null);
     setActiveTitle('');
   };
-
-  const proofGallery = [
-    {
-      type: 'image' as const,
-      src: '/images/proof/largest-martial-artist-brotherhood.webp',
-      alt: 'Largest Martial Artist Brotherhood collage showing combat training, brotherhood, and competition',
-      category: 'Brotherhood',
-    },
-    {
-      type: 'image' as const,
-      src: '/images/proof/mentors-4-9.webp',
-      alt: 'Kingmaker mentors and accomplished martial artists from multiple backgrounds',
-      category: 'Mentors',
-    },
-    {
-      type: 'image' as const,
-      src: '/images/founders/co-founder-ryan.webp',
-      alt: 'Co-Founder Ryan in a boxing ring showing leadership and fighting presence',
-      category: 'Leadership',
-    },
-    {
-      type: 'image' as const,
-      src: '/images/pillars/fitness-self-improvement.webp',
-      alt: 'Masculinity in fitness visual representing body mastery and physical discipline',
-      category: 'Fitness',
-    },
-    {
-      type: 'image' as const,
-      src: '/images/pillars/goal-self-improvement.webp',
-      alt: 'Goal-oriented self-improvement visual representing execution and direction',
-      category: 'Goal Execution',
-    },
-    {
-      type: 'image' as const,
-      src: '/images/founders/fitness-mentor-willie.webp',
-      alt: 'Fitness mentor Willie representing combat mentorship and discipline',
-      category: 'Combat Mentor',
-    },
-  ];
-
-  const videoShowcases = [
-    {
-      title: 'Jordan Ali | The Kingmaker Brotherhood',
-      description: 'A direct look into the energy, structure, and mission behind the brotherhood.',
-      posterImage: '/images/founders/founder-jordan.webp',
-      videoUrl: '/videos/jordan-ali-brotherhood-promo-reel-01.mp4',
-    },
-    {
-      title: 'Jordan Ali | Founder of Kingmaker Society',
-      description: 'Founder-led authority, vision, and movement positioning for the brand.',
-      posterImage: '/images/founders/jordan-ali-founder-gym-portrait.jpg',
-      videoUrl: '/videos/jordan-ali-founder-promo-reel-01.mp4',
-    },
-    {
-      title: 'Kingmaker Society | Men\'s Bible Study Brotherhood',
-      description: 'A real glimpse into the faith-centered community and brotherhood environment.',
-      posterImage: '/images/posters/kingmaker-bible-study-brotherhood-poster.jpg',
-      videoUrl: '/videos/kingmaker-bible-study-zoom-promo-01.mp4',
-    },
-  ];
 
   return (
     <Section id="proof" background="gradient">
@@ -101,10 +122,10 @@ export default function Proof() {
 
       <div className="mb-16">
         <LuxFadeIn delay={0.1}>
-          <h3 className="text-2xl font-bold text-[#FFC300] mb-8 text-center drop-shadow-[0_0_20px_rgba(255,195,0,0.3)]">Video Proof</h3>
+          <h3 className="text-2xl font-bold text-[#FFC300] mb-8 text-center drop-shadow-[0_0_20px_rgba(255,195,0,0.3)]">Kingmaker in Motion</h3>
         </LuxFadeIn>
-        <div className="grid md:grid-cols-3 gap-6">
-          {videoShowcases.map((video, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {featuredVideos.map((video, index) => (
             <LuxFadeIn key={index} delay={0.2 + index * 0.1}>
               <VideoPoster
                 title={video.title}
@@ -112,6 +133,26 @@ export default function Proof() {
                 posterImage={video.posterImage}
                 onPlay={() => handlePlayVideo(video.videoUrl, video.title)}
                 aspectRatio="portrait"
+                className="shadow-2xl shadow-black/50"
+              />
+            </LuxFadeIn>
+          ))}
+        </div>
+      </div>
+
+      <div className="mb-16">
+        <LuxFadeIn delay={0.4}>
+          <h3 className="text-2xl font-bold text-[#FFC300] mb-8 text-center drop-shadow-[0_0_20px_rgba(255,195,0,0.3)]">Brotherhood in Action</h3>
+        </LuxFadeIn>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+          {supportingVideos.map((video, index) => (
+            <LuxFadeIn key={index} delay={0.5 + index * 0.08}>
+              <VideoPoster
+                title={video.title}
+                description={video.description}
+                posterImage={video.posterImage}
+                onPlay={() => handlePlayVideo(video.videoUrl, video.title)}
+                aspectRatio="video"
                 className="shadow-2xl shadow-black/50"
               />
             </LuxFadeIn>
@@ -127,12 +168,12 @@ export default function Proof() {
       />
 
       <div>
-        <LuxFadeIn delay={0.5}>
+        <LuxFadeIn delay={0.9}>
           <h3 className="text-2xl font-bold text-[#FFC300] mb-8 text-center drop-shadow-[0_0_20px_rgba(255,195,0,0.3)]">Training & Results Gallery</h3>
         </LuxFadeIn>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {proofGallery.map((item, index) => (
-            <LuxFadeIn key={index} delay={0.6 + index * 0.08}>
+            <LuxFadeIn key={index} delay={1.0 + index * 0.08}>
               <Card variant="premium" className="aspect-square overflow-hidden hover:scale-105 transition-all duration-500 group">
                 <div className="relative w-full h-full">
                   <MediaImage
