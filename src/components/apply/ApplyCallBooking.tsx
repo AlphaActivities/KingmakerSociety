@@ -1,8 +1,11 @@
-import { Calendar, CheckCircle, Shield } from 'lucide-react';
+import { Calendar, CheckCircle, Shield, ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../ui/Button';
 import { trackClickBookCall } from '../../utils/analytics';
 
 export default function ApplyCallBooking() {
+  const navigate = useNavigate();
+
   const handleBookCall = () => {
     trackClickBookCall('apply_call_booking');
     window.open('https://calendly.com/jordanaliwork/30min', '_blank');
@@ -63,6 +66,16 @@ export default function ApplyCallBooking() {
         <p className="text-[12px] text-gray-500 leading-relaxed">
           Your application has been saved. If you need to close this page and come back, your session will be preserved automatically.
         </p>
+      </div>
+
+      <div className="text-center">
+        <button
+          onClick={() => navigate('/')}
+          className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white transition-colors duration-200 group"
+        >
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform duration-200" />
+          Return to Main Site
+        </button>
       </div>
     </div>
   );
