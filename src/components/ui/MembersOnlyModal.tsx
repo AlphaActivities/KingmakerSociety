@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { X, Crown } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { scrollToApplication } from '../../utils/luxuryScroll';
 
 interface MembersOnlyModalProps {
   isOpen: boolean;
@@ -9,7 +9,6 @@ interface MembersOnlyModalProps {
 
 export default function MembersOnlyModal({ isOpen, onClose }: MembersOnlyModalProps) {
   const [isExiting, setIsExiting] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (isOpen) {
@@ -33,7 +32,7 @@ export default function MembersOnlyModal({ isOpen, onClose }: MembersOnlyModalPr
   const handleApplyForMembership = () => {
     document.documentElement.style.overflow = '';
     onClose();
-    navigate('/apply');
+    scrollToApplication();
   };
 
   useEffect(() => {
