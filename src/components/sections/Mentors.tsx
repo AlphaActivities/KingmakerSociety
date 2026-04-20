@@ -38,7 +38,14 @@ export default function Mentors() {
   ];
 
   return (
-    <Section id="mentors" background="darker">
+    <div className="relative">
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/images/founders/founder-jordan.webp')" }}
+        aria-hidden="true"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/80 to-black/92" aria-hidden="true" />
+    <Section id="mentors" background="transparent" className="relative z-10">
       <LuxFadeIn>
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center space-x-2 px-4 py-2 bg-[#FFC300]/10 border border-[#FFC300]/30 rounded-full mb-6 shadow-lg shadow-[#FFC300]/20">
@@ -121,5 +128,6 @@ export default function Mentors() {
         </div>
       </div>
     </Section>
+    </div>
   );
 }

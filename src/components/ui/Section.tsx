@@ -5,7 +5,7 @@ interface SectionProps {
   children: ReactNode;
   className?: string;
   id?: string;
-  background?: 'dark' | 'darker' | 'gradient';
+  background?: 'dark' | 'darker' | 'gradient' | 'transparent';
   containerSize?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
 }
 
@@ -20,6 +20,7 @@ export default function Section({
     dark: 'bg-[#0B0B0B]',
     darker: 'bg-black',
     gradient: 'bg-gradient-to-b from-[#0B0B0B] to-black',
+    transparent: 'bg-transparent',
   };
 
   return (
