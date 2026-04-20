@@ -31,10 +31,10 @@ export default function ApplyHeader() {
         <div className="flex items-center gap-4">
           <button
             onClick={() => navigate('/')}
-            className="hidden sm:flex items-center gap-1.5 text-[11px] text-gray-400 font-medium tracking-wide hover:text-white transition-colors duration-200 group"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#FFC300]/40 text-[#FFC300] text-[11px] font-semibold tracking-wide hover:bg-[#FFC300] hover:text-[#0B0B0B] hover:border-[#FFC300] transition-all duration-200 group"
             aria-label="Return to main site"
           >
-            <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-0.5 transition-transform duration-200" />
+            <ArrowLeft className="w-3 h-3 group-hover:-translate-x-0.5 transition-transform duration-200" />
             Back to Main Site
           </button>
 

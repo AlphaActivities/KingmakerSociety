@@ -69,13 +69,12 @@ export default function ApplyCallBooking() {
       </div>
 
       <div className="text-center">
-        <button
-          onClick={() => navigate('/')}
-          className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-white transition-colors duration-200 group"
-        >
-          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform duration-200" />
-          Return to Main Site
-        </button>
+        <Button variant="outline" size="md" onClick={() => navigate('/')}>
+          <span className="flex items-center gap-2">
+            <ArrowLeft className="w-4 h-4" />
+            Return to Main Site
+          </span>
+        </Button>
       </div>
     </div>
   );
