@@ -30,19 +30,19 @@ const featuredVideos = [
 
 const supportingVideos = [
   {
-    title: 'Fight Promo',
+    title: 'Inside the Fight Mindset',
     description: 'Combat intensity, discipline, and pressure-tested execution.',
     posterImage: '/images/founders/fitness-mentor-willie.webp',
     videoUrl: '/videos/Fight_promo.MP4',
   },
   {
-    title: 'Kingmaker Marketing | Version 2',
+    title: 'Forged Through Training',
     description: 'Additional brand positioning and movement-building proof.',
     posterImage: '/images/founders/co-founder-ryan.webp',
     videoUrl: '/videos/Marketing_video_02.mp4',
   },
   {
-    title: 'Kingmaker Marketing | Version 3',
+    title: 'The Standard of Brotherhood',
     description: 'Expanded visual proof of the mission, message, and audience.',
     posterImage: '/images/pillars/goal-self-improvement.webp',
     videoUrl: '/videos/Marketing_video_03.mp4',
