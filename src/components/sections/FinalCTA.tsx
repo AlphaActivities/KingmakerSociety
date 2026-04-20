@@ -51,7 +51,7 @@ export default function FinalCTA() {
 
           <LuxFadeIn delay={0.2}>
             <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
-              You can keep doing what you've always done and stay the same. Or you can step into an environment that forces you to level up, build discipline, and become someone people respect.
+              You can keep doing what you've always done and stay the same. Or you can step into an environment that demands you step up, build discipline, and become someone who shows up, trains, and executes when it's hard.
             </p>
           </LuxFadeIn>
 
@@ -74,7 +74,7 @@ export default function FinalCTA() {
                 className="text-lg group relative overflow-hidden shadow-[0_0_40px_rgba(255,195,0,0.3)] hover:shadow-[0_0_60px_rgba(255,195,0,0.5)] animate-pulse-glow transform hover:scale-105 transition-all duration-300"
               >
                 <span className="flex items-center justify-center relative z-10">
-                  Start Your Application
+                  Begin Your Evaluation
                   <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform duration-300" />
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
@@ -85,7 +85,7 @@ export default function FinalCTA() {
                 onClick={handleBookCallClick}
                 className="text-lg whitespace-nowrap hover:scale-105 transition-transform duration-300"
               >
-                Book a Strategy Call
+                Request Your Evaluation
               </Button>
             </div>
             </div>
@@ -95,7 +95,7 @@ export default function FinalCTA() {
           <LuxFadeIn delay={0.4}>
             <div className="pt-8">
               <p className="text-gray-400 text-lg">
-                Join a brotherhood of men committed to discipline, strength, and becoming harder to break in every area of life.
+                Join a brotherhood of men committed to discipline, strength, and becoming someone who shows up, trains, and executes when it's hard. If you're looking for comfort, this isn't it.
               </p>
             </div>
           </LuxFadeIn>

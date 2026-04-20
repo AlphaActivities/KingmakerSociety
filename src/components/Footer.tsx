@@ -76,7 +76,7 @@ export default function Footer({ onMembersClick }: FooterProps) {
               </span>
             </div>
             <div className="text-gray-400 text-sm text-center leading-relaxed space-y-3 flex-1">
-              <p className="text-gray-300">Built for men who want to lead their life, not just live it.</p>
+              <p className="text-gray-300">Built for men who train, execute, and hold themselves to a higher standard.</p>
               <p className="text-gray-300">Where discipline meets purpose, and brotherhood fuels transformation.</p>
             </div>
           </div>
@@ -158,7 +158,7 @@ export default function Footer({ onMembersClick }: FooterProps) {
               >
                 <span className="relative z-10 flex items-center justify-center space-x-2">
                   <Calendar className="w-4 h-4" />
-                  <span>Book Strategy Call</span>
+                  <span>Request Your Evaluation</span>
                 </span>
                 <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
               </button>

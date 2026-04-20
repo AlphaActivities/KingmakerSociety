@@ -10,7 +10,7 @@ export default function Mentors() {
     role: 'Founder, Kingmaker Society',
     icon: Crown,
     image: '/images/founders/jordan-ali-founder-selfie-portrait.jpg',
-    description: 'MMA fighter and leader who built Kingmaker Society to create a high-accountability environment where men sharpen themselves through discipline, training, and pressure. He leads by example: showing up daily, competing at a high level, and holding himself to the same standard he demands of others.',
+    description: 'MMA fighter and leader who built Kingmaker Society to create a high-accountability environment where men forge themselves through discipline, training, and pressure. Results built through MMA training, discipline, and real pressure — not theory. He leads by example: showing up daily, competing at a high level, and holding himself to the same standard he demands of others.',
   };
 
   const mentors = [
@@ -50,7 +50,7 @@ export default function Mentors() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFC300] via-[#FFD033] to-[#D4A000] drop-shadow-[0_0_30px_rgba(255,195,0,0.4)]">Mentors</span>
           </h2>
           <p className="text-xl text-gray-300 leading-relaxed">
-            Learn from men who have built discipline through action and earned their results.
+            Learn from men who have built discipline through action and earned their results through training, pressure, and consistency.
           </p>
         </div>
       </LuxFadeIn>

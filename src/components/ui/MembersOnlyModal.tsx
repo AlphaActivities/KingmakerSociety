@@ -135,7 +135,7 @@ export default function MembersOnlyModal({ isOpen, onClose }: MembersOnlyModalPr
                     onClick={handleApplyForMembership}
                     className="w-full px-6 py-4 bg-gradient-to-r from-[#FFC300] to-[#D4A000] text-black font-bold rounded-lg transition-all duration-300 hover:from-[#FFD033] hover:to-[#FFC300] hover:shadow-lg hover:shadow-[#FFC300]/50 hover:scale-105"
                   >
-                    Apply for Membership
+                    Apply for Consideration
                   </button>
 
                   <button

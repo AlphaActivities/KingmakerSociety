@@ -80,7 +80,7 @@ export default function SocialProof({ onMembersClick }: SocialProofProps) {
     },
     {
       value: '1000+',
-      label: 'Men Showing Up & Putting In Work',
+      label: 'Men showing up when they don\'t feel like it and doing what most men won\'t',
       gradient: 'from-[#FFC300] via-[#FFD700] to-[#FFA500]',
       glowColor: 'group-hover:shadow-[#FFC300]/60',
       icon: Flame,
@@ -102,7 +102,7 @@ export default function SocialProof({ onMembersClick }: SocialProofProps) {
             Join the Brotherhood
           </h2>
           <p className="text-xl text-gray-300">
-            See the discipline, consistency, and accountability being built inside the brotherhood.
+            See the discipline, consistency, and accountability men are building by showing up every day.
           </p>
         </div>
       </LuxFadeIn>

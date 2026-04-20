@@ -40,15 +40,13 @@ export default function Problem() {
         <LuxFadeIn delay={0.2}>
           <div className="space-y-6 text-lg md:text-xl text-gray-300 leading-relaxed">
             <p>
-              You wake up every day with big plans. You tell yourself today will be different.
-              You'll hit the gym, work on your side hustle, read that book, pray more, get your life together.
+              You know what you should be doing — training, staying consistent, showing up — but you're not doing it consistently.
             </p>
             <p className="text-white font-semibold">
               But by the end of the day, nothing changes.
             </p>
             <p>
-              It's not because you're weak. It's not because you lack potential.
-              It's because you're doing it <span className="text-[#D11F2A] font-bold">alone</span>.
+              It's not because you're weak. It's because you're doing it <span className="text-[#D11F2A] font-bold">alone</span>.
             </p>
             <p>
               No accountability. No structure. No one pushing you. No one to answer to.
@@ -68,7 +66,7 @@ export default function Problem() {
                 The truth is, you don't need more motivation.
               </p>
               <p className="text-xl md:text-2xl text-[#FFC300] mt-4 font-semibold drop-shadow-[0_0_20px_rgba(255,195,0,0.3)]">
-                You need a system. You need brothers. You need structure.
+                You don't need more motivation. You need to execute — and most men don't.
               </p>
             </div>
           </div>

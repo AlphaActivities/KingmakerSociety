@@ -343,7 +343,7 @@ export default function MobileMenu({
                   el.style.filter = '';
                   el.style.boxShadow = '0 1px 0 rgba(255,255,255,0.30) inset, 0 -2px 0 rgba(0,0,0,0.22) inset, 0 8px 32px rgba(255,195,0,0.38), 0 2px 8px rgba(255,195,0,0.20)';
                 }}
-                aria-label="Start your application"
+                aria-label="Begin your evaluation"
               >
                 {/* Top satin highlight — embedded, not a box edge */}
                 <span
@@ -351,7 +351,7 @@ export default function MobileMenu({
                   style={{ background: 'linear-gradient(to right, transparent, rgba(255,255,255,0.65), transparent)' }}
                   aria-hidden="true"
                 />
-                Start Application
+                Begin Your Evaluation
               </button>
             </div>
 

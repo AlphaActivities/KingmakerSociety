@@ -8,7 +8,7 @@ export default function Solution() {
     {
       icon: Users,
       title: 'Members Only Hub',
-      description: '24/7 access to a brotherhood of men committed to discipline, training, and holding each other to a higher standard.',
+      description: 'Constant exposure to men who train, execute, and hold the standard — around the clock.',
     },
     {
       icon: Video,
@@ -18,7 +18,7 @@ export default function Solution() {
     {
       icon: Shield,
       title: 'Brotherhood Accountability',
-      description: 'Real men holding you to real standards. No excuses, just results',
+      description: 'You are expected to hold the standard — no one will do it for you',
     },
     {
       icon: Target,
@@ -49,7 +49,7 @@ export default function Solution() {
             The Kingmaker System
           </h2>
           <p className="text-xl text-gray-300">
-            A structured brotherhood built to develop discipline, strength, and accountability through consistent action and pressure.
+            A structured brotherhood built to develop discipline, strength, and accountability through training consistently, showing up when you don't feel like it, and being held to real standards.
           </p>
         </div>
       </LuxFadeIn>
@@ -76,7 +76,7 @@ export default function Solution() {
           This Is More Than a Community
         </h3>
         <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
-          Kingmaker Society exists to build disciplined men who master their body, habits, and purpose while developing the structure, brotherhood, and accountability to escape mediocrity and build strength, discipline, and capability.
+          Kingmaker Society exists to build disciplined men who master their body, habits, and purpose while developing the structure, brotherhood, and accountability to stop doing what's easy and start doing what actually builds you.
         </p>
       </Card>
       </LuxFadeIn>

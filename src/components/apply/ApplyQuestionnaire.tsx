@@ -15,6 +15,7 @@ type FormData = {
   alreadyTried: string;
   whatStopsConsistency: string;
   disciplineRating: string;
+  currentlyTrains: string;
   trainingDaysPerWeek: string;
   prayerDaysPerWeek: string;
   tryingAlone: string;
@@ -33,6 +34,7 @@ const INITIAL_FORM: FormData = {
   alreadyTried: '',
   whatStopsConsistency: '',
   disciplineRating: '',
+  currentlyTrains: '',
   trainingDaysPerWeek: '',
   prayerDaysPerWeek: '',
   tryingAlone: '',
@@ -52,6 +54,12 @@ const DAYS_OPTIONS = [
   { value: '5', label: '5 days' },
   { value: '6', label: '6 days' },
   { value: '7', label: '7 days' },
+];
+
+const CURRENTLY_TRAINS_OPTIONS = [
+  { value: 'yes-consistently', label: 'Yes — consistently' },
+  { value: 'occasionally', label: 'Occasionally' },
+  { value: 'no-ready-to-start', label: 'No, but I\'m ready to start' },
 ];
 
 const DISCIPLINE_OPTIONS = [
@@ -102,6 +110,7 @@ function validateScreen(screen: ScreenKey, form: FormData): ScreenError {
     if (!form.alreadyTried.trim()) errors.alreadyTried = 'Required';
     if (!form.whatStopsConsistency.trim()) errors.whatStopsConsistency = 'Required';
     if (!form.disciplineRating) errors.disciplineRating = 'Required';
+    if (!form.currentlyTrains) errors.currentlyTrains = 'Required';
     if (!form.trainingDaysPerWeek) errors.trainingDaysPerWeek = 'Required';
     if (!form.prayerDaysPerWeek) errors.prayerDaysPerWeek = 'Required';
   }
@@ -194,6 +203,15 @@ function ScreenReality({ form, errors, set, setInput }: ScreenProps) {
         required
       />
       <PremiumSelect
+        label="Do you currently train (gym, martial arts, or other)?"
+        placeholder="Select one"
+        options={CURRENTLY_TRAINS_OPTIONS}
+        value={form.currentlyTrains}
+        onChange={set('currentlyTrains')}
+        error={errors.currentlyTrains}
+        required
+      />
+      <PremiumSelect
         label="How many days per week are you currently training?"
         placeholder="Select days"
         options={DAYS_OPTIONS}
@@ -231,7 +249,7 @@ function ScreenCommitment({ form, errors, set, setInput }: ScreenProps) {
         required
       />
       <PremiumSelect
-        label="Would structured brotherhood and accountability accelerate your results?"
+        label="Are you actually willing to follow through on this?"
         placeholder="Select one"
         options={[
           { value: 'yes', label: 'Yes', description: 'Brotherhood and structure would make a real difference' },
@@ -455,7 +473,7 @@ export default function ApplyQuestionnaire() {
                 'Submitting...'
               ) : (
                 <span className="flex items-center space-x-2">
-                  <span>Submit &amp; Continue</span>
+                  <span>Continue Forward</span>
                   <ArrowRight className="w-5 h-5" />
                 </span>
               )}
@@ -470,7 +488,7 @@ export default function ApplyQuestionnaire() {
             onClick={handleNext}
           >
             <span className="flex items-center space-x-2">
-              <span>Continue</span>
+              <span>Keep Moving Forward</span>
               <ArrowRight className="w-5 h-5" />
             </span>
           </Button>

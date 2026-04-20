@@ -156,7 +156,7 @@ export default function Navbar() {
               size="sm"
               onClick={() => navigate('/apply')}
             >
-              Start Application
+              Begin Your Evaluation
             </Button>
           </div>
 

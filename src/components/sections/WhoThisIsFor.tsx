@@ -13,7 +13,7 @@ export default function WhoThisIsFor() {
     {
       icon: Briefcase,
       title: 'Men Who Are Ready to Train',
-      description: 'Whether you\'re already training or just starting, you are willing to push yourself physically and mentally.',
+      description: 'If you train — or you\'re serious about starting — and you\'re willing to be pushed physically and mentally.',
     },
     {
       icon: Heart,
@@ -49,7 +49,7 @@ export default function WhoThisIsFor() {
             Who This Is For
           </h2>
           <p className="text-xl text-gray-300">
-            Kingmaker Society is built for faith-driven men ready to forge discipline, build strength, and develop the mindset required to become a man others respect.
+            Kingmaker Society is built for faith-driven men ready to forge discipline, build strength, and build the habits of training, showing up, and doing what most men avoid.
           </p>
         </div>
       </LuxFadeIn>
@@ -77,7 +77,7 @@ export default function WhoThisIsFor() {
           <Card variant="gold" className="p-8 inline-block">
             <p className="text-xl font-semibold text-white">
               This is not for everyone.
-              <span className="text-[#FFC300]"> If you're ready to be pushed, tested, and held to a higher standard, you belong here.</span>
+              <span className="text-[#FFC300]"> Most men won't last here — and that's the point.</span>
             </p>
           </Card>
         </div>

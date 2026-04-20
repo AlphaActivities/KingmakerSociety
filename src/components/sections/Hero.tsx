@@ -119,22 +119,25 @@ export default function Hero() {
 
             <LuxFadeIn delay={0.3}>
               <p className="text-xl sm:text-2xl text-gray-300 leading-relaxed">
-                A brotherhood for men who are committed to discipline, training, and becoming stronger, sharper, and more capable
-                <span className="text-[#FFC300] font-semibold"> in every area of life.</span>
+                A martial artist-led brotherhood built on training, discipline, and showing up when it's hard — for men who are ready to become stronger, sharper, and
+                <span className="text-[#FFC300] font-semibold"> harder to break.</span>
               </p>
               <p className="text-lg sm:text-xl text-gray-400 italic mt-4">
-                Built for men who train, fight, and refuse to stay average.
+                Built for men who train, fight, and do what most men avoid.
+              </p>
+              <p className="text-base sm:text-lg text-[#D11F2A] font-semibold mt-2">
+                This is not for everyone. Most men won't follow through.
               </p>
             </LuxFadeIn>
 
             <LuxFadeIn delay={0.4}>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button variant="primary" size="lg" onClick={scrollToApplication} className="animate-pulse-glow">
-                  Start Application
+                  Begin Your Evaluation
                 </Button>
                 <Button variant="outline" size="lg" onClick={handleBookCall} className="whitespace-nowrap">
                   <Calendar className="w-5 h-5 mr-2" />
-                  Book a Call
+                  Request Evaluation Call
                 </Button>
               </div>
 
@@ -156,7 +159,7 @@ export default function Hero() {
             ) : (
               <form id="application-form" onSubmit={handleSubmit} className="relative bg-gradient-to-br from-[#1B1B1B]/98 to-[#2B2B2B]/98 border-2 border-[#FFC300]/40 rounded-2xl p-6 sm:p-8 shadow-[0_8px_32px_rgba(255,195,0,0.25)] hover:border-[#FFC300]/60 hover:shadow-[0_12px_48px_rgba(255,195,0,0.35)] transition-all duration-500 backdrop-blur-md luxury-grain before:absolute before:inset-0 before:rounded-2xl before:p-[2px] before:bg-gradient-to-br before:from-[#FFC300]/20 before:via-transparent before:to-[#D11F2A]/20 before:-z-10 before:blur-sm">
                 <h3 className="text-2xl font-bold text-white mb-6">
-                  Start Your Application
+                  Begin Your Evaluation
                 </h3>
 
                 {submitError && (
@@ -255,7 +258,7 @@ export default function Hero() {
                   />
 
                   <Button type="submit" variant="secondary" size="lg" className="w-full mt-6" disabled={isSubmitting}>
-                    {isSubmitting ? 'Submitting...' : 'Submit Application'}
+                    {isSubmitting ? 'Submitting...' : 'Submit for Review'}
                   </Button>
 
                   <p className="text-xs text-gray-400 text-center mt-4">

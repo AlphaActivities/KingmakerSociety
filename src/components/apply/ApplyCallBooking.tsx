@@ -53,7 +53,7 @@ export default function ApplyCallBooking() {
         <Button variant="secondary" size="lg" className="w-full sm:w-auto sm:px-12" onClick={handleBookCall}>
           <span className="flex items-center space-x-2">
             <Calendar className="w-5 h-5" />
-            <span>Book Your Call Now</span>
+            <span>Request Your Evaluation</span>
           </span>
         </Button>
       </div>

@@ -21,7 +21,7 @@ export default function Schedule() {
       day: 'Wednesday',
       icon: Heart,
       focus: 'Strength, Conditioning & Recovery',
-      description: 'Building a stronger body, improving conditioning, and recovering like someone who trains hard.',
+      description: 'Recover properly so you can train again — not just feel good temporarily.',
     },
     {
       day: 'Thursday',
@@ -50,7 +50,7 @@ export default function Schedule() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFC300] via-[#FFD033] to-[#D4A000] drop-shadow-[0_0_30px_rgba(255,195,0,0.4)]">Schedule</span>
           </h2>
           <p className="text-xl text-gray-300 leading-relaxed">
-            Every week is structured to build discipline, strength, and consistency through action.
+            Every week is structured to train, execute, and build consistency through action — not motivation.
           </p>
         </div>
       </LuxFadeIn>

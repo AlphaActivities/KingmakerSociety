@@ -221,7 +221,7 @@ export default function ApplyLeadForm() {
             </span>
           ) : (
             <span className="flex items-center space-x-2">
-              <span>Continue to Goals</span>
+              <span>Keep Moving Forward</span>
               <ArrowRight className="w-5 h-5" />
             </span>
           )}
