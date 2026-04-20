@@ -44,7 +44,7 @@ export default function Mentors() {
         style={{ backgroundImage: "url('/images/founders/founder-jordan.webp')" }}
         aria-hidden="true"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/80 to-black/92" aria-hidden="true" />
+      <div className="absolute inset-0 bg-black/85" aria-hidden="true" />
     <Section id="mentors" background="transparent" className="relative z-10">
       <LuxFadeIn>
         <div className="text-center max-w-3xl mx-auto mb-16">
