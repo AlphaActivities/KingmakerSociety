@@ -54,24 +54,6 @@ export default function Proof() {
     },
     {
       type: 'image' as const,
-      src: '/images/pillars/mindset-self-improvement.webp',
-      alt: 'Mindset, motivation, and discipline visual representing mental toughness',
-      category: 'Mindset',
-    },
-    {
-      type: 'image' as const,
-      src: '/images/pillars/nutrition-self-improvement.webp',
-      alt: 'Peak health and nutrition visual showing disciplined food choices and health focus',
-      category: 'Nutrition',
-    },
-    {
-      type: 'image' as const,
-      src: '/images/pillars/spiritual-self-improvement.webp',
-      alt: 'Spiritual self-improvement visual showing men\'s Bible study and faith-centered growth',
-      category: 'Spiritual',
-    },
-    {
-      type: 'image' as const,
       src: '/images/founders/fitness-mentor-willie.webp',
       alt: 'Fitness mentor Willie representing combat mentorship and discipline',
       category: 'Combat Mentor',
