@@ -5,9 +5,9 @@ import LuxFadeIn from '../ui/LuxFadeIn';
 export default function Problem() {
   return (
     <Section id="problem" background="darker">
-      <div className="relative overflow-hidden">
+      <div className="relative">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#D11F2A]/5 to-transparent opacity-50"></div>
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#D11F2A]/10 rounded-full blur-[150px] animate-pulse"></div>
+        <div className="absolute inset-0 bg-[#D11F2A]/8 blur-[120px] animate-pulse pointer-events-none"></div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
         <LuxFadeIn>
