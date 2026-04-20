@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { X, Save, Loader2, ClipboardList, User, Target, AlertTriangle, Flame, Zap } from 'lucide-react';
+import { X, Save, Loader2, ClipboardList, User, Target, AlertTriangle, Flame, Zap, ChevronDown } from 'lucide-react';
 import { Lead, LeadStatus, QuestionnaireResponse, updateLead } from '../../services/dashboardService';
 import StatusBadge from './StatusBadge';
 import { StageBadge } from './LeadRow';
@@ -18,6 +18,7 @@ export default function LeadDetailModal({ lead, onClose, onUpdate }: LeadDetailM
   const [saving, setSaving] = useState(false);
   const [saveError, setSaveError] = useState('');
   const [saved, setSaved] = useState(false);
+  const [snapshotExpanded, setSnapshotExpanded] = useState(false);
 
   useEffect(() => {
     if (lead) {
@@ -25,6 +26,7 @@ export default function LeadDetailModal({ lead, onClose, onUpdate }: LeadDetailM
       setNotes(lead.notes ?? '');
       setSaved(false);
       setSaveError('');
+      setSnapshotExpanded(false);
     }
   }, [lead]);
 
@@ -85,6 +87,7 @@ export default function LeadDetailModal({ lead, onClose, onUpdate }: LeadDetailM
         className="relative bg-[#141414] border border-white/10 rounded-t-3xl sm:rounded-2xl w-full sm:max-w-2xl lg:max-w-[760px] max-h-[95dvh] sm:max-h-[92vh] overflow-hidden shadow-2xl flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Header — always fixed */}
         <div className="flex items-start justify-between px-5 sm:px-8 pt-5 sm:pt-6 pb-4 border-b border-white/[0.07] flex-shrink-0">
           <div className="min-w-0 flex-1 pr-4">
             <h2 className="text-lg sm:text-xl font-bold text-white leading-tight">
@@ -100,7 +103,8 @@ export default function LeadDetailModal({ lead, onClose, onUpdate }: LeadDetailM
           </button>
         </div>
 
-        <div className="px-5 sm:px-8 pt-4 pb-3 flex items-center gap-2.5 flex-wrap flex-shrink-0">
+        {/* Stage + Status badges — always fixed */}
+        <div className="px-5 sm:px-8 pt-3 pb-3 flex items-center gap-2.5 flex-wrap flex-shrink-0">
           <StageBadge stage={lead.application_stage ?? 'lead-form'} />
           <StatusBadge status={lead.status} />
           {completedAt && (
@@ -110,54 +114,76 @@ export default function LeadDetailModal({ lead, onClose, onUpdate }: LeadDetailM
           )}
         </div>
 
+        {/* Lead Snapshot — collapsible on mobile, always open on sm+ */}
         {questionnaire && (
           <div className="mx-5 sm:mx-8 mb-1 flex-shrink-0">
-            <div className="bg-[#111] border border-white/[0.08] rounded-xl px-4 py-4">
-              <div className="flex items-center gap-1.5 mb-3">
-                <Zap className="w-3 h-3 text-[#FFC300]" />
-                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.14em]">Lead Snapshot</span>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
-                {questionnaire.seriousness_rating != null && (
-                  <SnapshotCell label="Seriousness">
-                    <span className={`text-xl font-bold tabular-nums ${scoreColor}`}>
-                      {questionnaire.seriousness_rating}
-                      <span className="text-xs text-gray-600 font-normal ml-0.5">/10</span>
+            <div className="bg-[#111] border border-white/[0.08] rounded-xl overflow-hidden">
+              {/* Snapshot header — tappable toggle on mobile */}
+              <button
+                className="w-full flex items-center justify-between px-4 py-3 sm:cursor-default"
+                onClick={() => setSnapshotExpanded((v) => !v)}
+                aria-expanded={snapshotExpanded}
+              >
+                <div className="flex items-center gap-1.5">
+                  <Zap className="w-3 h-3 text-[#FFC300]" />
+                  <span className="text-[10px] font-bold text-gray-500 uppercase tracking-[0.14em]">Lead Snapshot</span>
+                  {/* Inline score preview when collapsed on mobile */}
+                  {!snapshotExpanded && seriousnessScore != null && (
+                    <span className={`ml-2 text-xs font-bold tabular-nums sm:hidden ${scoreColor}`}>
+                      {seriousnessScore}/10
                     </span>
-                  </SnapshotCell>
-                )}
-                {questionnaire.want_business != null && questionnaire.want_business !== '' && (
-                  <SnapshotCell label="Wants Business">
-                    <span className={`text-xs font-semibold px-2 py-0.5 rounded-full border ${
-                      questionnaire.want_business?.toLowerCase() === 'yes'
-                        ? 'text-green-400 bg-green-500/10 border-green-500/20'
-                        : 'text-gray-400 bg-white/5 border-white/10'
-                    }`}>
-                      {questionnaire.want_business}
-                    </span>
-                  </SnapshotCell>
-                )}
-                {questionnaire.improvement_area && (
-                  <SnapshotCell label="Focus Area">
-                    <span className="text-sm text-white font-medium leading-snug line-clamp-2">{questionnaire.improvement_area}</span>
-                  </SnapshotCell>
-                )}
-                {questionnaire.interested_path && (
-                  <SnapshotCell label="Path">
-                    <span className="text-sm text-white font-medium leading-snug line-clamp-2">{questionnaire.interested_path}</span>
-                  </SnapshotCell>
-                )}
-              </div>
-              {questionnaire.main_goal_90_days && (
-                <div className="mt-3 pt-3 border-t border-white/[0.06]">
-                  <p className="text-[10px] text-gray-600 font-semibold uppercase tracking-[0.1em] mb-1">Main Goal</p>
-                  <p className="text-sm text-gray-200 leading-relaxed line-clamp-2">{questionnaire.main_goal_90_days}</p>
+                  )}
                 </div>
-              )}
+                <ChevronDown
+                  className={`w-4 h-4 text-gray-600 transition-transform duration-200 sm:hidden ${snapshotExpanded ? 'rotate-180' : ''}`}
+                />
+              </button>
+
+              {/* Snapshot body */}
+              <div className={`px-4 pb-4 ${snapshotExpanded ? 'block' : 'hidden'} sm:block`}>
+                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+                  {questionnaire.seriousness_rating != null && (
+                    <SnapshotCell label="Seriousness">
+                      <span className={`text-xl font-bold tabular-nums ${scoreColor}`}>
+                        {questionnaire.seriousness_rating}
+                        <span className="text-xs text-gray-600 font-normal ml-0.5">/10</span>
+                      </span>
+                    </SnapshotCell>
+                  )}
+                  {questionnaire.want_business != null && questionnaire.want_business !== '' && (
+                    <SnapshotCell label="Wants Business">
+                      <span className={`text-xs font-semibold px-2 py-0.5 rounded-full border ${
+                        questionnaire.want_business?.toLowerCase() === 'yes'
+                          ? 'text-green-400 bg-green-500/10 border-green-500/20'
+                          : 'text-gray-400 bg-white/5 border-white/10'
+                      }`}>
+                        {questionnaire.want_business}
+                      </span>
+                    </SnapshotCell>
+                  )}
+                  {questionnaire.improvement_area && (
+                    <SnapshotCell label="Focus Area">
+                      <span className="text-sm text-white font-medium leading-snug line-clamp-2">{questionnaire.improvement_area}</span>
+                    </SnapshotCell>
+                  )}
+                  {questionnaire.interested_path && (
+                    <SnapshotCell label="Path">
+                      <span className="text-sm text-white font-medium leading-snug line-clamp-2">{questionnaire.interested_path}</span>
+                    </SnapshotCell>
+                  )}
+                </div>
+                {questionnaire.main_goal_90_days && (
+                  <div className="mt-3 pt-3 border-t border-white/[0.06]">
+                    <p className="text-[10px] text-gray-600 font-semibold uppercase tracking-[0.1em] mb-1">Main Goal</p>
+                    <p className="text-sm text-gray-200 leading-relaxed line-clamp-2">{questionnaire.main_goal_90_days}</p>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         )}
 
+        {/* Scrollable body */}
         <div
           className="flex-1 overflow-y-auto px-5 sm:px-8 pb-8 pt-5 space-y-8"
           style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.07) transparent' }}
@@ -205,14 +231,8 @@ export default function LeadDetailModal({ lead, onClose, onUpdate }: LeadDetailM
 
               <QSection icon={<Flame className="w-3.5 h-3.5" />} title="Commitment &amp; Readiness">
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-3">
-                  <RatingField
-                    label="Discipline"
-                    value={questionnaire.discipline_rating}
-                  />
-                  <RatingField
-                    label="Seriousness"
-                    value={questionnaire.seriousness_rating}
-                  />
+                  <RatingField label="Discipline" value={questionnaire.discipline_rating} />
+                  <RatingField label="Seriousness" value={questionnaire.seriousness_rating} />
                   <InfoField
                     label="Training Days / Wk"
                     value={questionnaire.training_days_per_week != null ? String(questionnaire.training_days_per_week) : '—'}
