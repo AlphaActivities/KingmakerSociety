@@ -9,7 +9,7 @@ export default function Mentors() {
     name: 'Jordan Ali',
     role: 'Founder, Kingmaker Society',
     icon: Crown,
-    image: '/images/founders/jordan-ali-founder-selfie-portrait.jpg',
+    image: '/images/founders/founder-jordan.webp',
     description: 'MMA fighter and leader who built Kingmaker Society to create a high-accountability environment where men forge themselves through discipline, training, and pressure. Results built through MMA training, discipline, and real pressure, not theory. He leads by example: showing up daily, competing at a high level, and holding himself to the same standard he demands of others.',
   };
 
@@ -18,7 +18,7 @@ export default function Mentors() {
       name: 'Willie',
       division: 'MMA Division Lead',
       icon: Swords,
-      image: '/images/mentors/willie-mma-division-lead-champion.jpg',
+      image: '/images/founders/fitness-mentor-willie.webp',
       description: 'Combat sports expert teaching discipline, toughness, and warrior mentality.',
     },
     {
